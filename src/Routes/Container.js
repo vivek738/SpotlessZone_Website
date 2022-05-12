@@ -10,7 +10,7 @@ export const Container = () => {
   return (
     <>
       <Routes>
-        {user && <Route path="/cus-dash" exact element=""></Route>}
+        {user && <Route path="/signup" exact element=""></Route>}
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/" exact element={<Navigate replace to="/login" />} />

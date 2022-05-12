@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5000/cus-user-login";
+      const url = "http://localhost:5000/customer/login";
       await axios
         .post(url, data)
         .then((result) => {
@@ -28,18 +28,16 @@ const Login = () => {
           window.location = "/";
         })
         .catch((err) => {
-         console.log(err.response.data.message)
-         setError(err.response.data.message)
-
+          console.log(err.response.data.message);
+          setError(err.response.data.message);
         });
-
     } catch (error) {
       if (
         error.response &&
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        console.log(error.response.data.message)
+        console.log(error.response.data.message);
         setError(error.response.data.message);
       }
     }
