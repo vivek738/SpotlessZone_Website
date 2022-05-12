@@ -2,7 +2,9 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
 import Login from "../Components/Login";
+import Addproduct from "../Components/Products/AddProduct";
 import SignUp from "../Components/SignUp";
+
 
 export const Container = () => {
   //in login branch
@@ -12,6 +14,7 @@ export const Container = () => {
 
    
       <Routes>
+        <Route path='/addProduct' element={<Addproduct/>}></Route>
         {user && <Route path="/signup" exact element=""></Route>}
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
@@ -20,6 +23,8 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
+        
+       
       </Routes>
 
     </>
