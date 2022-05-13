@@ -45,11 +45,11 @@ const SignUp = () => {
         <div className={styles.signup_form_container}>
           <div className={styles.left}>
             <h1>Welcome Back</h1>
-            <a to="/login">
+            <Link to="/login">
               <button type="button" className={styles.white_btn}>
                 Sign in
               </button>
-            </a>
+            </Link>
           </div>
           <div className={styles.right}>
             <form
