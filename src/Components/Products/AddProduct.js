@@ -1,5 +1,8 @@
+
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
+
+
 
 
 
@@ -12,19 +15,20 @@ const Addproduct=()=>{
     const [message, setMessage] = useState('');
     const [pic, setImage] = useState('');
 
-     const Addproduct111=()=>{
-      var formData = new FormData();
+     const Addproduct111=(e)=>{
+         e.preventDefault();
+      const formData = new FormData();
         formData.append("pname", pname);
         formData.append("pprice", pprice);
         formData.append("pqty", pqty);
-        
-        formData.append("pic", pic)
+        formData.append("image",   pic);
+        //formData.append("pic", pic)
     axios.post("http://localhost:5000/product-add",formData)
     .then(result=>{
-        console.log(result.data.message)
-        if(result.data.message){
-            setMessage(" Product Added succsessfullly!!")
-    }
+        console.log(result.data)
+         if(result){
+             setMessage(" Product Added succsessfullly!!")
+     }
 })
 .catch()
      }
@@ -37,18 +41,17 @@ const Addproduct=()=>{
                 <div className="col-md-4">
                     <h2 className="custom-heading-h2">ADD PRODUCT</h2>
                     <p>{message}</p>
-
                     
                     <form>
 
-                    <div className="form-group">
+                    {<div className="form-group">
                             <label>Upload image</label>
                             <input type="file" className="form-control"
                             
                             onChange={(e)=>setImage(e.target.files[0])}
                             
                             />
-                        </div>
+                        </div> }
 
 
                         <div className="form-group">
@@ -76,9 +79,7 @@ const Addproduct=()=>{
                             onChange={(e)=>setPqty(e.target.value)}
                             />
                         </div>
-                        <input type="submit" className="btn btn-dark" 
-                        onClick={Addproduct111}
-                        />
+                        <button type="submit" onClick={Addproduct111}> submit</button>
                     </form>
                 </div>
                 <div className="col-md-4"></div>
