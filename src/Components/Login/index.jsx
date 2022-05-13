@@ -87,11 +87,11 @@ const Login = () => {
         </div>
         <div className={styles.right}>
           <h1>New Here ?</h1>
-          <a to="/signup">
+          <Link to="/signup">
             <button type="button" className={styles.white_btn}>
               Sign Up
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
