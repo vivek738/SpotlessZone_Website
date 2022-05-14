@@ -38,16 +38,30 @@
 	margin-top: 0;
 }
 
-.input {
+.inputIcons {
+	display: flex;
+	/* width: 100%; */
+	margin-bottom: .5rem;
+  }
+
+  .inputIcons i {
+	padding: 10px;
+	background: #ebebeb;
+	color: #808080;
+	/* min-width: 50px; */
+	text-align: center;
+	font-size: 1.5rem;
+  }
+
+  .inputField {
+	width: 370px;
+	padding: 10px;
 	outline: none;
 	border: none;
-	width: 370px;
-	padding: 15px;
-	border-radius: 10px;
-	background-color: #edf5f3;
-	margin: 5px 0;
-	font-size: 14px;
-}
+	background-color: #ebebeb;
+  }
+
+
 
 .error_msg {
 	width: 370px;

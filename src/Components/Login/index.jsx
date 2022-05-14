@@ -52,24 +52,32 @@ const Login = () => {
             onSubmit={handleSubmit}
           >
             <h1>Login to Your Account</h1>
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={data.email}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
+             {/* gmail input */}
+             <div className={styles.inputIcons}>
+                <i class="bi bi-envelope-fill"></i>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={data.email}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
+            {/* pass input */}
+            <div className={styles.inputIcons}>
+                <i class="bi bi-lock-fill"></i>
+                <input
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  value={data.password}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
 
             <a to="/forgot-password" style={{ alignSelf: "flex-start" }}>
               <p style={{ padding: "0 15px" }}>Forgot Password ?</p>
