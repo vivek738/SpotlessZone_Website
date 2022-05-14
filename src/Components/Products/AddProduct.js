@@ -1,7 +1,8 @@
 
 
 
-import { useState } from "react";
+import React, { useState } from "react";
+import "./Addproduct.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
