@@ -44,56 +44,122 @@ const SignUp = () => {
       <div className={styles.signup_container}>
         <div className={styles.signup_form_container}>
           <div className={styles.left}>
-            <h1>Welcome Back</h1>
+            <h1>Welcome Back !</h1>
+            <span style={{textAlign: "center", color: "#fff", marginBottom: "2rem"}}>
+              To Keep Connected With Us <br />
+              Please Login With Your Personal Info
+            </span>
+
             <Link to="/login">
               <button type="button" className={styles.white_btn}>
-                Sign in
+                SIGN IN
               </button>
             </Link>
           </div>
           <div className={styles.right}>
+            <h1>Create Account</h1>
+
+            {/* for social icons registration */}
+            <div className={styles.flex}>
+              <div className={styles.socialIcons}>
+                <div className={styles.facebook}>
+                  <a href="https://www.facebook.com/">
+                    <i
+                      className="bi bi-facebook"
+                      style={{ color: "#106DB0" }}
+                    ></i>
+                  </a>
+                </div>
+                <div className={styles.googlePlus}>
+                  <a
+                    href="https://www.gmail.com/"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <span style={{ color: "#D20B0B", fontWeight: "bold" }}>
+                      <i
+                        className="bi bi-google"
+                        style={{ color: "#D20B0B" }}
+                      ></i>
+                      +
+                    </span>
+                  </a>
+                </div>
+                <div className={styles.twitter}>
+                  <a href="https://twitter.com/">
+                    <i
+                      className="bi bi-twitter"
+                      style={{ color: "#98DFFD" }}
+                    ></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* text */}
+            <div className={styles.text}>
+              <span>Or Use Your Gmail For Registration</span>
+            </div>
+
             <form
               action=""
               className={styles.form_container}
               onSubmit={handleSubmit}
             >
-              <h1>Create Account</h1>
-              <input
-                type="text"
-                placeholder="Name"
-                name="name"
-                value={data.name}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={data.email}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="phone"
-                placeholder="Phone"
-                name="phone"
-                value={data.phone}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
+              {/* name input */}
+              <div className={styles.inputIcons}>
+                <i className="bi bi-person-fill icon"></i>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  value={data.name}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
+
+              {/* gmail input */}
+              <div className={styles.inputIcons}>
+                <i class="bi bi-envelope-fill"></i>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={data.email}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
+
+              {/* pass input */}
+              <div className={styles.inputIcons}>
+                <i class="bi bi-lock-fill"></i>
+                <input
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  value={data.password}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
+
+              {/* phone input */}
+              <div className={styles.inputIcons}>
+                <i class="bi bi-telephone-fill"></i>
+                <input
+                  type="phone"
+                  placeholder="Phone"
+                  name="phone"
+                  value={data.phone}
+                  onChange={handleChange}
+                  required
+                  className={styles.inputField}
+                />
+              </div>
 
               {error && <div className={styles.error_msg}>{error}</div>}
               {msg && <div className={styles.success_msg}>{msg}</div>}
@@ -108,7 +174,7 @@ const SignUp = () => {
                   data.phone === ""
                 }
               >
-                Sign Up
+                SIGN UP
               </button>
             </form>
           </div>
