@@ -4,7 +4,7 @@ const UserProfile = () => {
     return (
         <>
             <div className="container col-md-5 col-sm-12 col-12 bg-white shadow rounded py-4 px-4">
-                <p className="text text-secondary h6">My Profile</p>
+                <h1 className="text text-secondary h6">My Profile</h1>
                 <div className="pp-section text-center">
                     <img
                         src="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fmen&psig=AOvVaw2pzLvxvwk1TrUNJULBLcn_&ust=1652605636883000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPjDk_PR3vcCFQAAAAAdAAAAABAJ"
