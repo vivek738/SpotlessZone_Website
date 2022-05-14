@@ -3,7 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
 import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
+import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
+
 
 
 export const Container = () => {
@@ -23,6 +25,7 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
+        <Route path='/profile-creation' element={<UserProfile/>}></Route>
         
        
       </Routes>
