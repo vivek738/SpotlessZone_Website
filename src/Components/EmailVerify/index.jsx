@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-// import success_img from "../../images/success.png";
+import success_img from "../../Images/verify-image.png";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -31,13 +31,17 @@ const EmailVerify = () => {
       <div className="container bg-success">
         {validUrl ? (
           <div className={styles.container}>
+            <h1 style={{ marginBottom: "2rem", color: "#fff" }}>
+              Email Verified Successfully
+            </h1>
             <img
-              //   src={success_img}
-              src=""
+              src={success_img}
               alt="success_img"
               className={styles.success_img}
             />
-            <h1>Email Verified Successfully</h1>
+            <span style={{ color: "#fff" }}>
+              Now You Can Login To Your Account
+            </span>
             <Link to="/login">
               <button className={styles.green_btn}>Login</button>
             </Link>
