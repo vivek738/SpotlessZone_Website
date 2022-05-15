@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
+import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
 import UserProfile from "../Components/Profile/UserProfile";
@@ -16,6 +17,7 @@ export const Container = () => {
 
    
       <Routes>
+      <Route path="/" exact element={<Homepage/>} />
         <Route path='/addProduct' element={<Addproduct/>}></Route>
         {user && <Route path="/signup" exact element=""></Route>}
         <Route path="/signup" exact element={<SignUp />} />
