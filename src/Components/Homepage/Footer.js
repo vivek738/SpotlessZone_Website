@@ -3,122 +3,114 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-            <>
-                {/* Footer */}
-                <footer className="page-footer font-small mdb-color danger pt-9 border-top ">
-                    {/* Footer Links */}
-                    <div className="container text-center text-md-left">
-                        {/* Footer links */}
-                        <div className="row text-center text-md-left mt-3 pb-3">
-                            {/* Grid column */}
-                            <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                                <h6 className="text-uppercase mb-4 font-weight-bold">ABOUT US</h6>
-                                <p>
-                                    Spotless Zone
-                                </p>
-                               
-                            </div>
-                            {/* Grid column */}
-                            <hr className="w-100 clearfix d-md-none" />
-                            {/* Grid column */}
-                            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                                <h6 className="text-uppercase mb-4 font-weight-bold">OUR SERVICES</h6>
-                                <p>
-                                    <a href="">Floor and Carpet</a>
-                                </p>
-                                <p>
-                                    <a href="#!">House Painting</a>
-                                </p>
-                                <p>
-                                    <a href="#!">Kitchen Cleaning</a>
-                                </p>
-                                <p>
-                                    <a href="#!">Job Recruting</a>
-                                </p>
-                            </div>
-                            {/* Grid column */}
-                            <hr className="w-100 clearfix d-md-none" />
-                            {/* Grid column */}
-                            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                <h6 className="text-uppercase mb-4 font-weight-bold">CONTACTS INFO</h6>
-
-                                <p>
-                                    <i className="fas fa-home mr-3" /> Tinthana, Kathmandu, Nepal
-                                </p>
-                                <p>
-                                    <i className="fas fa-envelope mr-3" /> spotlesszone.com
-                                </p>
-
-                                
-                            </div>
-                            {/* Grid column */}
-                            <hr className="w-100 clearfix d-md-none" />
-                            {/* Grid column */}
-                            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                                <h6 className="text-uppercase mb-4 font-weight-bold">NEWSLETTER</h6>
-                                <p>
-                                    <i className="fas fa-home mr-3" /> Tinthana, Kathmandu, Nepal
-                                </p>
-                                <p>
-                                    <i className="fas fa-envelope mr-3" /> spotlesszone@gmail.com
-                                </p>
-
-
-                            </div>
-                            {/* Grid column */}
-                        </div>
-                        {/* Footer links */}
-                        <hr />
-                        {/* Grid row */}
-                        <div className="row d-flex align-items-center">
-                            {/* Grid column */}
-                            <div className="col-md-7 col-lg-8 ">
-                                {/*Copyright*/}
-                                <p className="text-center text-md-left d-flex">
-                                    © 2022 Copyright spotlesszone.com
-                                    
-                                </p>
-                            </div>
-                            {/* Grid column */}
-                            {/* Grid column */}
-                            <div className="col-md-5 col-lg-4 ml-lg-0">
-                                {/* Social buttons */}
-                                <div className="text-center text-md-right">
-                                    <ul className="list-unstyled list-inline">
-                                        <li className="list-inline-item">
-                                            <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                                                <i className="fab fa-facebook-f" />
-                                            </a>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                                                <i className="fab fa-twitter" />
-                                            </a>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                                                <i className="fab fa-google-plus-g" />
-                                            </a>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                                                <i className="fab fa-linkedin-in" />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {/* Grid column */}
-                        </div>
-                        {/* Grid row */}
-                    </div>
-                    {/* Footer Links */}
-                </footer>
-                {/* Footer */}
-            </>
-
-        </>
-
+        <footer>
+        <div className="container-fluid ">
+          <div className="row">
+            <div className="col-md-3">
+              <h4>
+                ABOUT <span className="text-white">US</span>
+              </h4>
+              {/* <h5>SpotlessZone</h5> */}
+              <p>
+                <span style={{ fontSize: "25px", color: "rgb(50, 204, 232)" }}>
+                  S
+                </span>
+                potless{" "}
+                <span style={{ fontSize: "25px", color: "rgb(50, 204, 232)" }}>
+                  Z
+                </span>
+                one quickly built a reputation as one of the leading providers
+                of residential and commercial cleaning solutions. Our focus is
+                to listen to our clients, understand their needs and provide the
+                exceptional level of cleaning service.
+              </p>
+            </div>
+            <div className="col-md-3">
+              <h4>SERVICES</h4>
+              <p>
+                <a href="/">Floor and carpet</a>
+              </p>
+              <p>
+                <a href="/">House Painting</a>
+              </p>
+              <p>
+                <a href="/">Kitchen Cleaning</a>
+              </p>
+              <p>
+                <a href="/">Office Cleaning</a>
+              </p>
+              <p>
+                <a href="/">Job Recruting</a>
+              </p>
+              <p>
+                <a href="/">Window Cleaning</a>
+              </p>
+            </div>
+            <div className="col-md-3">
+              <h4>CONTACT INFO</h4>
+              <p>
+                <span>
+                  <i className="bi bi-house-door-fill"></i> Kathmandu, NEPAL
+                </span>
+              </p>
+              <p>
+                <span>
+                  <i className="bi bi-envelope-fill"></i>{" "}
+                  contact@spotlesszone.com
+                </span>
+              </p>
+              <p>
+                <span>
+                  <i className="bi bi-telephone-fill"></i> +977-9800834601
+                </span>
+              </p>
+              <p>
+                <span>
+                  <i className="bi bi-clock"></i> Mon-Fri: 08.00 am - 05:00 pm
+                </span>
+              </p>
+              <p>
+                <span>
+                  <i className="bi bi-clock"></i>Saturday, Sunday: closed
+                </span>
+              </p>
+            </div>
+            <div className="col-md-3">
+              <h4 style={{ marginBottom: "50px" }}>NEWSLETTER</h4>
+              <p>Subscribe our newsletter to get our latest update & news</p>
+              <form action="">
+                <div className="form-group emailBox">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="newsLetter"
+                  />
+                  <span
+                    className="telegramIcon"
+                    style={{
+                      fontSize: "40px",
+                      fontWeight: "bold",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <i className="bi bi-telegram"></i>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {/* for copyright */}
+        <div className="copyright_footer container-fluid">
+          <p>
+            © 2020 Copyright:{" "}
+            <span>
+              <a href="/">SpotlessZone.com</a>
+            </span>
+          </p>
+        </div>
+      </footer>
+      </>
     )
 }
 
