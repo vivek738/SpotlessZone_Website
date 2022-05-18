@@ -17,7 +17,7 @@ const UserProfile = () => {
                         }}
                         alt=""
                     />
-                    <p className="text text-secondary mb-1 fw-bold h5">Vivek Sah</p>
+                    <p className="text text-secondary mb-1 fw-bold h5">Spotlesszone</p>
                     <a href="#" className="text-decoration-none text-success">
                         Edit Profile 
                     </a>
