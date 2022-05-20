@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
 import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
+import Tes from "../Components/Products/test";
+import Update from "../Components/Products/UpdateProduct";
 import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
 
@@ -26,7 +28,13 @@ export const Container = () => {
           element={<EmailVerify />}
         />
         <Route path='/profile-creation' element={<UserProfile/>}></Route>
+        <Route path='/update-product' element={<Update/>}></Route>
         
+        
+     
+
+        <Route path='/test' element={<Tes/>}></Route>
+
        
       </Routes>
 
