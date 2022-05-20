@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from "react";
 import "./Addproduct.css";
 import { useForm } from "react-hook-form";
@@ -14,9 +11,7 @@ const Addproduct = () => {
   const [pname, setProductname] = useState("");
   const [pdesc, setProductdesc] = useState("");
   const [pprice, setProductprice] = useState("");
-  
   const [pqty, setQuantity] = useState("");
-  
   const [pic, setImage] = useState("");
   const {
     register,
@@ -34,25 +29,20 @@ const Addproduct = () => {
     productData.append("pname", pname);
     productData.append("pdesc", pdesc);
     productData.append("pprice", pprice);
-   
     productData.append("pqty", pqty);
-    
     productData.append("image", pic);
     axios
       .post("http://localhost:5000/product-add", productData)
       .then((result) => {
-        //  console.log(result.productname);
+         console.log(result);
         if (result) {
           toast.success(<ProductAddedSuccessToast />, {
             position: toast.POSITION.BOTTOM_CENTER,
             autoClose: false,
           });
           setProductname("");
-          
           setProductprice("");
-          
           setQuantity("");
-          
           setImage("");
           setProductdesc("");
         }
