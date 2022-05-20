@@ -3,113 +3,125 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-        <footer>
-        <div className="container-fluid ">
-          <div className="row">
-            <div className="col-md-3">
-              <h4>
-                ABOUT <span className="text-white">US</span>
-              </h4>
-              {/* <h5>SpotlessZone</h5> */}
-              <p>
-                <span style={{ fontSize: "25px", color: "rgb(50, 204, 232)" }}>
-                  S
-                </span>
-                potless{" "}
-                <span style={{ fontSize: "25px", color: "rgb(50, 204, 232)" }}>
-                  Z
-                </span>
-                one quickly built a reputation as one of the leading providers
-                of residential and commercial cleaning solutions. Our focus is
-                to listen to our clients, understand their needs and provide the
-                exceptional level of cleaning service.
-              </p>
-            </div>
-            <div className="col-md-3">
-              <h4>SERVICES</h4>
-              <p>
-                <a href="/">Floor and carpet</a>
-              </p>
-              <p>
-                <a href="/">House Painting</a>
-              </p>
-              <p>
-                <a href="/">Kitchen Cleaning</a>
-              </p>
-              <p>
-                <a href="/">Office Cleaning</a>
-              </p>
-              <p>
-                <a href="/">Job Recruting</a>
-              </p>
-              <p>
-                <a href="/">Window Cleaning</a>
-              </p>
-            </div>
-            <div className="col-md-3">
-              <h4>CONTACT INFO</h4>
-              <p>
-                <span>
-                  <i className="bi bi-house-door-fill"></i> Kathmandu, NEPAL
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i className="bi bi-envelope-fill"></i>{" "}
-                  contact@spotlesszone.com
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i className="bi bi-telephone-fill"></i> +977-9800834601
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i className="bi bi-clock"></i> Mon-Fri: 08.00 am - 05:00 pm
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i className="bi bi-clock"></i>Saturday, Sunday: closed
-                </span>
-              </p>
-            </div>
-            <div className="col-md-3">
-              <h4 style={{ marginBottom: "50px" }}>NEWSLETTER</h4>
-              <p>Subscribe our newsletter to get our latest update & news</p>
-              <form action="">
-                <div className="form-group emailBox">
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="newsLetter"
-                  />
-                  <span
-                    className="telegramIcon"
-                    style={{
-                      fontSize: "40px",
-                      fontWeight: "bold",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <i className="bi bi-telegram"></i>
-                  </span>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        {/* for copyright */}
-        <div className="copyright_footer container-fluid">
+        {/* Footer */}
+<footer className="text-center text-lg-start bg-light text-muted">
+  {/* Section: Social media */}
+  <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    {/* Left */}
+    <div className="me-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    {/* Left */}
+    {/* Right */}
+    <div>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-facebook-f" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-twitter" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-google" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-instagram" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-linkedin" />
+      </a>
+      <a href className="me-4 text-reset">
+        <i className="fab fa-github" />
+      </a>
+    </div>
+    {/* Right */}
+  </section>
+  {/* Section: Social media */}
+  {/* Section: Links  */}
+  <section className>
+    <div className="container text-center text-md-start mt-5">
+      {/* Grid row */}
+      <div className="row mt-3">
+        {/* Grid column */}
+        <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          {/* Content */}
+          <h6 className="text-uppercase fw-bold mb-4">
+            <i className="fas fa-gem me-3" />Spotless Zone
+          </h6>
           <p>
-            © 2020 Copyright:{" "}
-            <span>
-              <a href="/">SpotlessZone.com</a>
-            </span>
+            Here you can use rows and columns to organize your footer content. Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit.
           </p>
         </div>
-      </footer>
+        {/* Grid column */}
+        {/* Grid column */}
+        <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          {/* Links */}
+          <h6 className="text-uppercase fw-bold mb-4">
+            Our services
+          </h6>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Floor and carpet</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">House Painting</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Office Cleaning</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Job Recruting</a>
+          </p>
+        </div>
+        {/* Grid column */}
+        {/* Grid column */}
+        <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4" >
+          {/* Links */}
+          <h6 className="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Pricing</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Settings</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Orders</a>
+          </p>
+          <p>
+            <a style={{textDecoration: 'none'}} href="#!" className="text-reset">Help</a>
+          </p>
+        </div>
+        {/* Grid column */}
+        {/* Grid column */}
+        <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          {/* Links */}
+          <h6 className="text-uppercase fw-bold mb-4">
+            Contact
+          </h6>
+          <p><i className="fas fa-home me-3" /> New York, NY 10012, US</p>
+          <p>
+            <i className="fas fa-envelope me-3" />
+            info@example.com
+          </p>
+          <p><i className="fas fa-phone me-3" /> + 01 234 567 88</p>
+          <p><i className="fas fa-print me-3" /> + 01 234 567 89</p>
+        </div>
+        {/* Grid column */}
+      </div>
+      {/* Grid row */}
+    </div>
+  </section>
+  {/* Section: Links  */}
+  {/* Copyright */}
+  <div className="text-center p-4" style={{backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+    © 2021 Copyright:
+    <a className="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  {/* Copyright */}
+</footer>
+{/* Footer */}
+
       </>
     )
 }
