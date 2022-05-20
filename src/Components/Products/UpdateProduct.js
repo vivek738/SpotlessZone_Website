@@ -1,90 +1,78 @@
-
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { Link, useParams } from 'react-router-dom'
 const UpdateProduct = () => {
   // for holding the particular category id
-  const { productid } = useParams();
-  const [pname, setpname] = useState("");
-  const [pdesc, setpdesc] = useState("");
-  const [pprice, setpprice] = useState("");
-  
-  const [pqty, setpqty] = useState("");
-  
-  const [pic, setpic] = useState("");
+  const { pid } = useParams()
+  const [pname, setPname] = useState('')
+  const [pdesc, setPdesc] = useState('')
+  const [pprice, setPprice] = useState('')
+  const [pqty, setPqty] = useState('')
+  const [pic, setPic] = useState('')
   //   holding data
-  
-  const [productdata, setProductdata] = useState([]);
+
+  const [productdata, setProductdata] = useState([])
   // token for admin
-  
-  //   for display category info initail when page is render
-  useEffect(() => {
-    
-    axios
-      .get("http://localhost:90/product/singleproduct/"+productid, )
-      .then((getResult) => {
-        // console.log(result.data);
-        setProductdata(getResult.data);
-        setpname(getResult.data.pname);
-        setpdesc(getResult.data.pdesc);
-        setpprice(getResult.data.pprice);
-        
-        setpqty(getResult.data.pqty);
-        
-        setpic(getResult.data.pic);
-      })
-      .catch();
-  }, []);
   const {
     register,
-    handleSubmit,
     // getValues,
     formState: { errors },
-  } = useForm({ shouldUseNativeValidation: false });
-  const onSubmitProductUpdateForm = (data, e) => {
-    e.preventDefault();
-    const productUpdateForm = new FormData();
-    productUpdateForm.append("productid", productid);
-    productUpdateForm.append("pname", pname);
-    productUpdateForm.append("pdesc", pdesc);
-    productUpdateForm.append("pprice", pprice);
-   
-    productUpdateForm.append("pqty", pqty);
-    
-    productUpdateForm.append("pic", pic);
+  } = useForm({ shouldUseNativeValidation: false })
+
+  //   for display category info initail when page is render
+  useEffect(() => {
     axios
-      .put(
-        "http://localhost:90/product/updateproduct",
-        productUpdateForm,
-        
-      )
+      .get('http://localhost:5000/singleproduct/' + pid)
+      .then((getResult) => {
+        console.log(getResult.data.pic)
+        setProductdata(getResult.data)
+        setPname(getResult.data.pname)
+        setPdesc(getResult.data.pdesc)
+        setPprice(getResult.data.pprice)
+        setPqty(getResult.data.pqty)
+        setPic(getResult.data.pic)
+      })
+      .catch((err) => console.log(err))
+  }, [pid])
+
+  const onSubmitProductUpdateForm = (e) => {
+      e.preventDefault();
+    const productUpdateForm = new FormData()
+    productUpdateForm.append('pid', pid)
+    productUpdateForm.append('pname', pname)
+    productUpdateForm.append('pdesc', pdesc)
+    productUpdateForm.append('pprice', pprice)
+    productUpdateForm.append('pqty', pqty)
+    productUpdateForm.append('image', pic)
+    axios
+      .put('http://localhost:5000/update-product', {
+        pid, productUpdateForm
+      })
       .then((result) => {
+        console.log(result.data)
         if (result.data.success) {
-          toast.success(<ProductUpdateSuccessToast />, {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: false,
-          });
-          setpname("");
-          setpdesc("");
-          setpprice("");
-         
-          setpqty("");
-          
-          setpic("");
+          // toast.success(<ProductUpdateSuccessToast />, {
+          //   position: toast.POSITION.BOTTOM_CENTER,
+          //   autoClose: false,
+          // })
+          // setPname('')
+          // setPdesc('')
+          // setPprice('')
+          // setPqty('')
+          // setPic('')
         }
       })
       .catch((e) => {
         toast.warn(<WarningToast />, {
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: true,
-        });
-      });
-  };
+        })
+      })
+  }
   return (
     <>
-      
       <div className="hori_line">
         <hr />
       </div>
@@ -105,41 +93,39 @@ const UpdateProduct = () => {
                     {/* customer form */}
                     <form
                       method="POST"
-                      action=""
-                      onSubmit={handleSubmit(onSubmitProductUpdateForm)}
+                      onSubmit={onSubmitProductUpdateForm}
                       encType="multipart/form-data"
                     >
-                      
                       {/* input field for product name */}
                       <div className="form-group">
                         <label htmlFor="pname">Product Name</label>
                         <input
                           type="text"
                           className={`form-control ${
-                            errors.setpname && "invalid"
+                            errors.setPname && 'invalid'
                           }`}
                           placeholder="Enter product name"
                           autoComplete="nope"
                           // firstname : validation
-                          {...register("setpname", {
-                            required: "product name is required",
+                          {...register('setPname', {
+                            required: 'product name is required',
                             minLength: {
                               value: 3,
-                              message: "product name is too short",
+                              message: 'product name is too short',
                             },
                             maxLength: {
                               value: 20,
-                              message: "product name is too long",
+                              message: 'product name is too long',
                             },
                           })}
                           // changing data on typing and set data to product name variable and send to database
                           value={pname}
-                          onChange={(e) => setpname(e.target.value)}
+                          onChange={(e) => setPname(e.target.value)}
                         />
                         {/* for displaying error message on validating */}
                         {errors.setpname && (
                           <small className="text-danger">
-                            {errors.setpname.message}
+                            {errors.setPname.message}
                           </small>
                         )}
                       </div>
@@ -150,14 +136,14 @@ const UpdateProduct = () => {
                           type="file"
                           name="pic"
                           className="form-control"
-                          {...register("setpic", {
-                            required: "Choose product pic",
+                          {...register('setPic', {
+                            required: 'Choose product pic',
                           })}
-                          onChange={(e) => setpic(e.target.files[0])}
+                          onChange={(e) => setPic(e.target.files[0])}
                         />
                         {errors.setpic && (
                           <small className="text-danger">
-                            {errors.setpic.message}
+                            {errors.setPic.message}
                           </small>
                         )}
                       </div>
@@ -167,52 +153,52 @@ const UpdateProduct = () => {
                         <input
                           type="phone"
                           className={`form-control ${
-                            errors.setpqty && "invalid"
+                            errors.setPqty && 'invalid'
                           }`}
                           placeholder="Enter qty number"
-                          {...register("setpqty", {
-                            required: "qty is required",
+                          {...register('setPqty', {
+                            required: 'qty is required',
                             min: {
                               value: 1,
-                              message: "Product qty should not be less than 1",
+                              message: 'Product qty should not be less than 1',
                             },
                             pattern: {
                               value: /^[0-9\b]+$/,
-                              message: "Enter digits only",
+                              message: 'Enter digits only',
                             },
                           })}
                           value={pqty}
-                          onChange={(e) => setpqty(e.target.value)}
+                          onChange={(e) => setPqty(e.target.value)}
                         />
                         {errors.setpqty && (
                           <small className="text-danger">
-                            {errors.setpqty.message}
+                            {errors.setPqty.message}
                           </small>
                         )}
                       </div>
-                      
+
                       {/* input field for product price*/}
                       <div className="form-group">
                         <label htmlFor="pprice">Product Price</label>
                         <input
                           type="phone"
                           className={`form-control ${
-                            errors.setpprice && "invalid"
+                            errors.setPprice && 'invalid'
                           }`}
                           placeholder="Enter product price"
-                          {...register("setpprice", {
-                            required: "product price is required",
+                          {...register('setPprice', {
+                            required: 'product price is required',
                             pattern: {
                               value: /^[0-9\b]+$/,
-                              message: "Enter digits only",
+                              message: 'Enter digits only',
                             },
                           })}
                           value={pprice}
-                          onChange={(e) => setpprice(e.target.value)}
+                          onChange={(e) => setPprice(e.target.value)}
                         />
                         {errors.setpprice && (
                           <small className="text-danger">
-                            {errors.setpprice.message}
+                            {errors.setPprice.message}
                           </small>
                         )}
                       </div>
@@ -222,20 +208,20 @@ const UpdateProduct = () => {
                         <textarea
                           type="text"
                           className={`form-control ${
-                            errors.setpdesc && "invalid"
+                            errors.setPdesc && 'invalid'
                           }`}
                           id="exampleFormControlTextarea1"
                           rows="2"
                           placeholder="write something for it"
-                          {...register("setpdesc", {
-                            required: "description is required", // JS only: <p>error message</p> TS only support string
+                          {...register('setPdesc', {
+                            required: 'description is required', // JS only: <p>error message</p> TS only support string
                           })}
                           value={pdesc}
-                          onChange={(e) => setpdesc(e.target.value)}
+                          onChange={(e) => setPdesc(e.target.value)}
                         ></textarea>
                         {errors.setpdesc && (
                           <small className="text-danger">
-                            {errors.setpdesc.message}
+                            {errors.setPdesc.message}
                           </small>
                         )}
                       </div>
@@ -254,9 +240,9 @@ const UpdateProduct = () => {
         </div>
       </div>
     </>
-  );
-};
-export default UpdateProduct;
+  )
+}
+export default UpdateProduct
 const ProductUpdateSuccessToast = () => {
   return (
     <>
@@ -270,9 +256,9 @@ const ProductUpdateSuccessToast = () => {
               to="/farm/dashboard/farmviewproduct"
               className="btn btn-outline-success"
               style={{
-                fontWeight: "bold",
-                borderRadius: "15px",
-                border: "2px solid green",
+                fontWeight: 'bold',
+                borderRadius: '15px',
+                border: '2px solid green',
               }}
             >
               OK
@@ -281,8 +267,8 @@ const ProductUpdateSuccessToast = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 const WarningToast = () => {
   return (
     <>
@@ -296,5 +282,5 @@ const WarningToast = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
