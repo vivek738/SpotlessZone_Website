@@ -17,13 +17,9 @@ export const Container = () => {
       <Routes>
         <Route path="/" exact element={<Homepage />} />
         <Route path="/addProduct" element={<Addproduct />}></Route>
-        {user && (
-          <Route
-            path="/profile-creation"
-            exact
-            element={<UserProfile />}
-          ></Route>
-        )}
+        {/* {user && (
+          
+        )} */}
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
         {/* <Route path="/" exact element={<Navigate replace to="/login" />} /> */}
