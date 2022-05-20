@@ -4,6 +4,8 @@ import EmailVerify from "../Components/EmailVerify";
 import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
+import Tes from "../Components/Products/test";
+import Update from "../Components/Products/UpdateProduct";
 import EditProfile from "../Components/Profile/EditProfile";
 import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
@@ -30,10 +32,9 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
-        <Route path="/profile-creation" element={<UserProfile />}></Route>
+        <Route path='/update-product' element={<Update/>}></Route>
         <Route path="/edit-profile" element={<EditProfile />}></Route>
 
-        
       </Routes>
     </>
   );
