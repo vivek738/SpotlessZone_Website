@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
+import Hiring from "../Components/Hiring/Hiring";
 import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
 import UpdateProduct from "../Components/Products/UpdateProduct";
@@ -33,6 +34,8 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
+        <Route path='/job-form-submit' element={<Hiring/>}></Route>
+
         <Route path='/getproduct' element={<Product/>}></Route>
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
         <Route path="/edit-profile" element={<EditProfile />}></Route>
