@@ -1,133 +1,66 @@
 import React from 'react'
-import cImage from "../../Images/second.png"
+import Second from '../../Images/second.png'
 const ChooseUs = () => {
   return (
-      <>
-      <div className="chooseUsSection container-fluid">
-        <div className="row">
-          <div className="col-md-12">
-            <h1>Why Chooose Us</h1>
-            <hr
-              style={{
-                height: "3px",
-                width: "10%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                color: "#2EFEF7",
-              }}
-            />
-            <p className="text-dark">
-              SpotlessZone operates in Kathmandu and provides a variety of
-              cleaning services. Choose us because of our reputation for
-              excellence.
+    <>
+      <div className="container-fluid my-5 py-5">
+        <div className="container col-md-10">
+          <div className="text-center">
+            <p className="text text-dark h1 fs-1">Why choose Us</p>
+            <hr className='container col-md-2 text-success' />
+          </div>
+          <div className="text-center">
+            <p className="text-muted fs-6">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique porro enim tempora reprehenderit. Fugiat amet consequuntur est possimus ab fugit. Minus magni ad voluptate rerum ex dolores aperiam harum aliquam!
             </p>
           </div>
-          <div className="row my-5" style={{ justifyContent: "center" }}>
-            <div className="col-md-3">
-              <span
-                style={{
-                  fontSize: "2rem",
-                  margin: "0 0 5rem 18rem",
-                  color: "rgb(8, 130, 8)",
-                }}
-              >
-                <i class="bi bi-gem "></i>
-              </span>
-              <h2>SPARKLING CLEAN</h2>
-              <p>
-                We keep your home sparkling clean and germ free. Our
-                disinfecting process kills 99% of common bacteria and viruses.
-              </p>
-            </div>
-            <div className="col-md-3">
-              <div className="imageSection">
-                <img
-                  src={cImage}
-                  alt=""
-                  className="img-fluid"
-                  style={{
-                    width: "300px",
-                    borderRadius: "80%",
-                    height: "300px",
-                    position: "absolute",
-                    top: "20",
-                  }}
-                />
+          <div className='text-justify'>
+            <div className="d-flex justify-content-center py-5">
+              <div className=''>
+                <div className='mb-4'>
+                  <i className="fa fa-diamond fs-1 d-flex justify-content-end "></i>
+                  <p className='h1 fs-3 mb-4 d-flex justify-content-end '>SPARKLING CLEAN</p>
+                  <p className='text-end'>
+                  We keep your home sparkling clean and germ free. Our disinfecting process kills 99% of common bacteria and viruses.
+                  </p>
+                </div>
+                <div className='mb-4'>
+                  <i className="fa fa-umbrella fs-1 d-flex justify-content-end "></i>
+                  <p className='h1 fs-3 mb-4 d-flex justify-content-end '>INSURED AND BONDED</p>
+                  <p className='text-end'>
+                  Our cleaners are insured and bonded so no need to worry about your apartment, office or garden.
+
+
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <span
-                style={{
-                  fontSize: "2rem",
-                  margin: "0 0 5rem 18rem",
-                  color: "rgb(8, 130, 8)",
-                }}
-              >
-                <i class="bi bi-house-door"></i>
-              </span>
-              <h2>LEADING TECHNOLOGIES</h2>
-              <p>
-                We use safe hospital-grade disinfectants, HEPA filtrations and
-                microfiber cleaning cloths to reduce cross contamination.
-              </p>
-            </div>
-          </div>
-          <div className="row" style={{ justifyContent: "center" }}>
-            <div className="col-md-3 ">
-              <span
-                style={{
-                  fontSize: "2rem",
-                  margin: "0 0 5rem 18rem",
-                  color: "rgb(8, 130, 8)",
-                }}
-              >
-                <i class="bi bi-umbrella"></i>
-              </span>
-              <h2>INSURED AND BONDED</h2>
-              <p>
-                Our cleaners are insured and bonded so no need to worry about
-                your apartment, office or garden.
-              </p>
-            </div>
-            <div
-              className="reliableCrewSec col-md-3"
-              style={{ marginLeft: "23rem" }}
-            >
-              <span
-                style={{
-                  fontSize: "2rem",
-                  margin: "0 0 5rem 18rem",
-                  color: "rgb(8, 130, 8)",
-                }}
-              >
-                <i class="bi bi-people"></i>
-              </span>
-              <h2>RELIABLE CREWS</h2>
-              <p>
-                Our reliable and stable crews understand your specific house and
-                office clearning service needs.
-              </p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div
-                className="exploreSect"
-                style={{ marginLeft: "39rem", marginTop: "5rem" }}
-              >
-                <button
-                  className="btn btn-info text-white font-weight-bold"
-                  style={{ width: "20%" }}
-                >
-                  Explore
-                </button>
+              <div className='mx-5'>
+                <div className='bg-white border border-4 border-secondary' style={{ width: "375px", height: "375px", objectFit: "cover", borderRadius: "50%" }}>
+                  <img src={Second} alt="" className='m-2' style={{ width: "350px", height: "350px", objectFit: "cover", borderRadius: "50%" }} />
+                </div>
+              </div>
+              <div>
+                <div className='mb-4'>
+                  <i className="fa fa-home fs-1 d-flex justify-content-start "></i>
+                  <p className='h1 fs-3 mb-4 d-flex justify-content-start '>LEADING TECHNOLOGIES</p>
+                  <p className='text-start'>
+                  We use safe hospital-grade disinfectants, HEPA filtrations and microfiber cleaning cloths to reduce cross contamination.
+                  </p>
+                </div>
+                <div className='mb-4'>
+                  <i className="fa fa-user-secret fs-1 d-flex justify-content-start "></i>
+                  <p className='h1 fs-3 mb-4 d-flex justify-content-start '>RELIABLE CREWS</p>
+                  <p className='text-start'>
+                  Our reliable and stable crews understand your specific house and office clearning service needs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </>
- 
+    </>
+
   )
 }
 

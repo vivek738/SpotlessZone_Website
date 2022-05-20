@@ -1,128 +1,59 @@
 import React from 'react'
 import Header from './Header'
 import First from '../../Images/first.png'
-import Second from '../../Images/first.png'
-import Third from '../../Images/first.png'
 import Testimonial from './Testimonial'
+import ChooseUs from './ChooseUs'
+// import "./Homepage.css";
 
 const Homepage = () => {
-    return (
+  return (
 
-        <>
-            <Header />
-            <div className="container-fluid" style={{ paddingTop: 0, background: "#ebebeb" }}>
-                <div
-                    id="carouselExampleIndicators"
-                    className="carousel slide"
-                    data-bs-ride="carousel"
-                >
-                    <div className="carousel-indicators">
-                        <button
-                            type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to={0}
-                            className="active"
-                            aria-current="true"
-                            aria-label="Slide 1"
-                        />
-                        <button
-                            type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to={1}
-                            aria-label="Slide 2"
-                        />
-                        <button
-                            type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to={2}
-                            aria-label="Slide 3"
-                        />
-                    </div>
-                    <div className="carousel-inner" style={{ height: '160vh' }}>
-                        <div className="carousel-item active">
-                            <div className="container col-md-11">
-                                <div className="row mt-md-5 mt-0">
-                                    <div className="col-md-6">
-
-
-                                    </div>
-
-                                    <div className="col-md-90">
-                                        <img src={First} className="d-block img-fluid me-5" alt="..." />
-
-                                        <div className="p-3 mt-md-0 mt-0">
-                                            <h1 className="text text-dark ms-1 mt-0">Lets Clean Our Houses By Using Spotless Zone</h1>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <div className="container col-md-11">
-                                <div className="row mt-md-5 mt-0">
-                                    <div className="col-md-6">
-
-
-                                    </div>
-                                </div>
-                                <div className="col-md-100">
-                                    <img src={Third} className="d-block img-fluid me-5" alt="..." />
-                                    <div className="p-1 mt-md-5 mt-0">
-
-                                        <h1 className="text text-dark ms-10 mt-20">Lets Clean Our Houses By Using Spotless Zone</h1>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <div className="container col-md-11">
-                                <div className="row mt-md-5 mt-0">
-                                    <div className="col-md-6">
-
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-100">
-                                    <img src={Second} className="d-block img-fluid me-5" alt="..." />
-                                    <div className="p-1 mt-md-5 mt-0">
-
-                                        <h1 className="text text-dark ms-5 mt-2">Lets Clean Our Houses By Using Spotless Zone</h1>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        className="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev"
-                    >
-                        <span className="carousel-control-prev-icon" aria-hidden="true" />
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                        className="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next"
-                    >
-                        <span className="carousel-control-next-icon" aria-hidden="true" />
-                        <span className="visually-hidden">Next</span>
-                    </button>
-                </div>
-
+    <>
+      {/* <Header /> */}
+      <div>
+        <div className="container-fluid homeImg py-3" style={{ paddingTop: 0, backgroundColor: "#ebebeb", background: `url(${First})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", backgroundSize: "cover", position: "relative" }}>
+          <Header />
+          <div className="container col-md-10 mt-md-5 pt-md-5">
+            <p className="text text-white h1 text-center" style={{ fontSize: "4rem" }}>
+              Lets Clean Our Houses<br />
+              By Using Spotless <br />
+              Zone
+            </p>
+          </div>
+        </div>
+        <div className='d-flex flex-wrap justify-content-center align-items-center w-100' style={{ position: "absolute", bottom: "-6%" }}>
+          <div className='text-center bg-light rounded shadow' style={{ height: "auto" }}>
+            <div className="d-flex flex-wrap justify-content-center align-items-center mx-4 my-3">
+              <div className='me-md-5 me-2 mb-3'>
+                <p className="text text-secondary h5 mb-3">Choose Packages</p>
+                <select className="form-select" aria-label="Default select example">
+                  <option selected>Select Packages</option>
+                  <option value={1}>One</option>
+                  <option value={2}>Two</option>
+                  <option value={3}>Three</option>
+                </select>
+              </div>
+              <div className='me-md-5 me-2 mb-3'>
+                <p className="text text-secondary h5 mb-3">Choose Packages</p>
+                <input type="date" className='form-control' />
+              </div>
+              <div className='me-md-5 me-2 mb-3'>
+                <p className="text text-secondary h5 mb-3">Phone Number</p>
+                <input type="number" className='form-control' />
+              </div>
+              <div className="me-md-5 me-2 mb-3">
+                <button className="btn btn-primary px-4">Book Now</button>
+              </div>
             </div>
-            <Testimonial />
-        </>
+          </div>
+        </div>
+      </div>
+      <ChooseUs />
+      <Testimonial />
+    </>
 
 
-    )
+  )
 }
 
 export default Homepage
