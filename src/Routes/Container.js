@@ -6,24 +6,19 @@ import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
 import Update from "../Components/Products/UpdateProduct";
 import EditProfile from "../Components/Profile/EditProfile";
-import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
 
 export const Container = () => {
   //in login branch
-  const user = localStorage.getItem("token");
+  // const user = localStorage.getItem("token");
   return (
     <>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
         <Route path="/addProduct" element={<Addproduct />}></Route>
-        {user && (
-          <Route
-            path="/profile-creation"
-            exact
-            element={<UserProfile />}
-          ></Route>
-        )}
+        {/* {user && (
+          
+        )} */}
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
         {/* <Route path="/" exact element={<Navigate replace to="/login" />} /> */}
