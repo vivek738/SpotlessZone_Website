@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import EmailVerify from "../Components/EmailVerify";
 import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
-import Update from "../Components/Products/UpdateProduct";
-import Addproduct from "../Components/Products/AddProduct";
 import UpdateProduct from "../Components/Products/UpdateProduct";
 import Product from "../Components/Products/ViewProduct";
 import EditProfile from "../Components/Profile/EditProfile";
