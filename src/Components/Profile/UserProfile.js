@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
     return (
@@ -6,21 +7,30 @@ const UserProfile = () => {
             <div className="container col-md-5 col-sm-12 col-12 bg-white shadow rounded py-4 px-4">
                 <h1 className="text text-secondary h6">My Profile</h1>
                 <div className="pp-section text-center">
-                    <img
-                        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fmen&psig=AOvVaw2pzLvxvwk1TrUNJULBLcn_&ust=1652605636883000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPjDk_PR3vcCFQAAAAAdAAAAABAJ"
-                        className="mb-2"
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            objectFit: "cover",
-                            borderRadius: "50%",
-                        }}
-                        alt=""
-                    />
-                    <p className="text text-secondary mb-1 fw-bold h5">Vivek Sah</p>
-                    <a href="#" className="text-decoration-none text-success">
-                        Edit Profile 
-                    </a>
+                    <div className="position-relative">
+                        <img
+                            src="https://cdn.pixabay.com/photo/2021/11/04/12/34/beauty-6768212__340.jpg"
+                            alt=""
+                            style={{
+                                width: "100px",
+                                height: "100px",
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                            }}
+                        />
+                        <div
+                            className="position-absolute"
+                            style={{ bottom: "0px", left: "50%" }}
+                        >
+                            <button className="btn btn-link text-decoration-none">
+                                <i className="fa fa-edit fs-3 text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p className="text text-secondary mb-1 fw-bold h5">Spotlesszone</p>
+                    <Link to="/edit-profile" className="text-decoration-none text-success">
+                        Edit Profile
+                    </Link>
                 </div>
                 <hr />
                 <div className="history">
