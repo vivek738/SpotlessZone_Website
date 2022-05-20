@@ -6,12 +6,11 @@ import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
 import Update from "../Components/Products/UpdateProduct";
 import EditProfile from "../Components/Profile/EditProfile";
-import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
 
 export const Container = () => {
   //in login branch
-  const user = localStorage.getItem("token");
+  // const user = localStorage.getItem("token");
   return (
     <>
       <Routes>
