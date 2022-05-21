@@ -4,6 +4,7 @@ import EmailVerify from "../Components/EmailVerify";
 import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
 import Addproduct from "../Components/Products/AddProduct";
+import AdminUpdate from "../Components/Products/AdminUpdateproduct";
 import UpdateProduct from "../Components/Products/UpdateProduct";
 import Product from "../Components/Products/ViewProduct";
 import EditProfile from "../Components/Profile/EditProfile";
@@ -16,7 +17,14 @@ export const Container = () => {
     <>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
+
+        {/* Admin route for product */}
         <Route path="/addProduct" element={<Addproduct />}></Route>
+        <Route path='/getproduct' element={<Product/>}></Route>
+        <Route path='/adminUpdateproduct' element={<AdminUpdate/>}></Route>
+        <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
+        
+        
         {/* {user && (
           
         )} */}
@@ -27,8 +35,7 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
-        <Route path='/getproduct' element={<Product/>}></Route>
-        <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
+       
         <Route path="/edit-profile" element={<EditProfile />}></Route>
 
       </Routes>
