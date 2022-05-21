@@ -30,7 +30,7 @@ const SingleProductInfo = () => {
       .get("http://localhost:5000/singleproduct/" + pid)
       .then((result) => {
         // console.log(result.data[0].pname)
-        setSingleproductdata(result.data[0]);
+        setSingleproductdata(result.data);
       })
       .catch((e) => {
         console.log("Something Went Wrong!!");
