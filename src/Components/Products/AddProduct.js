@@ -36,6 +36,7 @@ const Addproduct = () => {
       .then((result) => {
          console.log(result);
         if (result) {
+          window.location = "/getproduct"
           toast.success(<ProductAddedSuccessToast />, {
             position: toast.POSITION.BOTTOM_CENTER,
             autoClose: false,
