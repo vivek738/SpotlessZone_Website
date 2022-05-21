@@ -1,5 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import ProductCart from "../Components/Cart/Cart";
+import SingleProductInfo from "../Components/Cart/SingleProuductPage";
+import AllProducts from "../Components/Cart/ViewProducts";
 import EmailVerify from "../Components/EmailVerify";
 import Hiring from "../Components/Hiring/Hiring";
 import Homepage from "../Components/Homepage/Homepage";
@@ -24,9 +27,7 @@ export const Container = () => {
           :
           <></>
         }
-        {/* {user && (
-          
-        )} */}
+
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
         {/* <Route path="/" exact element={<Navigate replace to="/login" />} /> */}
@@ -35,6 +36,13 @@ export const Container = () => {
           element={<EmailVerify />}
         />
         <Route path='/job-form-submit' element={<Hiring/>}></Route>
+        <Route path='/cart' element={<ProductCart/>}></Route>
+
+        <Route path='/display-all-products' element={<AllProducts/>}></Route>
+        <Route path='/single-product/:pid' element={<SingleProductInfo/>}></Route>
+
+
+
 
         <Route path='/getproduct' element={<Product/>}></Route>
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
