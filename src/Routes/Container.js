@@ -16,17 +16,17 @@ export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
   const decodeUser = parseJwt(user)
-  console.log(decodeUser.user)
+  // console.log(decodeUser.user)
   return (
     <>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
-        {
+        {/* {
           decodeUser.user?.role === "admin"?
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           :
           <></>
-        }
+        } */}
 
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
