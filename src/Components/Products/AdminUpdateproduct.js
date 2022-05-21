@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AdminUpdate = () => {
   const [productdata, setProductdata] = useState([]);
@@ -65,7 +66,10 @@ const AdminUpdate = () => {
                       </td>
                       {/* <button>Delete</button> */}
                       <i className="bi bi-trash-fill m-3"></i>
-                      <i className="bi bi-pencil-square"></i>
+                      
+                      <Link to={"/update-product/"+ d._id}>
+                      <i className="bi bi-pencil-square" ></i>
+                      </Link>
                     </tr>
                   );
                 })}

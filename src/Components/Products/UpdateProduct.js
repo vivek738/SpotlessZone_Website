@@ -47,12 +47,12 @@ const UpdateProduct = () => {
     productUpdateForm.append('pqty', pqty)
     productUpdateForm.append('image', pic)
     axios
-      .put('http://localhost:5000/update-product', {
-        pid, productUpdateForm
-      })
+      .put(`http://localhost:5000/update-product/${pid}`, productUpdateForm) 
+        
       .then((result) => {
         console.log(result.data)
-        if (result.data.success) {
+        if (result) {
+          window.location="/adminUpdateproduct"
           // toast.success(<ProductUpdateSuccessToast />, {
           //   position: toast.POSITION.BOTTOM_CENTER,
           //   autoClose: false,
@@ -62,7 +62,7 @@ const UpdateProduct = () => {
           // setPprice('')
           // setPqty('')
           // setPic('')
-        }
+       }
       })
       .catch((e) => {
         toast.warn(<WarningToast />, {

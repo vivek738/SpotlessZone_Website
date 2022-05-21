@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 
 // use reducer
@@ -9,12 +9,15 @@ import { Link } from "react-router-dom";
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("")
+  const [message, setMessage] = useState("")
+  
+  
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/get-products-cart")
       .then((result) => {
-        console.log(result.data);
+        //console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
@@ -29,6 +32,24 @@ const ProductCart = () => {
         )
       );
   }, );
+
+  function deleteproductCart(pid) {
+
+    axios
+
+      .delete("http://localhost:5000/deleteitem/" + pid)
+
+      .then((e) => {
+        setMessage("Item delete successfully!")
+      })
+
+      .catch((e) => {
+
+        console.log(e);
+
+      });
+
+  }
 
   const headers = [
     { key: "pic", label: "Product Image" },
@@ -85,6 +106,7 @@ const ProductCart = () => {
               <div className="col-md-12">
                 <div className="row justify-content-center">
                   <div className="col-md-8 col-12">
+                    <h1> {message}</h1>
                     <div className="card my-5">
                       <div className="card-body">
                         <table class="table table-responsive">
@@ -186,14 +208,15 @@ const ProductCart = () => {
                                         </span>
                                       </td>
 
-                                      {/* // onClick={deleteproductCart.bind(
-    //   this,
-    //   productdataCart._id
-    // )} */}
+                                     
+    
 
                                       <td>
                                         <i
-                                          className="bi bi-trash-fill"
+                                          className="bi bi-trash-fill"  onClick={deleteproductCart.bind(
+                                              this,
+                                              items._id
+                                            )} 
                                           style={{
                                             cursor: "pointer",
                                             color: "red",
