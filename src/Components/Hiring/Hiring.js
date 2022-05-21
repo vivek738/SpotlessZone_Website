@@ -1,0 +1,222 @@
+import { useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import bgImage from "../../Images/job-image.jpg";
+
+const Hiring = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setPhone] = useState("");
+  const [resume, setImage] = useState("");
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm({ shouldUseNativeValidation: false });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const jobForm = new FormData();
+    jobForm.append("fullName", fullName);
+    jobForm.append("email", email);
+    jobForm.append("contact", contact);
+    jobForm.append("file", resume);
+
+    axios
+      .post("http://localhost:5000/job-form/submit", jobForm)
+      .then((result) => {
+        console.log(result.data);
+        setFullName("");
+        setEmail("");
+        setPhone("");
+        setImage("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <>
+      <div
+        className="container-fluid"
+        style={{
+          backgroundRepeat: "no-repeat",
+          background: `url(${bgImage})`,
+          //   filter: "blur(.5px)",
+          backgroundPosition: "center",
+          minHeight: "70vh",
+          backgroundSize: "cover",
+          //   position: "relative",
+        }}
+      >
+        <div className="row">
+          <div className="col-md-12">
+            <div className="row  justify-content-center">
+              <h1 className="text-center py-5" style={{ color: "#1F8977" }}>
+                Find A Job & Grow Your Career With Us
+              </h1>
+              <div className="col-md-6">
+                <div
+                  className="card"
+                  style={{
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  <form
+                    method="POST"
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="align-items-center"
+                  >
+                    {/* input field for full name */}
+                    <div className="form-group px-5 py-3">
+                      <label htmlFor="fullName" style={{ fontWeight: "bold" }}>
+                        Full Name <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${
+                          errors.setFullName && "invalid"
+                        }`}
+                        placeholder="Enter first name"
+                        autoComplete="nope"
+                        {...register("setFullName", {
+                          required: "full name is required",
+                          minLength: {
+                            value: 3,
+                            message: "full name is too short",
+                          },
+                          maxLength: {
+                            value: 30,
+                            message: "full name is too long",
+                          },
+                        })}
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                      />
+                      {/* for displaying error message on validating */}
+                      {errors.setFullName && (
+                        <small className="text-danger">
+                          {errors.setFullName.message}
+                        </small>
+                      )}
+                    </div>
+
+                    {/* input field for customer email */}
+                    <div className="form-group px-5">
+                      <label htmlFor="email" style={{ fontWeight: "bold" }}>
+                        Email<span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${
+                          errors.setEmail && "invalid"
+                        }`}
+                        placeholder="Your email address"
+                        autoComplete="nope"
+                        {...register("setEmail", {
+                          required: "Email is required",
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: "Invalid email address",
+                          },
+                        })}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      {errors.setEmail && (
+                        <small className="text-danger">
+                          {errors.setEmail.message}
+                        </small>
+                      )}
+                    </div>
+
+                    {/* input field for customer contact number */}
+                    <div className="form-group px-5 py-3">
+                      <label htmlFor="contact" style={{ fontWeight: "bold" }}>
+                        Contact Number<span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="phone"
+                        className={`form-control ${
+                          errors.setPhone && "invalid"
+                        }`}
+                        placeholder="Your phone number"
+                        autoComplete="nope"
+                        {...register("setPhone", {
+                          required: "phone is required",
+                          maxLength: {
+                            value: 10,
+                            message:
+                              "Phone number should not exceed more that 10 digits",
+                          },
+                          minLength: {
+                            value: 10,
+                            message:
+                              "Phone number should not less than 10 digits",
+                          },
+                          pattern: {
+                            value:
+                              /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                            message: "Enter digits only",
+                          },
+                        })}
+                        value={contact}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                      {errors.setPhone && (
+                        <small className="text-danger">
+                          {errors.setPhone.message}
+                        </small>
+                      )}
+                    </div>
+
+                    {/* input field for customer profile pic */}
+                    <div className="form-group px-5">
+                      <label htmlFor="file" style={{ fontWeight: "bold" }}>
+                        Resume
+                      </label>
+                      <input
+                        type="file"
+                        name="file"
+                        placeholder="DOC, DOCx, PDF, RTF | Max: 2 MB"
+                        className="form-control"
+                        {...register("setImage", {
+                          required: "Choose your profile pic",
+                        })}
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
+                      {errors.setImage && (
+                        <small className="text-danger">
+                          {errors.setImage.message}
+                        </small>
+                      )}
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="btn w-75 my-4 rounded-5"
+                      style={{
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        backgroundColor: "#3ED0B7",
+                        color: "#fff",
+                        textTransform: "uppercase",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Submit Now
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default Hiring;
