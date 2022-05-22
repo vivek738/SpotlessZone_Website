@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import AboutUs from "../Components/AboutUs/AboutUs";
 import ProductCart from "../Components/Cart/Cart";
 import SingleProductInfo from "../Components/Cart/SingleProuductPage";
 import AllProducts from "../Components/Cart/ViewProducts";
@@ -62,6 +63,7 @@ export const Container = () => {
 
         <Route path='/display-all-products' element={<AllProducts/>}></Route>
         <Route path='/single-product/:pid' element={<SingleProductInfo/>}></Route>
+        <Route path="/aboutus" element={<AboutUs></AboutUs>}></Route>
 
 
 
