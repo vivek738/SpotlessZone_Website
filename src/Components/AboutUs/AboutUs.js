@@ -33,14 +33,14 @@ const AboutUs = () => {
       {/* another section here */}
 
 
-      <div className="container-fluid" style={{ paddingTop: 50, background: "white" }}>
+      <div className="container-fluid" style={{ paddingTop: 60, background: "white" }}>
         <div className="container col-md-12 pt-5">
   
           <h3 className="text text-center text-success pb-3">WHY CHOOSE US?</h3>
           <div className="row mb-6">
             <div className="col-md-5">
-              <div className=" py-1 px-12 ms-9">
-                <img src={Third} alt="first" height="300px" />
+              <div className="   shadow mx-4 border-3 d-flex justify-contain-center py-3 px-12 ms-9">
+                <img className=" px-3 rounded " src={Third} alt="first" height="300px" width={"100%"}/>
               </div>
             </div>
             <div className="col-md-6">
@@ -96,7 +96,7 @@ const AboutUs = () => {
         </div>
       </div>
       {/* our team */}
-      <div className="container-fluid bg-light pb-3" style={{ paddingTop: 75, background: "ebebeb" }}>
+      <div className="container-fluid bg-white pb-3" style={{ paddingTop: 75, background: "ebebeb" }}>
         <div className="container col-md-10">
         
           <h3 className="text text-center text-success pb-2">
@@ -104,7 +104,7 @@ const AboutUs = () => {
           </h3>
           <div className="row">
             <div className="col-md-4 mb-2">
-              <div className="me-5 bg-white rounded shadow mx-2">
+              <div className="me-5 bg-white shadow mx-2">
                 <img src={Suraj} alt="" className="img-fluid w-100 px-3 pt-3 rounded" height="120px" />
                 <div className="py-1 px-2">
                   <h4 className="text-center text-success text-start ">Suraj Gyawali</h4>
@@ -118,7 +118,7 @@ const AboutUs = () => {
             </div>
 
             <div className="col-md-4 mb-2">
-              <div className="me-5 bg-white rounded shadow mx-2">
+              <div className="me-5 bg-white  shadow mx-2">
                 <img src={Vivek} alt="" className="img-fluid w-100 px-3 pt-3 rounded" height="140px" />
                 <div className="py-1 px-2">
                   <h4 className="text-center text-success text-start ">Vivek Sah</h4>
@@ -132,7 +132,7 @@ const AboutUs = () => {
             </div>
 
             <div className="col-md-4 mb-2">
-              <div className="me-5 bg-white rounded shadow mx-2">
+              <div className="me-5 bg-white  shadow mx-2">
                 <img src={Ramesh} alt="" className="img-fluid w-100 px-3 pt-3 rounded" height="120px" />
                 <div className="py-1 px-2">
                   <h4 className="text-center text-success text-start ">Ramesh Pathak</h4>
@@ -146,8 +146,8 @@ const AboutUs = () => {
             </div>
 
             <div className="col-md-4 mb-2">
-              <div className="me-5 bg-white rounded shadow mx-2">
-                <img src={Punam} alt="" className="img-fluid w-100 px-3 pt-3 rounded" height="120px" />
+              <div className="me-5 bg-white  shadow mx-2">
+                <img src={Punam} alt="" className=" img-fluid w-100 px-3 pt-3 rounded" height="120px" />
                 <div className="py-1 px-2">
                   <h4 className="text-center text-success text-start ">Punam Oli</h4>
                   <h5 className="text-center text-black text-start">
@@ -160,7 +160,7 @@ const AboutUs = () => {
             </div>
 
             <div className="col-md-4 mb-2">
-              <div className="me-5 bg-white rounded shadow mx-2">
+              <div className="me-5 bg-white  shadow mx-2">
                 <img src={First} alt="" className="img-fluid w-100 px-3 pt-3 rounded" height="120px" />
                 <div className="py-1 px-2">
                   <h4 className="text-center text-success text-start ">Dipika Bogoti</h4>
