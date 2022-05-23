@@ -16,6 +16,7 @@ import AdminUpdate from "../Components/Products/AdminUpdateproduct";
 import UpdateProduct from "../Components/Products/UpdateProduct";
 import Product from "../Components/Products/ViewProduct";
 import EditProfile from "../Components/Profile/EditProfile";
+import UserProfile from "../Components/Profile/UserProfile";
 import SignUp from "../Components/SignUp";
 import { parseJwt } from "../utils/parseJwt";
 export const Container = () => {
@@ -55,6 +56,11 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
+<<<<<<< HEAD
+        <Route path='/update-product' element={<Update/>}></Route>
+        <Route path="/edit-profile" element={<EditProfile />}></Route>
+        <Route path="/profile-creation" element={<UserProfile />}></Route>
+=======
 
        
 
@@ -72,6 +78,7 @@ export const Container = () => {
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
+>>>>>>> 23713a55bead9b285c2d8b40d9979f2095c3fdc9
       </Routes>
     </>
   );
