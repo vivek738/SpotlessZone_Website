@@ -24,7 +24,7 @@ const Login = () => {
         .post(url, data)
         .then((result) => {
           console.log(result.data);
-          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("token", result.data.data.token);
           window.location = "/";
         })
         .catch((err) => {
