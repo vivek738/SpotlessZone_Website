@@ -8,11 +8,8 @@ import EmailVerify from "../Components/EmailVerify";
 import Hiring from "../Components/Hiring/Hiring";
 import Homepage from "../Components/Homepage/Homepage";
 import Login from "../Components/Login";
-
 import Addproduct from "../Components/Products/AddProduct";
 import AdminUpdate from "../Components/Products/AdminUpdateproduct";
-
- 
 import UpdateProduct from "../Components/Products/UpdateProduct";
 import Product from "../Components/Products/ViewProduct";
 import EditProfile from "../Components/Profile/EditProfile";
@@ -56,11 +53,11 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
-<<<<<<< HEAD
+
         <Route path='/update-product' element={<Update/>}></Route>
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path="/profile-creation" element={<UserProfile />}></Route>
-=======
+
 
        
 
@@ -78,7 +75,6 @@ export const Container = () => {
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
->>>>>>> 23713a55bead9b285c2d8b40d9979f2095c3fdc9
       </Routes>
     </>
   );
