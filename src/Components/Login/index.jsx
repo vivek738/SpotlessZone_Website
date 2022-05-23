@@ -23,14 +23,8 @@ const Login = () => {
       await axios
         .post(url, data)
         .then((result) => {
-<<<<<<< HEAD
-          console.log(result.data);
           localStorage.setItem("token", result.data.data.token);
           window.location = "/";
-=======
-          console.log(result.data.data.token);
-          localStorage.setItem("token", result.data.data.token);
->>>>>>> 23713a55bead9b285c2d8b40d9979f2095c3fdc9
         })
         .catch((err) => {
           console.log(err.response.data.message);

@@ -54,7 +54,7 @@ export const Container = () => {
           element={<EmailVerify />}
         />
 
-        <Route path='/update-product' element={<Update/>}></Route>
+        {/* <Route path='/update-product' element={<Update/>}></Route> */}
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path="/profile-creation" element={<UserProfile />}></Route>
 
