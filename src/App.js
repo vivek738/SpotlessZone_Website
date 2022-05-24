@@ -10,7 +10,7 @@ function App() {
     <>
     <BrowserRouter>
     <Container/>
-    {/* <Footer /> */}
+    <Footer />
 
     
     </BrowserRouter>
