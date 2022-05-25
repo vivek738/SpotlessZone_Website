@@ -11,14 +11,8 @@ function App() {
     <BrowserRouter>
     <Container/>
     <Footer />
-
-    
     </BrowserRouter>
     </>
-    
-    
-    
-    
   )}
 
 export default App;
