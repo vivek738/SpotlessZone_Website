@@ -34,7 +34,7 @@ const UserProfile = () => {
                 <div className="pp-section text-center">
                     <div className="position-relative">
                         <img
-                            src="https://cdn.pixabay.com/photo/2021/11/04/12/34/beauty-6768212__340.jpg"
+                           src={`http://localhost:5000/${userdata.pic}`}
                             alt=""
                             style={{
                                 width: "100px",
@@ -43,14 +43,7 @@ const UserProfile = () => {
                                 borderRadius: "50%",
                             }}
                         />
-                        <div
-                            className="position-absolute"
-                            style={{ bottom: "0px", left: "50%" }}
-                        >
-                            <button className="btn btn-link text-decoration-none">
-                                <i className="fa fa-edit fs-3 text-white"></i>
-                            </button>
-                        </div>
+                       
                     </div>
                     <p className="text text-secondary mb-1 fw-bold h5">{userdata?.name}</p>
                     <small className="text text-secondary d-block text-center mb-4">{userdata?.email}</small>

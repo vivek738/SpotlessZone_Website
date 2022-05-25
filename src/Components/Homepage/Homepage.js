@@ -22,7 +22,7 @@ const Homepage = () => {
             backgroundRepeat: "no-repeat",
             height: "100vh",
             backgroundSize: "cover",
-            position: "relative",
+            position: "relative"
           }}
         >
           <Header />

@@ -17,26 +17,29 @@ const EditProfile = () => {
   const [email, setmail] = React.useState('')
   const [bio, setbio] = React.useState('')
   const [phone, setphone] = React.useState('')
+  const [image, setPic] = React.useState('')
   const getProfile = () => {
     axios.get('http://localhost:5000/getprofile/' + id).then(data => {
-        setname(data.data.name)
-        setmail(data.data.email)
-        setphone(data.data.phone)
+      setname(data.data.name)
+      setmail(data.data.email)
+      setphone(data.data.phone)
+      setPic(data.data.pic)
     })
-}
-React.useEffect(() => {
-  getProfile()
-}, [])
+  }
+  React.useEffect(() => {
+    getProfile()
+  }, [])
 
 
   const update = async (e) => {
     e.preventDefault()
+    let fd = new FormData()
+    fd.append('name', name)
+    fd.append('email', email)
+    fd.append('phone', phone)
+    fd.append('image', image)
     try {
-      const update = await axios.put('http://localhost:5000/profileupdate/' + id, {
-        name,
-        email,
-        phone
-      })
+      const update = await axios.put('http://localhost:5000/profileupdate/' + id, fd)
       console.log(update.data);
     } catch (error) {
       console.log(error);
@@ -85,6 +88,17 @@ React.useEffect(() => {
                 <div className="position-relative mt-4">
                   <div className="d-flex justify-content-start align-items-center">
                     <div className="me-5">
+                      {
+                        image? <img
+                        src={`http://localhost:5000/${image}`}
+                        alt=""
+                        style={{
+                          width: "120px",
+                          height: "120px",
+                          objectFit: "cover",
+                          borderRadius: "50%",
+                        }}
+                      /> :
                       <img
                         src="https://cdn.pixabay.com/photo/2021/11/04/12/34/beauty-6768212__340.jpg"
                         alt=""
@@ -95,19 +109,57 @@ React.useEffect(() => {
                           borderRadius: "50%",
                         }}
                       />
+                      }
                       <div
                         className="position-absolute"
                         style={{ bottom: "0px", left: "14%" }}
                       >
-                        <button className="btn btn-link text-decoration-none">
+                        <button data-bs-toggle="modal"
+                          data-bs-target="#exampleModal" type='button' className="btn btn-link text-decoration-none">
                           <i className="fa fa-pencil fs-6 text-white bg-danger rounded-circle p-2"></i>
                         </button>
                       </div>
                     </div>
+
+                    {/* Modal */}
+                    <div
+                      className="modal fade"
+                      id="exampleModal"
+                      tabIndex={-1}
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Profile Pic Update
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            />
+                          </div>
+                          <div className="modal-body">
+                            <img className='d-flex p-3 mx-auto' width='200px' src={`http://localhost:5000/${image}`} alt="" />
+                            <form >
+                              <input name='image' onChange={e => setPic(e.target.files[0])} type='file' className='form-control'></input>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button onClick={update} type="submit" className="btn btn-primary">
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div>
-                      <p className="tex text-dark h3 mb-1">Vivek Sah</p>
+                      <p className="tex text-dark h3 mb-1">{name}</p>
                       <p className="text text-secondary">
-                        viveksah9800@gmail.com
+                        {email}
                       </p>
                     </div>
                   </div>
@@ -119,7 +171,7 @@ React.useEffect(() => {
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <div className="w-50 me-4">
                       <label htmlFor="firstnae" className="fw-bold h6">
-                         Username
+                        Username
                       </label>
                       <input value={name} onChange={e => setname(e.target.value)} type="text" className="form-control" />
                     </div>
