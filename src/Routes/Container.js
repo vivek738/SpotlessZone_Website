@@ -64,11 +64,10 @@ export const Container = () => {
           element={<EmailVerify />}
         />
 
-<<<<<<< HEAD
         {/* <Route path='/update-product' element={<Update/>}></Route> */}
-=======
-        <Route path='/update-product' element={<Update/>}></Route>
->>>>>>> profile
+
+        {/* <Route path='/update-product' element={<UpdateProduct/>}></Route> */}
+
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path="/profile-creation" element={<UserProfile />}></Route>
 
@@ -114,10 +113,8 @@ export const Container = () => {
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
-<<<<<<< HEAD
-=======
 
->>>>>>> profile
+
       </Routes>
     </>
   );

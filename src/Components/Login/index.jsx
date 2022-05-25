@@ -25,16 +25,8 @@ const Login = () => {
       await axios
         .post(url, data)
         .then((result) => {
-<<<<<<< HEAD
           localStorage.setItem("token", result.data.data.token);
           window.location = "/";
-=======
-          console.log(result.data);
-          localStorage.setItem("token", result.data.data.token);
-          window.location = "/";
-          console.log(result.data.data.token);
-          localStorage.setItem("token", result.data.data.token);
->>>>>>> profile
         })
         .catch((err) => {
           console.log(err.response.data.message);
