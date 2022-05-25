@@ -37,7 +37,7 @@ const Footer = () => {
         </section>
         {/* Section: Social media */}
         {/* Section: Links  */}
-        <section className="text-white py-3" style={{backgroundColor: "#A0A0A0"}}>
+        <section className="text-white py-3" style={{ backgroundColor: "#A0A0A0" }}>
           <div className="container text-center text-md-start mt-5" >
             {/* Grid row */}
             <div className="row mt-3">
@@ -169,15 +169,16 @@ const Footer = () => {
           style={{ backgroundColor: "#707070" }}
         >
           © 2021 Copyright:Spotless Zone
-          <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
+          {/* <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
             MDBootstrap.com
-          </a>
+          </a> */}
         </div>
-        {/* Copyright */}
       </footer>
       {/* Footer */}
     </>
   );
 };
 
-export default Footer;
+export default Footer
+
+
