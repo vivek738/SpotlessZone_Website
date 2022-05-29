@@ -8,11 +8,12 @@ import Footer from './Components/Homepage/Footer';
 function App() {
   return (
     <>
-    <BrowserRouter>
-    <Container/>
-    <Footer />
-    </BrowserRouter>
+      <BrowserRouter>
+        <Container />
+        <Footer />
+      </BrowserRouter>
     </>
-  )}
+  )
+}
 
 export default App;
