@@ -26,6 +26,7 @@ import AllResidentialServices from "../Components/Services/AllResidentialService
 import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
+import UserDashboard from "../Components/UsedDashboard/UserDashboard";
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
@@ -96,6 +97,8 @@ export const Container = () => {
 
         <Route path='/add-picture' element={<AddPicture/>}></Route>
         <Route path='/gallery' element={<DisplayGallery/>}></Route>
+
+        <Route path='/user-dashboard' element={<UserDashboard />}></Route>
 
 
 
