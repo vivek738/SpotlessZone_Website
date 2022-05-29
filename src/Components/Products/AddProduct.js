@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 const Addproduct = () => {
   //this will come from database
-  
+
   // ...................................................
   const [pname, setProductname] = useState("");
   const [pdesc, setProductdesc] = useState("");
@@ -20,10 +20,16 @@ const Addproduct = () => {
     formState: { errors },
   } = useForm({ shouldUseNativeValidation: false });
   // token for farm authorization
-  
+
   // this will appear immediately on the screen when open pages
- 
+  // const productData = {
+  //   pname: pname,
+  //   pdesc: pdesc,
+  //   pprice: pprice,
+  //   pqty: pqty,
+  // };
   const onSubmitAddProductData = (data, e) => {
+   
     e.preventDefault();
     const productData = new FormData();
     productData.append("pname", pname);
@@ -34,9 +40,9 @@ const Addproduct = () => {
     axios
       .post("http://localhost:5000/product-add", productData)
       .then((result) => {
-         console.log(result);
+        console.log(result);
         if (result) {
-          window.location = "/getproduct"
+          window.location = "/getproduct";
           toast.success(<ProductAddedSuccessToast />, {
             position: toast.POSITION.BOTTOM_CENTER,
             autoClose: false,
@@ -57,7 +63,6 @@ const Addproduct = () => {
   };
   return (
     <>
-      
       <div className="hori_line">
         <hr />
       </div>
@@ -82,8 +87,6 @@ const Addproduct = () => {
                       onSubmit={handleSubmit(onSubmitAddProductData)}
                       encType="multipart/form-data"
                     >
-                      
-                      
                       {/* input field for product name */}
                       <div className="form-group">
                         <label htmlFor="pname">Product Name</label>
@@ -109,6 +112,7 @@ const Addproduct = () => {
                           // changing data on typing and set data to product name variable and send to database
                           value={pname}
                           onChange={(e) => setProductname(e.target.value)}
+                          id="pname"
                         />
                         {/* for displaying error message on validating */}
                         {errors.setProductname && (
@@ -128,6 +132,7 @@ const Addproduct = () => {
                             required: "Choose product image",
                           })}
                           onChange={(e) => setImage(e.target.files[0])}
+                          id="image"
                         />
                         {errors.setImage && (
                           <small className="text-danger">
@@ -157,6 +162,7 @@ const Addproduct = () => {
                           })}
                           value={pqty}
                           onChange={(e) => setQuantity(e.target.value)}
+                          id="pqty"
                         />
                         {errors.setQuantity && (
                           <small className="text-danger">
@@ -164,8 +170,7 @@ const Addproduct = () => {
                           </small>
                         )}
                       </div>
-                      
-                     
+
                       {/* input field for product price*/}
                       <div className="form-group">
                         <label htmlFor="pprice">Product Price</label>
@@ -184,6 +189,7 @@ const Addproduct = () => {
                           })}
                           value={pprice}
                           onChange={(e) => setProductprice(e.target.value)}
+                          id="pprice"
                         />
                         {errors.setProductprice && (
                           <small className="text-danger">
@@ -217,6 +223,7 @@ const Addproduct = () => {
                       <button
                         type="submit"
                         className="product_add_btn btn btn-info"
+                        id="submitBtn"
                       >
                         Submit
                       </button>
@@ -232,7 +239,6 @@ const Addproduct = () => {
   );
 };
 export default Addproduct;
-
 
 const ProductAddedSuccessToast = () => {
   return (
@@ -266,55 +272,15 @@ const WarningToast = () => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState } from "react";
 // import axios from "axios";
 
-
-
-
-
 // const Addproduct=()=>{
-
-
 
 //     const [pname, setPname] = useState('');
 //     const [pprice, setPprice] = useState('');
 //     const [pqty, setPqty] = useState('');
-    
+
 //     const [message, setMessage] = useState('');
 //     const [pic, setImage] = useState('');
 
@@ -335,7 +301,6 @@ const WarningToast = () => {
 // })
 // .catch()
 //      }
-    
 
 //     return(
 //         <div className="container">
@@ -344,18 +309,17 @@ const WarningToast = () => {
 //                 <div className="col-md-4">
 //                     <h2 className="custom-heading-h2">ADD PRODUCT</h2>
 //                     <p>{message}</p>
-                    
+
 //                     <form>
 
 //                     {<div className="form-group">
 //                             <label>Upload image</label>
 //                             <input type="file" className="form-control"
-                            
+
 //                             onChange={(e)=>setImage(e.target.files[0])}
-                            
+
 //                             />
 //                         </div> }
-
 
 //                         <div className="form-group">
 //                             <label>Product Name</label>
@@ -373,8 +337,6 @@ const WarningToast = () => {
 //                             />
 //                         </div>
 
-                        
-
 //                         <div className="form-group">
 //                             <label>Product Quantity</label>
 //                             <input type="text" className="form-control"
@@ -391,5 +353,3 @@ const WarningToast = () => {
 //     )
 // }
 // export default Addproduct;
-
-    

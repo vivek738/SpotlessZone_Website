@@ -48,6 +48,7 @@ const AddService = () => {
     axios
       .post("http://localhost:5000/service/add", serviceData)
       .then((result) => {
+        window.location = "/";
         console.log(result.data);
         setServiceName("");
         setServiceDesc("");
