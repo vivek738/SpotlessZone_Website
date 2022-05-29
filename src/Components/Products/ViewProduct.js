@@ -20,7 +20,7 @@ const Product = () => {
 
   return (
     <>
-    <div className="container">
+    <div className="container" id="displayProducts">
       <div className="row">
           <Link to="/addProduct" className='btn btn-primary'>ADD PRODUCT</Link>
         {the.map((prod) => {
