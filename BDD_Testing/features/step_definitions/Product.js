@@ -13,9 +13,13 @@ Given("Test Product Add functionality", { timeout: 30000 }, async function () {
 
   await driver.findElement(By.id("pname")).sendKeys("New Product");
   await driver.findElement(By.id("pprice")).sendKeys("100");
-  await driver.findElement(By.id("exampleFormControlTextarea1")).sendKeys("This  is the new product");
+  await driver
+    .findElement(By.id("exampleFormControlTextarea1"))
+    .sendKeys("This  is the new product");
   await driver.findElement(By.id("pqty")).sendKeys("12");
-
+  await driver
+    .findElement(By.id("image"))
+    .sendKeys("C:\\Users\\CEH RAMESH\\Desktop\\ImagesReactApp\\restro.jpg");
   await driver.sleep(delay);
   await driver.findElement(By.id("submitBtn")).click();
 
@@ -47,7 +51,6 @@ Given("Test Product Add functionality", { timeout: 30000 }, async function () {
 //   expect(await driver.wait(until.elementLocated(By.id("productDisplay"))));
 //   // await driver.quit();
 // });
-
 
 // Given("Test login functionality", { timeout: 30000 }, async function () {
 //   let driver = await new Builder().forBrowser("chrome").build();
