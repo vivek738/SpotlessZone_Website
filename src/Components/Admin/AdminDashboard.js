@@ -10,6 +10,7 @@ import {
     AreaChart,
     Area,
 } from "recharts";
+import { Link } from "react-router-dom";
 
 // weekly like data here
 const ddata = [
@@ -127,9 +128,9 @@ const AdminDashboard = () => {
                                                     </span>
                                                 </span>
                                             </button>
-                                            <button className="btn btn-danger px-3 ms-5">
+                                            <Link className="btn btn-danger px-3 ms-5" to="/addProduct">
                                                 Add Product
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -169,58 +170,59 @@ const AdminDashboard = () => {
                                     <div className="my-3">
                                         <p className="text text-secondary h6 mb-0 mx-3">Menu</p>
                                     </div>
-                                    <div className="py-2 w-100">
+                                    <div className="py-2 w-100 mx-2">
                                         {/* first navlink */}
-                                        <a href="#" className="nav-link w-100 my-2 ps-3">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-th text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Dashboard</p>
                                             </div>
                                         </a>
                                         {/* second navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-sort text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Order</p>
                                             </div>
                                         </a>
                                         {/* third navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
-                                                <p className="text text-dark fs-5 mb-0">Product</p>
+                                                {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
+                                                <Link className="text text-dark fs-5 mb-0 text-decoration-none" to="/display-all-products">Products</Link>
                                             </div>
                                         </a>
                                         {/* fourth navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-comment text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Message</p>
                                             </div>
                                         </a>
                                         {/* fourth navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-calendar text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Calendar</p>
                                             </div>
                                         </a>
                                         {/* fourth navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-map text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Map</p>
                                             </div>
                                         </a>
                                         {/* fifth navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-cog text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">Settings</p>
                                             </div>
                                         </a>
                                         {/* sixth navlink */}
-                                        <a href="#" className="nav-link w-100 my-2">
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
                                                 <p className="text text-dark fs-5 mb-0">FAQ</p>
