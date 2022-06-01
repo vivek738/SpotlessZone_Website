@@ -1,0 +1,9 @@
+.bimg{
+    width: 100%
+}
+.bimg:hover{
+    transform: scale(.9);
+    width: 100%;
+    overflow: hidden;
+    transition: 1s;
+}

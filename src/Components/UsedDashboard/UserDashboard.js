@@ -61,6 +61,32 @@ const UserDashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="col-md-12 mb-3">
+                                <div className="p-2 bg-light rounded border">
+                                    <div className="d-flex justify-content-between align-items-center mx-3">
+                                        <div className=''>
+                                            <p className="text text-secondary mb-0">You have assigned create model task.</p>
+                                            <span class="badge bg-success">Completed</span>
+                                        </div>
+                                        <div>
+                                            <button className="btn btn-primary px-4 disabled">Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-12 mb-3">
+                                <div className="p-2 bg-light rounded border">
+                                    <div className="d-flex justify-content-between align-items-center mx-3">
+                                        <div className=''>
+                                            <p className="text text-secondary mb-0">You have assigned create model task.</p>
+                                            <span class="badge bg-success">Completed</span>
+                                        </div>
+                                        <div>
+                                            <button className="btn btn-primary px-4 disabled">Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
