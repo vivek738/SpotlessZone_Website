@@ -28,6 +28,8 @@ import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
+import Blogs from "../Components/Blogs/Blogs";
+import BlogDetail from "../Components/Blogs/BlogDetail";
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
@@ -117,6 +119,9 @@ export const Container = () => {
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
+
+        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
 
 
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
