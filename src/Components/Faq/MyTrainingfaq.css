@@ -1,0 +1,20 @@
+
+*{
+    font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
+.main-heading .emoticon{
+    font-size: 15px;
+    color: #3bb19b;
+    
+}
+.faq h3{
+    font-size: 14px;
+}
+
+.faq .answer{
+    font-size: 11px;
+    margin-left: 16px;
+}
+

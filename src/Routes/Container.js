@@ -27,9 +27,18 @@ import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
+
+import Accordion from "../Components/Faq/Accordion";
+import Productfaq from "../Components/Faq/Productfaq";
+import Trainingfaq from "../Components/Faq/Trainingfaq";
+import Contactus from "../Components/Contactus/Contactus";
+
+
+
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import Blogs from "../Components/Blogs/Blogs";
 import BlogDetail from "../Components/Blogs/BlogDetail";
+
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
@@ -120,11 +129,20 @@ export const Container = () => {
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
 
+
+        <Route path = '/faq' element = {<Accordion/>}></Route>
+        <Route path = '/productfaq' element = {<Productfaq></Productfaq>}></Route>
+        <Route path = '/trainingfaq' element = {<Trainingfaq></Trainingfaq>}></Route>
+        <Route path="/contactus" element= {<Contactus></Contactus>}></Route>
+
+
+
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
 
 
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+
 
 
 
