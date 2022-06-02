@@ -27,6 +27,12 @@ import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
+import Accordion from "../Components/Faq/Accordion";
+import Productfaq from "../Components/Faq/Productfaq";
+import Trainingfaq from "../Components/Faq/Trainingfaq";
+import Contactus from "../Components/Contactus/Contactus";
+
+
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
@@ -116,6 +122,14 @@ export const Container = () => {
         <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
+
+        <Route path = '/faq' element = {<Accordion/>}></Route>
+        <Route path = '/productfaq' element = {<Productfaq></Productfaq>}></Route>
+        <Route path = '/trainingfaq' element = {<Trainingfaq></Trainingfaq>}></Route>
+        <Route path="/contactus" element= {<Contactus></Contactus>}></Route>
+
+
+
 
 
       </Routes>

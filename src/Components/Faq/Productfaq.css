@@ -1,0 +1,144 @@
+*{
+    font-family: sans-serif;
+
+}
+
+.heading h4{
+    font-weight: bolder;
+    margin-left: 60px;
+    margin-top: 20px;
+    
+}
+
+.heading span{
+    color: #3bb19b;
+    font-weight: bolder;
+}
+
+.faqimg img{
+    height: 200px;
+    margin-top: 5px;
+    margin-right: 100px;
+}
+
+.category{
+    margin-top: 35px;
+}
+
+.category ul{
+    margin-left: 140px;
+
+}
+.category ul li{
+    margin-left: 60px;
+}
+
+.category ul li{
+    word-spacing: 12px;
+}
+
+.section ul{
+    margin-left: 12px;
+    display: flex;
+}
+
+.category ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 130px;
+  }
+  
+  .category li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-align: center;
+    width: 170px;
+
+  }
+  
+  /* Change the link color on hover */
+  .category li a:hover {
+    background-color: #f1f1f1;
+    color: #3bb19b;
+    border-radius: 40px;
+    width: 170px;
+
+
+  }
+
+  .category .linkkk{
+      margin-top: 60px;
+      margin-left: 80px;
+  }
+  .category ul li{
+      border-radius: 50px;
+  }
+
+  .catrgory .linkk{
+      margin-top: 100;
+      
+  }
+
+  .linkk li{
+      margin-top: 15px;
+  }
+
+  .seconddiv{
+      margin-top: 10px;
+  }
+
+  .seconddiv h6{
+      margin-left: 80px;
+  }
+
+  .main-div{
+      margin-left: 80px;
+  }
+
+  .seconddiv h6{
+      text-decoration: underline;
+text-decoration-style:initial;
+      text-decoration-thickness: 2px;
+      color: #3bb19b;
+      font-weight: bold;
+      text-underline-position:under;
+      
+      }
+      .contactus{
+          text-align: center;
+          margin-top: 40px;
+          background-color: #3bb19b;
+          color: #f1f1f1;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          
+        
+      }
+
+      .contactus p{
+          font-size: 15px;
+      }
+
+    
+      .contactus button{
+        border-radius: 15px;
+        background: white;
+        border-color: #3bb19b;
+        color:black;
+        width: 8rem;
+        
+    
+    }
+
+    .contactus button:hover{
+        transition: ease-in 0.25s;
+        background-color: #ce0f71;
+        color: white;
+        background-color: #ce0f71;
+    }
+    
+
+  
