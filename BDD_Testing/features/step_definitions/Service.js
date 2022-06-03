@@ -22,7 +22,8 @@ Given("Test Service Add functionality", { timeout: 30000 }, async function () {
   await driver.findElement(By.id("servicePrice")).sendKeys("300");
   await driver
     .findElement(By.id("image"))
-    .sendKeys("C:\\Users\\CEH RAMESH\\Desktop\\ImagesReactApp\\restro.jpg");
+    
+    .sendKeys("C:\\Users\\DELL\\Downloads\\phonecall.png");
   await driver.sleep(delay);
   await driver.findElement(By.id("submitBtn")).click();
 
