@@ -16,3 +16,25 @@
 .middle p{
     text-align: center;
 }
+
+.last img{
+    height: 30px;
+    width: 30px;
+}
+
+form button{
+    background-color:#3bb19b;
+    border-color: #3bb19b;
+    border-radius: 14px;
+    color: aliceblue;
+    width: 120px;
+    margin-left: 80px;
+    font-weight: bold;
+
+}
+
+form button:hover{
+    transition: ease-out 1s;
+    background-color: aquamarine;
+    
+}
