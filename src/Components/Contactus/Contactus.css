@@ -1,4 +1,4 @@
-.image img{
+/* .image img{
     height: 200px;
     width: 100%;
 }
@@ -37,4 +37,13 @@ form button:hover{
     transition: ease-out 1s;
     background-color: aquamarine;
     
+} */
+
+.main{
+    background-color: #3bb19b;
 }
+
+/* .picture{
+    height: 50px;
+    width: 50px;
+} */
