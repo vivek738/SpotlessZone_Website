@@ -27,15 +27,26 @@ import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
+
 import TestingService from "../Components/Services/TestingService";
 import BookService from "../Components/Services/BookService";
 import { ToastContainer } from "react-toastify";
 import Notification from "../Components/Services/Notification";
 
+import Accordion from "../Components/Faq/Accordion";
+import Productfaq from "../Components/Faq/Productfaq";
+import Trainingfaq from "../Components/Faq/Trainingfaq";
+import Contactus from "../Components/Contactus/Contactus";
+
+import AdminDashboard from "../Components/Admin/AdminDashboard";
+import Blogs from "../Components/Blogs/Blogs";
+import BlogDetail from "../Components/Blogs/BlogDetail";
+import AdminProducts from "../Components/Products/AdminViewProducts";
+
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
-  const decodeUser = parseJwt(user)
+  const decodeUser = parseJwt(user);
   // console.log(decodeUser.user)
   return (
     <>
@@ -43,14 +54,14 @@ export const Container = () => {
       <Routes>
         <Route path="/" exact element={<Homepage />} />
 
-
         {/* Admin route for product */}
         <Route path="/addProduct" element={<Addproduct />}></Route>
-        <Route path='/getproduct' element={<Product/>}></Route>
-        <Route path='/adminUpdateproduct' element={<AdminUpdate/>}></Route>
-        <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
-        
-        
+        <Route path="/getproduct" element={<Product />}></Route>
+        <Route path="/view-admin-products" element={<AdminProducts />}></Route>
+
+        <Route path="/adminUpdateproduct" element={<AdminUpdate />}></Route>
+        <Route path="/update-product/:pid" element={<UpdateProduct />}></Route>
+
         {/* {user && (
           
         )} */}
@@ -61,7 +72,6 @@ export const Container = () => {
           :
           <></>
         } */}
-
 
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/login" exact element={<Login />} />
@@ -78,63 +88,72 @@ export const Container = () => {
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path="/profile-creation" element={<UserProfile />}></Route>
 
+        <Route path="/job-form-submit" element={<Hiring />}></Route>
+        <Route path="/cart" element={<ProductCart />}></Route>
 
-       
+        <Route path="/display-all-products" element={<AllProducts />}></Route>
+        <Route
+          path="/single-product/:pid"
+          element={<SingleProductInfo />}
+        ></Route>
 
-        <Route path='/job-form-submit' element={<Hiring/>}></Route>
-        <Route path='/cart' element={<ProductCart/>}></Route>
+        <Route path="/all-services" element={<AllServices />}></Route>
 
-        <Route path='/display-all-products' element={<AllProducts/>}></Route>
-        <Route path='/single-product/:pid' element={<SingleProductInfo/>}></Route>
+        <Route
+          path="/add-service-category"
+          element={<AddServiceCategory />}
+        ></Route>
+        <Route
+          path="/view-service-category"
+          element={<ViewServiceCategory />}
+        ></Route>
+        <Route
+          path="/update-service-category/:scid"
+          element={<UpdateCategoryService />}
+        ></Route>
 
+        <Route path="/add-service" element={<AddService />}></Route>
+        <Route path="/add-services" element={<TestingService />}></Route>
 
-        <Route path='/all-services' element={<AllServices/>}></Route>
+        <Route
+          path="/all-commercial-services"
+          element={<AllCommercialServices />}
+        ></Route>
+        <Route
+          path="/all-residential-services"
+          element={<AllResidentialServices />}
+        ></Route>
 
+        <Route path="/single-service/:sid" element={<SingleService />}></Route>
 
-        <Route path='/add-service-category' element={<AddServiceCategory/>}></Route>
-        <Route path='/view-service-category' element={<ViewServiceCategory/>}></Route>
-        <Route path='/update-service-category/:scid' element={<UpdateCategoryService/>}></Route>
+        <Route path="/add-picture" element={<AddPicture />}></Route>
+        <Route path="/gallery" element={<DisplayGallery />}></Route>
 
-        <Route path='/add-service' element={<AddService/>}></Route>
-        <Route path='/add-services' element={<TestingService/>}></Route>
+        <Route path="/book-service" element={<BookService />}></Route>
 
-        <Route path='/all-commercial-services' element={<AllCommercialServices/>}></Route>
-        <Route path='/all-residential-services' element={<AllResidentialServices/>}></Route>
+        <Route path="/noti" element={<Notification />}></Route>
 
-        <Route path='/single-service/:sid' element={<SingleService/>}></Route>
-
-        <Route path='/add-picture' element={<AddPicture/>}></Route>
-        <Route path='/gallery' element={<DisplayGallery/>}></Route>
-
-
-        <Route path='/book-service' element={<BookService/>}></Route>
-
-
-        <Route path='/noti' element={<Notification/>}></Route>
-
-
-
-
-        <Route path='/user-dashboard' element={<UserDashboard />}></Route>
-
-
-
-
-
-
-
+        <Route path="/user-dashboard" element={<UserDashboard />}></Route>
 
         <Route path="/aboutus" element={<AboutUs></AboutUs>}></Route>
 
-
-
-
-        <Route path='/getproduct' element={<Product/>}></Route>
-        <Route path='/update-product/:pid' element={<UpdateProduct/>}></Route>
+        <Route path="/getproduct" element={<Product />}></Route>
+        <Route path="/update-product/:pid" element={<UpdateProduct />}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
 
+        <Route path="/faq" element={<Accordion />}></Route>
+        <Route path="/productfaq" element={<Productfaq></Productfaq>}></Route>
+        <Route
+          path="/trainingfaq"
+          element={<Trainingfaq></Trainingfaq>}
+        ></Route>
+        <Route path="/contactus" element={<Contactus></Contactus>}></Route>
 
+        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+
+        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
       </Routes>
     </>
   );

@@ -1,0 +1,18 @@
+.image img{
+    height: 200px;
+    width: 100%;
+}
+
+.middle .heading{
+    text-align: center;
+    color: #3bb19b;
+    font-weight: bold;
+    
+}
+.form{
+    width: 400px;
+    justify-content: center;
+}
+.middle p{
+    text-align: center;
+}
