@@ -3,14 +3,23 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
+import Spinner from "../Spinner/Spinner";
 const DisplayGallery = () => {
   const [galleryData, setGalleryData] = useState([]);
+  const [isloading, setLoading] = useState(true);
+  const myTimeOut = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:5000/picture/get")
       .then((result) => {
         // console.log(result.data);
+        myTimeOut();
         setGalleryData(result.data);
       })
       .catch((err) => {
@@ -44,36 +53,38 @@ const DisplayGallery = () => {
         </div>
       </div>
       <div className="container">
-        <Link className="btn btn-primary float-end mt-3" to={`/add-picture`}>
+        {/* <Link className="btn btn-primary float-end mt-3" to={`/add-picture`}>
           Add More
-        </Link>
+        </Link> */}
+        <h1>{isloading && <Spinner />}</h1>
         <div className="row justify-content-center">
-          {galleryData.map((gData) => {
-            return (
-              <div className="col-md-4">
-                <div
-                  className="card m-3 shadow-lg"
-                  style={{
-                    cursor: "pointer",
-                    borderRadius: "10px",
-                    // boxShadow: "1px 1px 1px 1px #94FFFF",
-                  }}
-                >
-                  {/* <div className="card-body"> */}
-                  <div className="service_image_part">
-                    <img
-                      src={`http://localhost:5000/${gData.image}`}
-                      alt=""
-                      className="img-fluid"
-                      // style={{ height: "320px", width: "350px" }}
-                      style={{ borderRadius: "10px" }}
-                    />
-                    {/* </div> */}
+          {!isloading &&
+            galleryData.map((gData) => {
+              return (
+                <div className="col-md-4">
+                  <div
+                    className="card m-3 shadow-lg"
+                    style={{
+                      cursor: "pointer",
+                      borderRadius: "10px",
+                      // boxShadow: "1px 1px 1px 1px #94FFFF",
+                    }}
+                  >
+                    {/* <div className="card-body"> */}
+                    <div className="service_image_part">
+                      <img
+                        src={`http://localhost:5000/${gData.image}`}
+                        alt=""
+                        className="img-fluid"
+                        // style={{ height: "320px", width: "350px" }}
+                        style={{ borderRadius: "10px" }}
+                      />
+                      {/* </div> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </>

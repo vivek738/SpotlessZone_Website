@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
+import Spinner from "../Spinner/Spinner";
 
 const AllProducts = () => {
   const [productdata, setProductdata] = useState([]);
+  const [isloading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:5000/get/product")
       .then((result) => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
         console.log(result.data);
         setProductdata(result.data);
       })
@@ -47,6 +53,7 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
+
       <div className="container-fluid py-5 text-center">
         <p className="fw-bold">
           We have wide ranges of truely satisfying customer favourite products
@@ -61,54 +68,57 @@ const AllProducts = () => {
         </p>
       </div>
 
+      {isloading && <Spinner />}
+
       {/* for product display */}
       <div className="allproduct_list container-fluid">
         <div className="row">
-          {productdata.map((allProductsdata) => {
-            return (
-              <div className="col-md-4">
-                <div
-                  className="card m-3 "
-                  style={{
-                    cursor: "pointer",
-                    boxShadow: "2px 2px 2px 2px #94FFFF",
-                  }}
-                >
-                  <div className="card-body">
-                    <div className="product_image_part">
-                      <img
-                        src={"http://localhost:5000/" + allProductsdata.pic}
-                        alt=""
-                        className="img-fluid"
-                        style={{ minHeight: "300px", minWidth: "300px" }}
-                      />
-                    </div>
-                    <div className="product_text">
-                      <h3 className="text-center py-3">
-                        {allProductsdata.pname}
-                      </h3>
-                      <h6
-                        className="text-center"
-                        style={{ fontStyle: "italic" }}
+          {!isloading &&
+            productdata.map((allProductsdata) => {
+              return (
+                <div className="col-md-4">
+                  <div
+                    className="card m-3 "
+                    style={{
+                      cursor: "pointer",
+                      boxShadow: "2px 2px 2px 2px #94FFFF",
+                    }}
+                  >
+                    <div className="card-body">
+                      <div className="product_image_part">
+                        <img
+                          src={"http://localhost:5000/" + allProductsdata.pic}
+                          alt=""
+                          className="img-fluid"
+                          style={{ minHeight: "300px", minWidth: "300px" }}
+                        />
+                      </div>
+                      <div className="product_text">
+                        <h3 className="text-center py-3">
+                          {allProductsdata.pname}
+                        </h3>
+                        <h6
+                          className="text-center"
+                          style={{ fontStyle: "italic" }}
+                        >
+                          Rs{" "}
+                          {allProductsdata.pprice +
+                            " per " +
+                            allProductsdata.pqty}
+                        </h6>
+                      </div>
+                      <Link
+                        to={"/single-product/" + allProductsdata._id}
+                        className="btn btn-info text-center w-75 ms-5 text-white text-uppercase my-3"
+                        style={{ fontWeight: "bold" }}
                       >
-                        Rs{" "}
-                        {allProductsdata.pprice +
-                          " per " +
-                          allProductsdata.pqty}
-                      </h6>
+                        Details
+                      </Link>
                     </div>
-                    <Link
-                      to={"/single-product/" + allProductsdata._id}
-                      className="btn btn-info text-center w-75 ms-5 text-white text-uppercase my-3"
-                      style={{ fontWeight: "bold" }}
-                    >
-                      Details
-                    </Link>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </>
