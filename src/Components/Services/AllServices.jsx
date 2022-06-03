@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CommercialServiceItem from "./CommercialServiceItem";
 import ResidentialServiceItem from "./ResidentialServiceItem";
-import Widgets from "./Widgets";
 import axios from "axios";
 
 const AllServices = () => {
@@ -31,7 +30,7 @@ const AllServices = () => {
   }, []);
   return (
     <>
-      <div className="container my-5">
+      <div className="container my-5" id="displayServices">
         <div className="row">
           {/* for residential use */}
           <div className="col-md-2 col-12 me-4 ">
