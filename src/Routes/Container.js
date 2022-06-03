@@ -27,6 +27,11 @@ import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
+import TestingService from "../Components/Services/TestingService";
+import BookService from "../Components/Services/BookService";
+import { ToastContainer } from "react-toastify";
+import Notification from "../Components/Services/Notification";
+
 export const Container = () => {
   //in login branch
   const user = localStorage.getItem("token");
@@ -34,6 +39,7 @@ export const Container = () => {
   // console.log(decodeUser.user)
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route path="/" exact element={<Homepage />} />
 
@@ -90,6 +96,8 @@ export const Container = () => {
         <Route path='/update-service-category/:scid' element={<UpdateCategoryService/>}></Route>
 
         <Route path='/add-service' element={<AddService/>}></Route>
+        <Route path='/add-services' element={<TestingService/>}></Route>
+
         <Route path='/all-commercial-services' element={<AllCommercialServices/>}></Route>
         <Route path='/all-residential-services' element={<AllResidentialServices/>}></Route>
 
@@ -97,6 +105,15 @@ export const Container = () => {
 
         <Route path='/add-picture' element={<AddPicture/>}></Route>
         <Route path='/gallery' element={<DisplayGallery/>}></Route>
+
+
+        <Route path='/book-service' element={<BookService/>}></Route>
+
+
+        <Route path='/noti' element={<Notification/>}></Route>
+
+
+
 
         <Route path='/user-dashboard' element={<UserDashboard />}></Route>
 

@@ -3,6 +3,7 @@ import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import BookService from "./BookService";
 
 const SingleService = () => {
   const { sid } = useParams();
@@ -52,9 +53,12 @@ const SingleService = () => {
       </div>
 
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-10 my-5">
+        <div className="row">
+          <div className="col-md-6 my-5">
             <p>{singleServiceData.serviceDesc}</p>
+          </div>
+          <div className="col-md-4 justify-content-center">
+            <BookService serviceData={singleServiceData} />
           </div>
         </div>
       </div>

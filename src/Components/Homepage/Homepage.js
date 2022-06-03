@@ -7,6 +7,11 @@ import AllServices from "../Services/AllServices";
 import HomeGallery from "./HomeGallery";
 // import "./Homepage.css";
 
+// let canUseDOM = !!(
+//   (typeof window !== 'undefined' &&
+//   window.document && window.document.createElement)
+// );
+
 const Homepage = () => {
   return (
     <>
