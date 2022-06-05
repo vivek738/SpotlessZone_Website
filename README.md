@@ -1,3 +1,11 @@
+ADMIN: 
+spotlesszone246@gmail.com
+Spotless@77
+
+CUSTOMER
+cpathakramesh246@gmail.com
+John@777
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

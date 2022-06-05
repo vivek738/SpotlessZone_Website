@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import Spinner from "../Spinner/Spinner";
+import "./viewproduct.css";
 
 const AllProducts = () => {
   const [productdata, setProductdata] = useState([]);
@@ -16,7 +17,7 @@ const AllProducts = () => {
       .then((result) => {
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 500);
         console.log(result.data);
         setProductdata(result.data);
       })
@@ -55,70 +56,77 @@ const AllProducts = () => {
       </div>
 
       <div className="container-fluid py-5 text-center">
-        <p className="fw-bold">
-          We have wide ranges of truely satisfying customer favourite products
-          <br />
-          <span>
+        <h1 className="text-success">
+          We have wide ranges of truely satisfying <br /> customer favourite
+          products
+          {/* <br /> */}
+          {/* <span className="fs-5">
             Believing on{" "}
-            <span className="text-info fst-italic fw-normal">
+            <span className="fw-normal fs-6">
               "Don't find Customers for your products instead find products for
               your customers".
             </span>
-          </span>{" "}
-        </p>
+          </span>{" "} */}
+        </h1>
       </div>
 
       {isloading && <Spinner />}
 
       {/* for product display */}
       <div className="allproduct_list container-fluid">
-        <div className="row">
-          {!isloading &&
-            productdata.map((allProductsdata) => {
-              return (
-                <div className="col-md-4">
-                  <div
-                    className="card m-3 "
-                    style={{
-                      cursor: "pointer",
-                      boxShadow: "2px 2px 2px 2px #94FFFF",
-                    }}
-                  >
-                    <div className="card-body">
-                      <div className="product_image_part">
-                        <img
-                          src={"http://localhost:5000/" + allProductsdata.pic}
-                          alt=""
-                          className="img-fluid"
-                          style={{ minHeight: "300px", minWidth: "300px" }}
-                        />
-                      </div>
-                      <div className="product_text">
-                        <h3 className="text-center py-3">
-                          {allProductsdata.pname}
-                        </h3>
-                        <h6
-                          className="text-center"
-                          style={{ fontStyle: "italic" }}
+        <div className="container col-md-11 my-3">
+          <div className="row">
+            {!isloading &&
+              productdata.map((allProductsdata) => {
+                return (
+                  <div className="text-center col-md-3">
+                    <div
+                      className="card my-3 px-0"
+                      style={{
+                        cursor: "pointer",
+                        boxShadow: "2px 2px 2px 2px #94FFFF",
+                        height: "400px",
+                      }}
+                    >
+                      <div className="card-body">
+                        <div
+                          className="product_image_part text-center"
+                          style={{ width: "90%", height: "40%" }}
                         >
-                          Rs{" "}
-                          {allProductsdata.pprice +
-                            " per " +
-                            allProductsdata.pqty}
-                        </h6>
+                          <img
+                            src={"http://localhost:5000/" + allProductsdata.pic}
+                            alt=""
+                            className="img-fluid bghv"
+                            style={{ height: "100%" }}
+                          />
+                        </div>
+                        <div className="product_text">
+                          <h3 className="text-center py-3">
+                            {allProductsdata.pname}
+                          </h3>
+                          <h6
+                            className="text-center"
+                            style={{ fontStyle: "italic" }}
+                          >
+                            Rs{" "}
+                            {allProductsdata.pprice +
+                              " per " +
+                              allProductsdata.pqty}
+                          </h6>
+                        </div>
+                        <Link
+                          to={"/single-product/" + allProductsdata._id}
+                          className="btn btn-info text-center w-75 ms-5 text-white text-uppercase my-3"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          Details
+                        </Link>
                       </div>
-                      <Link
-                        to={"/single-product/" + allProductsdata._id}
-                        className="btn btn-info text-center w-75 ms-5 text-white text-uppercase my-3"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        Details
-                      </Link>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
         </div>
       </div>
     </>

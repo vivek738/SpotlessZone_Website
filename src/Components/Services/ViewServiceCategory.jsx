@@ -87,6 +87,7 @@ const ViewServiceCategory = () => {
                               className="img-fluid"
                             />
                           </td> */}
+                          
                         <Link
                           to={
                             `/update-service-category/${singleCategory._id}`

@@ -1,15 +1,40 @@
 import React from 'react'
 import Header from '../Homepage/Header';
+import bgImg from "../../Images/first.png"
 
-const UserDashboard = () => {
+const UserDashboard = ({userData}) => {
     return (
         <>
+         <div
+        className="container-fluid homeImg py-3"
+        style={{
+          paddingTop: 70,
+          backgroundColor: "#ebebeb",
+          background: `url(${bgImg})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "30vh",
+          backgroundSize: "cover",
+          position: "relative",
+        }}
+      >
+        <Header />
+
+        {/* <div className="bread-crumb-section">
+          <h1 className="text-center text-white my-4 fw-bold">Cart</h1>
+          <div className="row text-center">
+            <Link className="text-success fw-bold text-decoration-none" to="/">
+              Home &gt;&gt; <span className="text-white">Cart</span>
+            </Link>
+          </div>
+        </div> */}
+      </div>
             <div className='bg-light container-fluid p-0'>
                 <div className='container col-md-8 py-4'>
                     <p className="text text-center text-secondary fs-3 fw-bold">Customer Dashboard</p>
                     <div className="d-flex justify-content-between align-items-center border p-3 rounded bg-white mb-3">
                         <div className="desc">
-                            <p className="text text-primary fs-5">Hey Suraj</p>
+                            <p className="text text-primary fs-5">{userData.name}</p>
                             <small className="d-block text-secondary mb-3">Enjoy yur free membership for lifetime access in our website.</small>
                             <div className="d-flex justify-content-start align-items-center">
                                 <i className="fa fa-check-circle me-2"></i>

@@ -103,11 +103,14 @@ const Header = () => {
                 </li>
 
                 {/* closing dropdowns  */}
-                <li className="nav-item mx-3">
+               {/* {localStorage.getItem("token") && <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to={`/display-all-products`}>
                     Products
                   </Link>
-                </li>
+                </li>} */}
+                <Link className="nav-link text-white" to={`/display-all-products`}>
+                    Products
+                  </Link>
                 <li className="nav-item mx-3">
                   <a className="nav-link text-white" href="/gallery">
                     Gallery

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
+import { parseJwt } from "../../utils/parseJwt";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -17,6 +18,7 @@ const Login = () => {
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
+  // token
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +28,21 @@ const Login = () => {
         .post(url, data)
         .then((result) => {
           localStorage.setItem("token", result.data.data.token);
-          window.location = "/";
+          const token = localStorage.getItem("token");
+          const tokenUser = parseJwt(token);
+          // console.log(object);
+          // console.log(result.data)
+          if (tokenUser.user?.role === "admin") {
+            window.location = "/admin-dashboard";
+            // console.log(tokenUser.user.role);
+            // console.log("this is admin dashboard");
+          } else if (tokenUser.user?.role === "user") {
+            // console.log("this is user dashboard");
+            window.location = "/user-dashboard"
+            // console.log(tokenUser.user.role);
+          } else {
+            console.log("error occur");
+          }
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -138,7 +154,7 @@ const Login = () => {
               <div className={styles.inputIcons}>
                 <i class="bi bi-lock-fill"></i>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   name="password"
                   value={data.password}
@@ -148,7 +164,7 @@ const Login = () => {
                 />
               </div>
 
-              <a
+              <Link
                 to="/forgot-password"
                 style={{ alignSelf: "flex-end", color: "#C5C2D0" }}
               >
@@ -161,11 +177,10 @@ const Login = () => {
                 >
                   Forgot Password ?
                 </p>
-              </a>
+              </Link>
 
               {error && <div className={styles.error_msg}>{error}</div>}
               <button
-                type="submit"
                 className={styles.green_btn}
                 disabled={data.email === "" && data.password === ""}
               >
