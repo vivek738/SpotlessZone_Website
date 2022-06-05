@@ -11,6 +11,7 @@ import {
   Area,
 } from "recharts";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // weekly like data here
 const ddata = [
@@ -64,7 +65,40 @@ const ddata = [
   },
 ];
 // weekly like data here
-const AdminDashboard = () => {
+const AdminDashboard = ({ adminData }) => {
+  const [noti, setNoti] = React.useState([]);
+  React.useEffect(() => {
+    //   for all notification either visible or not
+
+    axios
+      .get("http://localhost:5000/service/all-noti-unseen")
+      .then((response) => {
+        if (response) {
+          // console.log(`checking 2nd cond: ${l.length}`)
+          //   setNotiData(response.data);
+          if (response.data) {
+            setNoti(response.data);
+            // console.log(response.data);
+          }
+        } else {
+          console.log("all true");
+        }
+      })
+
+      .catch(() => {
+        console.log("error occur");
+      });
+  });
+  const logoutHandle = () => {
+    localStorage.clear();
+    window.location = "/";
+  };
+
+  const handleNoti = () => {
+    console.log("click");
+    window.location = "/notifications";
+  };
+
   return (
     <>
       <div className="container-fluid ps-0 py-3 bg-light">
@@ -109,8 +143,11 @@ const AdminDashboard = () => {
                         className="position-relative btn ps-2 pt-0 mx-3"
                       >
                         <i className="fa fa-bell"></i>
-                        <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1">
-                          0
+                        <span
+                          className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1"
+                          onClick={handleNoti}
+                        >
+                          {noti.length}
                           <span className="visually-hidden">
                             unread messages
                           </span>
@@ -162,10 +199,10 @@ const AdminDashboard = () => {
                       </div>
                       <div className="jj ms-3">
                         <p className="text text-dark fw-bold fs-6 mb-0">
-                          Vivek Sah
+                          {adminData.name}
                         </p>
                         <small className="text text-dark d-block">
-                          viveksah9800@gmail.com
+                          {adminData.email}
                         </small>
                       </div>
                     </div>
@@ -234,6 +271,18 @@ const AdminDashboard = () => {
                       <div className="d-flex justify-content-start align-items-center">
                         <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
                         <p className="text text-dark fs-5 mb-0">FAQ</p>
+                      </div>
+                    </a>
+                    {/* sixth navlink */}
+                    <a href="#" className="nav-link w-100 my-2 mb-3">
+                      <div className="d-flex justify-content-start align-items-center">
+                        <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
+                        <p
+                          className="text text-dark fs-5 mb-0"
+                          onClick={logoutHandle}
+                        >
+                          LOGOUT
+                        </p>
                       </div>
                     </a>
                   </div>

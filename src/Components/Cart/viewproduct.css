@@ -1,0 +1,5 @@
+
+.bghv:hover{
+    transform: scale(1.10);
+    transition: 1s;
+}

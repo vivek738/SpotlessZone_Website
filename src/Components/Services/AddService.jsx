@@ -84,39 +84,7 @@ const AddService = () => {
                 >
                   Service Category
                 </label>
-                <div className="input-group">
-                  <select
-                    style={{
-                      border: "1px solid green",
-                      borderRadius: "5px",
-                      width: "100%",
-                      padding: "5px",
-                    }}
-                    defaultValue=""
-                    {...register("setCategoryName", {
-                      required: "* Please choose one",
-                    })}
-                    value={serviceCategoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
-                    id="serviceCategoryName"
-                  >
-                    <option value="">Please Choose Service Category</option>
-
-                    {/* using loop for display added category to product added form */}
-                    {categoryData.map((multipleCategories) => {
-                      return (
-                        <option value={multipleCategories.serviceCategoryName}>
-                          {multipleCategories.serviceCategoryName}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  {errors.setCategoryName && (
-                    <small className="text-danger">
-                      {errors.setCategoryName.message}
-                    </small>
-                  )}
-                </div>
+                
 
                 {/* input field for product name */}
                 <div className="form-group">

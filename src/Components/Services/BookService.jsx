@@ -16,7 +16,7 @@ export const SuccessServiceBookedToast = () => {
   );
 };
 
-const BookService = ({ serviceData }) => {
+const BookService = ({ serviceData, userData }) => {
   const [sdata, setSData] = useState("");
   const [address, setAddress] = useState("");
 
@@ -27,6 +27,8 @@ const BookService = ({ serviceData }) => {
     formState: { errors },
   } = useForm({ shouldUseNativeValidation: false });
 
+  // console.log(userData.name)
+
   const bookService = (data, e) => {
     e.preventDefault();
 
@@ -34,6 +36,7 @@ const BookService = ({ serviceData }) => {
       .post("http://localhost:5000/service/book-service", {
         serviceDetails: serviceData,
         address: address,
+        userId: userData._id,
       })
       .then((result) => {
         // console.log(result.serviceData);

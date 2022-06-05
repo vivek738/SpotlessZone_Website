@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import BookService from "./BookService";
 
-const SingleService = () => {
+const SingleService = ({userData}) => {
   const { sid } = useParams();
   const [singleServiceData, setSingleServiceData] = useState([]);
 
@@ -19,6 +19,8 @@ const SingleService = () => {
         console.log(err);
       });
   }, []);
+
+  // console.log(userData._id)
 
   return (
     <>
@@ -58,7 +60,7 @@ const SingleService = () => {
             <p>{singleServiceData.serviceDesc}</p>
           </div>
           <div className="col-md-4 justify-content-center">
-            <BookService serviceData={singleServiceData} />
+            <BookService serviceData={singleServiceData} userData={userData}/>
           </div>
         </div>
       </div>

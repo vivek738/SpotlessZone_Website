@@ -28,8 +28,10 @@ const SignUp = () => {
       const url = "http://localhost:5000/customer/register";
       const { data: res } = await axios.post(url, data);
       setMsg(res.message);
-      //   navigate("/login");
-      //   console.log(res.message);
+      setData.name("")
+      setData.email("")
+      setData.password("")
+      setData.phone("")
     } catch (error) {
       if (
         error.response &&
@@ -169,7 +171,7 @@ const SignUp = () => {
               <div className={styles.inputIcons}>
                 <i class="bi bi-lock-fill"></i>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   name="password"
                   value={data.password}
