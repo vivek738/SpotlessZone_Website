@@ -89,27 +89,29 @@ const AdminDashboard = () => {
                         </div>
                         <div className="col-md-9">
                             <div className="p-1">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <div className="w-50 d-flex">
-                                        <p className="text text-dark fs-4 fw-bold">Overview</p>
-                                        <div className="w-100" style={{ marginLeft: "80px" }}>
-                                            <form>
-                                                <input
-                                                    type="search"
-                                                    className="form-control w-100"
-                                                    placeholder="search here..."
-                                                />
-                                            </form>
+                                <div className="row">
+                                    <div className="col-md-6 ">
+                                        <div className="d-flex justify-content-starat align-items-center w-100">
+                                            <p className="text text-dark fs-4 fw-bold mb-0">Overview</p>
+                                            <div className="w-100 ms-3">
+                                                <form>
+                                                    <input
+                                                        type="search"
+                                                        className="form-control w-100"
+                                                        placeholder="search here..."
+                                                    />
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="w-50">
-                                        <div style={{ marginLeft: "210px" }}>
+                                    <div className="col-md-6">
+                                        <div>
                                             <button
                                                 type="button"
                                                 className="position-relative btn ps-2 pt-0 mx-3"
                                             >
                                                 <i className="fa fa-bell"></i>
-                                                <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1">
+                                                <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1 ">
                                                     0
                                                     <span className="visually-hidden">
                                                         unread messages
@@ -131,9 +133,62 @@ const AdminDashboard = () => {
                                             <Link className="btn btn-danger px-3 ms-5" to="/addProduct">
                                                 Add Product
                                             </Link>
+
+                                            <Link className="btn btn-danger px-3 ms-5 " to="/blogpost">
+                                                Add Blogs
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
+                                {/* <div className="d-flex justify-content-between align-items-center">
+                                    <div className="w-50 d-flex">
+                                        <p className="text text-dark fs-4 fw-bold">Overview</p>
+                                        <div className="w-100" style={{ marginLeft: "80px" }}>
+                                            <form>
+                                                <input
+                                                    type="search"
+                                                    className="form-control w-100"
+                                                    placeholder="search here..."
+                                                />
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div className="w-50">
+                                        <div style={{ marginLeft: "210px" }}>
+                                            <button
+                                                type="button"
+                                                className="position-relative btn ps-2 pt-0 mx-3"
+                                            >
+                                                <i className="fa fa-bell"></i>
+                                                <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1 ">
+                                                    0
+                                                    <span className="visually-hidden">
+                                                        unread messages
+                                                    </span>
+                                                </span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="position-relative btn ps-2 pt-0 me-3"
+                                            >
+                                                <i className="fa fa-shopping-cart"></i>
+                                                <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1">
+                                                    0
+                                                    <span className="visually-hidden">
+                                                        unread messages
+                                                    </span>
+                                                </span>
+                                            </button>
+                                            <Link className="btn btn-danger px-3 ms-5" to="/addProduct">
+                                                Add Product
+                                            </Link>
+
+                                            <Link className="btn btn-danger px-3 ms-5 " to="/blogpost">
+                                                Add Blogs
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -159,10 +214,10 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="jj ms-3">
                                                 <p className="text text-dark fw-bold fs-6 mb-0">
-                                                    Vivek Sah
+                                                    Ramesh Pathak
                                                 </p>
                                                 <small className="text text-dark d-block">
-                                                    viveksah9800@gmail.com
+                                                    spotlessZone246@gmail.com
                                                 </small>
                                             </div>
                                         </div>
@@ -191,6 +246,14 @@ const AdminDashboard = () => {
                                                 <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
                                                 {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
                                                 <Link className="text text-dark fs-5 mb-0 text-decoration-none" to="/display-all-products">Products</Link>
+                                            </div>
+                                        </a>
+                                        {/* third navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-file-text text-dark fs-5 me-4"></i>
+                                                {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
+                                                <Link className="text text-dark fs-5 mb-0 text-decoration-none" to="/admin-blog-home">Blogs</Link>
                                             </div>
                                         </a>
                                         {/* fourth navlink */}

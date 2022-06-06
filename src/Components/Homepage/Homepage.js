@@ -5,12 +5,12 @@ import Testimonial from "./Testimonial";
 import ChooseUs from "./ChooseUs";
 import AllServices from "../Services/AllServices";
 import HomeGallery from "./HomeGallery";
-// import "./Homepage.css";
+import "./Homepage.css";
 
 const Homepage = () => {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div>
         <div
           className="container-fluid homeImg py-3"

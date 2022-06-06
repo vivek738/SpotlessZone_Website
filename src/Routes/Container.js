@@ -38,6 +38,9 @@ import Contactus from "../Components/Contactus/Contactus";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import Blogs from "../Components/Blogs/Blogs";
 import BlogDetail from "../Components/Blogs/BlogDetail";
+import AdminBlogPost from "../Components/Admin/AdminBlogPost";
+import AdminBlogDetail from "../Components/Admin/AdminBlogDetail";
+import AdminBlogHome from "../Components/Admin/AdminBlogHome";
 
 export const Container = () => {
   //in login branch
@@ -138,10 +141,13 @@ export const Container = () => {
 
 
         <Route path="/blogs" element={<Blogs />}></Route>
-        <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+        <Route path="/blogdetail/:id" element={<BlogDetail />}></Route>
 
 
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+        <Route path="/blogpost" element={<AdminBlogPost />}></Route>
+        <Route path="/admin-blogdetail" element={<AdminBlogDetail />}></Route>
+        <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
 
 
 
