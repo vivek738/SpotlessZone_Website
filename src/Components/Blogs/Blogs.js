@@ -15,7 +15,7 @@ const Blogs = () => {
     return (
         <>
             <div className="container-fluid homeImg py-3" style={{ paddingTop: 70, backgroundColor: "#ebebeb", background: `url(${First})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "50vh", backgroundSize: "cover", position: "relative" }}>
-                {/* <Header></Header> */}
+                <Header></Header>
 
                 <div className="bread-crumb-section d-flex justify-content-center align-items-center">
                     <nav aria-label="breadcrumb">

@@ -67,10 +67,9 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <link className="nav-link text-white" to="/aboutus">
+                  <Link className="nav-link text-white" to="/aboutus">
                     About
-                  </
-                  link>
+                  </Link>
                 </li>
                 {/* adding dropdowns for other */}
                 <li className="frontpage_drop_down nav-item dropdown">

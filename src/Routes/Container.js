@@ -167,7 +167,7 @@ export const Container = () => {
 
 
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/blogpost" element={<AdminBlogPost />}></Route>
+        {/* <Route path="/blogpost" element={<AdminBlogPost />}></Route> */}
         <Route path="/admin-blogdetail" element={<AdminBlogDetail />}></Route>
         <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
 
