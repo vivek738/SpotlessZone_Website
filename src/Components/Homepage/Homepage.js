@@ -15,7 +15,6 @@ import "./Homepage.css";
 const Homepage = () => {
   return (
     <>
-      <Header />
       <div>
         <div
           className="container-fluid homeImg py-3"

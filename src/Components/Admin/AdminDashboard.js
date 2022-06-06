@@ -199,10 +199,10 @@ const AdminDashboard = ({ adminData }) => {
                       </div>
                       <div className="jj ms-3">
                         <p className="text text-dark fw-bold fs-6 mb-0">
-                          {adminData.name}
+                          {adminData?.name}
                         </p>
                         <small className="text text-dark d-block">
-                          {adminData.email}
+                          {adminData?.email}
                         </small>
                       </div>
                     </div>
@@ -235,6 +235,19 @@ const AdminDashboard = ({ adminData }) => {
                           to="/view-admin-products"
                         >
                           Products
+                        </Link>
+                      </div>
+                    </a>
+                    {/*  */}
+                    <a href="#" className="nav-link w-100 my-2 mb-3">
+                      <div className="d-flex justify-content-start align-items-center">
+                        <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
+                        {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
+                        <Link
+                          className="text text-dark fs-5 mb-0 text-decoration-none"
+                          to="/admin-blog-home"
+                        >
+                          Blogs
                         </Link>
                       </div>
                     </a>
