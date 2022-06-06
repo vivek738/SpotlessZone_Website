@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Homepage.css";
 
+
 const Header = () => {
   return (
     <>
@@ -66,9 +67,10 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <a className="nav-link text-white" href="/aboutus">
+                  <link className="nav-link text-white" to="/aboutus">
                     About
-                  </a>
+                  </
+                  link>
                 </li>
                 {/* adding dropdowns for other */}
                 <li className="frontpage_drop_down nav-item dropdown">
@@ -112,9 +114,9 @@ const Header = () => {
                     Products
                   </Link>
                 <li className="nav-item mx-3">
-                  <a className="nav-link text-white" href="/gallery">
+                  <Link className="nav-link text-white" to="/gallery">
                     Gallery
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to="/contactus">
