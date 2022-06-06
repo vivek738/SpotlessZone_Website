@@ -84,38 +84,7 @@ const AddService = () => {
                 >
                   Service Category
                 </label>
-                <div className="input-group">
-                  <select
-                    style={{
-                      border: "1px solid green",
-                      borderRadius: "5px",
-                      width: "100%",
-                      padding: "5px",
-                    }}
-                    defaultValue=""
-                    {...register("setCategoryName", {
-                      required: "* Please choose one",
-                    })}
-                    value={serviceCategoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
-                  >
-                    <option value="">Please Choose Service Category</option>
-
-                    {/* using loop for display added category to product added form */}
-                    {categoryData.map((multipleCategories) => {
-                      return (
-                        <option value={multipleCategories.serviceCategoryName}>
-                          {multipleCategories.serviceCategoryName}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  {errors.setCategoryName && (
-                    <small className="text-danger">
-                      {errors.setCategoryName.message}
-                    </small>
-                  )}
-                </div>
+                
 
                 {/* input field for product name */}
                 <div className="form-group">
@@ -150,6 +119,7 @@ const AddService = () => {
                     // changing data on typing and set data to service name variable and send to database
                     value={serviceName}
                     onChange={(e) => setServiceName(e.target.value)}
+                    id="serviceName"
                   />
                   {/* for displaying error message on validating */}
                   {errors.setServiceName && (
@@ -175,6 +145,7 @@ const AddService = () => {
                     style={{
                       border: "1px solid green",
                     }}
+                    id="image"
                   />
                   {errors.setImage && (
                     <small className="text-danger">
@@ -207,6 +178,7 @@ const AddService = () => {
                     style={{ border: "1px solid green" }}
                     value={servicePrice}
                     onChange={(e) => setServicePrice(e.target.value)}
+                    id="servicePrice"
                   />
                   {errors.setServicePrice && (
                     <small className="text-danger">
@@ -248,6 +220,7 @@ const AddService = () => {
                 <button
                   type="submit"
                   className="btn btn-info w-100 text-uppercase fw-bold text-white mt-4"
+                  id="submitBtn"
                 >
                   Submit
                 </button>

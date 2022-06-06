@@ -105,20 +105,23 @@ const Header = () => {
                 </li>
 
                 {/* closing dropdowns  */}
-                <li className="nav-item mx-3">
+               {/* {localStorage.getItem("token") && <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to={`/display-all-products`}>
                     Products
                   </Link>
-                </li>
+                </li>} */}
+                <Link className="nav-link text-white" to={`/display-all-products`}>
+                    Products
+                  </Link>
                 <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to="/gallery">
                     Gallery
                   </Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <a className="nav-link text-white" href="/">
+                  <Link className="nav-link text-white" to="/contactus">
                     Contacts
-                  </a>
+                  </Link>
                 </li>
                 {/* adding dropdowns for other */}
                 <li className="frontpage_drop_down nav-item dropdown">
@@ -137,7 +140,7 @@ const Header = () => {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <Link className="dropdown-item" to="/">
+                    <Link className="dropdown-item" to="/faq">
                       FAQ
                     </Link>
                     <Link className="dropdown-item" to="/blogs">

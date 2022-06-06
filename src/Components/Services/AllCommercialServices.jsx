@@ -4,26 +4,37 @@ import { Link } from "react-router-dom";
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import "./services.css";
+import Spinner from "../Spinner/Spinner";
 
 const AllCommercialServices = () => {
   const [commercialData, setCommercialData] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const myTimeOut = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  };
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:5000/service/get-commercial-services")
       .then((result) => {
-        console.log(result.data.serviceCategoryName);
+        myTimeOut();
         setCommercialData(result.data);
       })
       .catch((err) => {
         console.log(err);
       });
+
     axios
       .get("http://localhost:5000/service/commercial-service")
       .then((result) => {
         // console.log(result.data.
         //   serviceCategoryName);
+        myTimeOut();
         setCategoryName(result.data);
       })
       .catch((err) => {
@@ -61,42 +72,44 @@ const AllCommercialServices = () => {
           </div>
         </div>
       </div>
-      <div className="allproduct_list container-fluid">
+      <div className="container-fluid">
+        {loading && <Spinner />}
         <div className="row">
-          {commercialData.map((cData) => {
-            return (
-              <div className="col-md-4">
-                <div
-                  className="commercial-service-card card m-3 "
-                  style={{
-                    cursor: "pointer",
-                    boxShadow: "2px 2px 2px 2px #94FFFF",
-                  }}
-                >
-                  <div className="card-body">
-                    <div className="service_image_part">
-                      <img
-                        src={`http://localhost:5000/${cData.image}`}
-                        alt=""
-                        className="img-fluid"
-                        // style={{ height: "100px", minWidth: "100px" }}
-                      />
+          {!loading &&
+            commercialData.map((cData) => {
+              return (
+                <div className="col-md-4">
+                  <div
+                    className="commercial-service-card card m-3 "
+                    style={{
+                      cursor: "pointer",
+                      boxShadow: "2px 2px 2px 2px #94FFFF",
+                    }}
+                  >
+                    <div className="card-body">
+                      <div className="service_image_part">
+                        <img
+                          src={`http://localhost:5000/${cData.image}`}
+                          alt=""
+                          className="img-fluid"
+                          // style={{ height: "100px", minWidth: "100px" }}
+                        />
+                      </div>
+                      <div className="product_text">
+                        <h3 className="py-3">{cData.serviceName}</h3>
+                        <p>{cData.serviceDesc.slice(0, 120)}...</p>
+                      </div>
+                      <Link
+                        to={`/single-service/${cData._id}`}
+                        className="btn btn-info text-center text-white text-uppercase my-3 fw-bold float-end"
+                      >
+                        Read More &gt;&gt;
+                      </Link>
                     </div>
-                    <div className="product_text">
-                      <h3 className="py-3">{cData.serviceName}</h3>
-                      <p>{cData.serviceDesc.slice(0, 120)}...</p>
-                    </div>
-                    <Link
-                      to={`/single-service/${cData._id}`}
-                      className="btn btn-info text-center text-white text-uppercase my-3 fw-bold float-end"
-                    >
-                      Read More &gt;&gt;
-                    </Link>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </>
