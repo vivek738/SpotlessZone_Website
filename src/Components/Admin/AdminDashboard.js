@@ -89,7 +89,8 @@ const AdminDashboard = ({ adminData }) => {
         console.log("error occur");
       });
   });
-  const logoutHandle = () => {
+  const logoutHandle = (e) => {
+    e.preventDefault()
     localStorage.clear();
     window.location = "/";
   };

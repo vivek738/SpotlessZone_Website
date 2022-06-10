@@ -26,29 +26,22 @@ import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
 import UserDashboard from "../Components/UsedDashboard/UserDashboard";
-
 import TestingService from "../Components/Services/TestingService";
 import TestBookService from "../Components/Services/TestingBookService";
-
 import { ToastContainer } from "react-toastify";
-
 import Accordion from "../Components/Faq/Accordion";
 import Productfaq from "../Components/Faq/Productfaq";
 import Trainingfaq from "../Components/Faq/Trainingfaq";
 import Contactus from "../Components/Contactus/Contactus";
-
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import Blogs from "../Components/Blogs/Blogs";
 import BlogDetail from "../Components/Blogs/BlogDetail";
-
-import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import AdminBlogDetail from "../Components/Admin/AdminBlogDetail";
 import AdminBlogHome from "../Components/Admin/AdminBlogHome";
-
 import AdminProducts from "../Components/Products/AdminViewProducts";
 import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
-
+import ToolTip from "../Components/ToolTIp";
 
 export const Container = () => {
   //in login branch
@@ -58,7 +51,9 @@ export const Container = () => {
   return (
     <>
       <ToastContainer />
+
       <Routes>
+        <Route path="/tooltip" element={<ToolTip />} />
         {/* for admin purpose only */}
         {token && decodeUser.user?.role === "admin" && (
           <>
@@ -142,7 +137,6 @@ export const Container = () => {
         <Route path="/add-services" element={<TestingService />}></Route>
         <Route path="/book-services" element={<TestBookService />}></Route>
 
-
         <Route path="/add-picture" element={<AddPicture />}></Route>
         <Route path="/gallery" element={<DisplayGallery />}></Route>
 
@@ -165,18 +159,11 @@ export const Container = () => {
 
         <Route path="/blogdetail/:id" element={<BlogDetail />}></Route>
 
-
-        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         {/* <Route path="/blogpost" element={<AdminBlogPost />}></Route> */}
         <Route path="/admin-blogdetail" element={<AdminBlogDetail />}></Route>
         <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
 
-
-
-
-
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
-
       </Routes>
     </>
   );
