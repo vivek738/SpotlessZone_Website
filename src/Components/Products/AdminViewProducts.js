@@ -39,7 +39,7 @@ const AdminProducts = ({ adminData }) => {
       .catch(() => {
         console.log("error occur");
       });
-  });
+  },[]);
 
   const deleteAdminProduct = (pid) => {
     axios.delete("http://localhost:5000/product-delete/" + pid).then(() => {
