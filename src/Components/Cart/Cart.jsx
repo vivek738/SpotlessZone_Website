@@ -16,7 +16,7 @@ const ProductCart = () => {
     axios
       .get("http://localhost:5000/get-products-cart")
       .then((result) => {
-        //console.log(result.data);
+        // console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
@@ -25,27 +25,30 @@ const ProductCart = () => {
 
     // for total price
     setTotalPrice(
-      pdata.reduce(
-        (acc, curr) =>
-          acc + Number(curr.productId.pqty * curr.productId.pprice),
-        0
-      )
+      pdata
+        .reduce(
+          (acc, curr) =>
+            acc + Number(curr.productId.pqty * curr.productId.pprice),
+          0
+        )
+        .toFixed(2)
     );
-  });
+  }, [totalprice]);
 
-  function deleteproductCart(pid) {
+  const deleteproductCart = (pid) => {
     axios
 
       .delete("http://localhost:5000/deleteitem/" + pid)
 
-      .then((e) => {
+      .then(() => {
         setMessage("Item delete successfully!");
+        // console.log("Delete item from cart");
       })
 
       .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
   const headers = [
     { key: "pic", label: "Product Image" },
