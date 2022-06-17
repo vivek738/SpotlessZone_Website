@@ -193,6 +193,7 @@ const AdminDashboard = () => {
                                                 <Link className="text text-dark fs-5 mb-0 text-decoration-none" to="/display-all-products">Products</Link>
                                             </div>
                                         </a>
+                                   
                                         {/* fourth navlink */}
                                         <a href="#" className="nav-link w-100 my-2 mb-3">
                                             <div className="d-flex justify-content-start align-items-center">
