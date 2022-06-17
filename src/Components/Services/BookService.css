@@ -1,0 +1,5 @@
+.bookBtn:hover {
+  color: white;
+  background-color: rgb(9, 28, 232) !important;
+  border: 1px solid #fff;
+}
