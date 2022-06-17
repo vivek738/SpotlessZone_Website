@@ -40,10 +40,42 @@ form button:hover{
 } */
 
 .main{
-    background-color: #3bb19b;
 }
 
 /* .picture{
     height: 50px;
     width: 50px;
 } */
+
+
+.secondmain button:hover{
+    background-color: white;
+    color: #3bb19b;
+    border-color: #3bb19b;
+    font-weight: bold;
+    transition: ease-out 0.5s;
+
+}
+
+
+.secondmain button{
+    background: #174543;
+    color: white;
+    border-color: #174543;
+    font-weight: bold;
+}
+.last img{
+    height: 30px;
+    width: 30px;
+}
+
+.last .row{
+    margin-left: 190px;
+}
+
+form{
+    box-shadow: 5px 5px 5px white;
+
+}
+
+

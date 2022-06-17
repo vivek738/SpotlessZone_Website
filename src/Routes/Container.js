@@ -42,6 +42,7 @@ import AdminProducts from "../Components/Products/AdminViewProducts";
 import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
 import ToolTip from "../Components/ToolTIp";
+import Gallery from "../Components/galleryy/Gallery";
 
 export const Container = () => {
   //in login branch
@@ -164,6 +165,8 @@ export const Container = () => {
         <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
 
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+
+        <Route path="/gall" element= {<Gallery/>}></Route>
       </Routes>
     </>
   );

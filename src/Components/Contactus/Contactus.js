@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import './Contactus.css';
 import pic from '../../Images/faq.jpg';
 import First from '../../Images/first.png';
-import { MDBContainer } from 'mdb-react-ui-kit';
+import phonecall from '../../Images/phonecall.png';
 import gmail from '../../Images/gmail.png';
 import placeholder from '../../Images/placeholder.png';
-import phonecall from '../../Images/phonecall.png';
+import { MDBContainer } from 'mdb-react-ui-kit';
 import Header from "../Homepage/Header";
 import axios from "axios";
+import { set } from "react-hook-form";
+import { toast } from "react-toastify";
 
 
 
@@ -18,6 +20,7 @@ const Contactus = () => {
   const [phone, setPhone] = useState("")
   const [serviceName, setSName] = useState("")
   const [description, setDesc] = useState("")
+  // const [message, setMessage] = useState("")
 
 
 
@@ -37,12 +40,22 @@ const Contactus = () => {
   const submitContact = (e) => {
     e.preventDefault()
     axios.post("http://localhost:5000/contactus", contactData)
-    .then(response => {
-      console.log(response);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+      .then(response => {
+        // setMessage("You have successfully set the message");
+        toast.success(<SuccessToast />, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000
+        })
+        setEmail("");
+        setDesc("");
+        setPhone("");
+        setFname("");
+
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      })
 
 
   }
@@ -124,15 +137,15 @@ const Contactus = () => {
         </div>
       </div>
 
-      <MDBContainer className="main my-2">
-        <div>
-          <h4 className="text-white fs-4">Get in Touch</h4>
-        </div>
+      {/* <p className = "mt-4 text-center text-success fw-bold">{message}</p> */}
+      <MDBContainer className="main my-5">
 
-        <form>
-          <h4 className="text-center">Contact for Services</h4>
-          <div className="row">
-            <div className="col-md-6 mb-3">
+
+        <form className="">
+          <h4 className=" pt-4 fw-bold">Got any question?</h4>
+          <h4 className="  fw-bold">Contact Us</h4>
+          <div className="formm row mt-5">
+            <div className="secondmain col-md-6 mb-3">
               <div class="row mb-3">
 
 
@@ -152,29 +165,7 @@ const Contactus = () => {
                   <input type="text" className="form-control mb-3" placeholder="Phone no" aria-label="Phone no" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
 
-                <div className="input-group">
-                  <select
-                    style={{
-                      border: "1px solid green",
-                      borderRadius: "5px",
-                      width: "100%",
-                      padding: "5px",
-                    }}
-                    defaultValue=""
-                    value={serviceName}
-                    onChange={(e) => setSName(e.target.value)}
-                  >
-                    <option value="">Please Choose Service Category</option>
-                    {/* using loop for display added category to product added form */}
-                    {sdata.map((d) => {
-                      return (
-                        <option value={d.serviceName}>
-                          {d.serviceName}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
+
 
 
 
@@ -184,7 +175,7 @@ const Contactus = () => {
 
 
               <div className="mb-3">
-                <textarea name="" id="" cols="30" rows="4" className="form-control" value={description} onChange={(e) => setDesc(e.target.value)} ></textarea>
+                <textarea placeholder="Write a message" name="" id="" cols="30" rows="8" className="form-control" value={description} onChange={(e) => setDesc(e.target.value)} ></textarea>
               </div>
 
               <button className="btn btn-primary" onClick={submitContact}>SEND A MESSAGE</button>
@@ -205,7 +196,40 @@ const Contactus = () => {
         </form>
 
 
+
+
+
       </MDBContainer>
+      <div className="last">
+        <div className="row d-flex mt-5 ">
+
+          <div className="col-md-4">
+            <img src={phonecall} alt=""></img>
+            <h5>Phone</h5>
+            <p>940489374</p>
+
+          </div>
+
+          <div className="col-md-4">
+            <img src={gmail} alt="" />
+
+            <h5>E-mail</h5>
+            <p>dipikabogat6@gmail.com</p>
+
+
+          </div>
+
+          <div className="col-md-4">
+            <img src={placeholder} alt=""></img>
+
+            <h5>Location</h5>
+            <p>51 Street, Newyork City, NYPD
+            </p>
+
+
+          </div>
+        </div>
+      </div>
 
 
 
@@ -214,3 +238,19 @@ const Contactus = () => {
 };
 
 export default Contactus;
+
+const SuccessToast = () => {
+  return (
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 text-center bg-gradient">
+            <p className="fw-bold text-success">
+              You have successfully send the message.
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+};
