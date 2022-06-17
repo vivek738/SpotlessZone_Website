@@ -42,7 +42,11 @@ import AdminProducts from "../Components/Products/AdminViewProducts";
 import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
 import ToolTip from "../Components/ToolTIp";
+<<<<<<< HEAD
 import Gallery from "../Components/galleryy/Gallery";
+=======
+import Checkout from "../Components/BuyProduct/Checkout";
+>>>>>>> f69f1e6df88c2a176ba9d70262fc0dd38b3f64b5
 
 export const Container = () => {
   //in login branch
@@ -165,8 +169,15 @@ export const Container = () => {
         <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
 
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+<<<<<<< HEAD
 
         <Route path="/gall" element= {<Gallery/>}></Route>
+=======
+        {/* checkout */}
+        <Route path="/checkout" element={<Checkout />}></Route>
+
+
+>>>>>>> f69f1e6df88c2a176ba9d70262fc0dd38b3f64b5
       </Routes>
     </>
   );
