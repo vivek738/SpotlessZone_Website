@@ -12,7 +12,6 @@ import axios from "axios";
 
 
 
-
 const Contactus = () => {
   const [sdata, setData] = useState([])
   const [fname, setFname] = useState("")

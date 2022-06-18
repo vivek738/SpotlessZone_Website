@@ -5,7 +5,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Legend,
   Tooltip,
   AreaChart,
   Area,
@@ -175,6 +174,7 @@ const AdminDashboard = ({ adminData }) => {
                     </div>
                   </div>
                 </div>
+
                 </div>
                   </div>
                 </div>
@@ -273,7 +273,7 @@ const AdminDashboard = ({ adminData }) => {
                                         </a>
                                     </div>
                                     {/* <div className="dropdown pb-4">
-=======
+
               </div>
             </div>
           </div>
@@ -400,7 +400,6 @@ const AdminDashboard = ({ adminData }) => {
                     </a>
                   </div>
                   {/* <div className="dropdown pb-4">
->>>>>>> 25e3c650e49c11962c3720fbe81153a4ad731582
                     <a
                       href="#"
                       className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"

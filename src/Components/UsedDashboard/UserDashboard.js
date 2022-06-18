@@ -92,7 +92,7 @@ const UserDashboard = ({ userData }) => {
                 />
               </div>
               <div>
-                <a href="#" className="text-decoration-none">
+                <a href="/" className="text-decoration-none">
                   View Profile
                 </a>
                 /
@@ -100,6 +100,7 @@ const UserDashboard = ({ userData }) => {
                   className="text-decoration-none text-danger fw-bold text-uppercase "
                   style={{ cursor: "pointer" }}
                   onClick={handleLogout}
+                  href="/"
                 >
                   Logout
                 </a>
