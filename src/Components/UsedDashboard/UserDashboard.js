@@ -1,12 +1,34 @@
-import React from "react";
+
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
-
+import axios from "axios";
+import React, { useEffect,useState } from "react";
 const UserDashboard = ({ userData }) => {
   const handleLogout = () => {
     localStorage.clear();
     window.location = "/";
   };
+  function parseJwt(token) {
+    if (!token) { return; }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+  // get user form the token
+  const token_data = localStorage.getItem("token")
+  const token = parseJwt(token_data)
+  const userId = token?.user._id
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/show-own-order/${userId}`).then(res => {
+      setData(res.data)
+      console.log(res)
+    }).catch(e=>[
+      console.log(e)
+    ])
+  },[])
+
   return (
     <>
       <div
@@ -34,7 +56,7 @@ const UserDashboard = ({ userData }) => {
         </div> */}
       </div>
       <div className="bg-light container-fluid p-0">
-        <div className="container col-md-8 py-4">
+        <div className="container col-md-8 py-4 mb-4">
           <p className="text text-center text-secondary fs-3 fw-bold">
             Customer Dashboard
           </p>
@@ -158,6 +180,77 @@ const UserDashboard = ({ userData }) => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="container col-md-8 py-4 ">
+          <div className="bg-white p-2">
+            <div className="mx-3">
+              <p className="text text-secondary fs-5 p-2">
+                Your Address
+              </p>
+              <div className="card my-5">
+                <div className="card-body table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr className="bg-light">
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>State</th>
+                        <th>Phone Number</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody style={{ justifyContent: "center" }}>
+                      {
+                        data?.map(val => {
+                          return (
+                            <tr>
+                              <td>{val?.firstname}</td>
+                              <td>{val?.address_detail?.address}</td>
+                              <td>{val?.address_detail.state}</td>
+                              <td>{val?.phone}</td>
+                              <td>
+                                <button className="btn btn-link text-decoration-none">EDIT</button>
+                              </td>
+                            </tr>
+                          )
+                        })
+                      }
+
+                    </tbody>
+                  </table>
+                </div>
+                {/* <div className="flex-btns" style={{ textAlign: "end" }}>
+                          <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
+                            Checkout
+                          </button>
+                          <Link
+                            to="/display-all-products"
+                            className="btn btn-info m-3"
+                          >
+                            Continue Shopping
+                          </Link>
+                        </div> */}
+              </div>
+              {/* <div className="table-responsive">
+                <table className="table table-bordered" border="2">
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th>Phone Number</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr>
+                    <td>Vivek Sah</td>
+                    <td>Santinagar</td>
+                    <td>Bagmati</td>
+                    <td>980834001</td>
+                    <td><button className="btn btn-link fs-5 text-decoration-none">EDIT</button></td>
+                  </tr>
+                </table>
+              </div> */}
             </div>
           </div>
         </div>
