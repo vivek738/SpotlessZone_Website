@@ -174,6 +174,106 @@ const AdminDashboard = ({ adminData }) => {
                     </div>
                   </div>
                 </div>
+
+                </div>
+                  </div>
+                </div>
+
+
+                <div className="row py-4 me-4">
+                    <div className="col-md-3">
+                        <div className="p-1">
+                            <div className="text-white">
+                                <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                                    <div className="bg-white text-dark p-3 rounded w-100">
+                                        <div className="d-flex justify-content-start align-items-center">
+                                            <div className="div">
+                                                <img
+                                                    src="https://cdn.pixabay.com/photo/2018/02/24/20/40/fashion-3179178__340.jpg"
+                                                    alt=""
+                                                    style={{
+                                                        width: "50px",
+                                                        height: "50px",
+                                                        borderRadius: "50%",
+                                                        objectFit: "cover",
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="jj ms-3">
+                                                <p className="text text-dark fw-bold fs-6 mb-0">
+                                                    Vivek Sah
+                                                </p>
+                                                <small className="text text-dark d-block">
+                                                    viveksah9800@gmail.com
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="my-3">
+                                        <p className="text text-secondary h6 mb-0 mx-3">Menu</p>
+                                    </div>
+                                    <div className="py-2 w-100 mx-2">
+                                        {/* first navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-th text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Dashboard</p>
+                                            </div>
+                                        </a>
+                                        {/* second navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-sort text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Order</p>
+                                            </div>
+                                        </a>
+                                        {/* third navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
+                                                {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
+                                                <Link className="text text-dark fs-5 mb-0 text-decoration-none" to="/display-all-products">Products</Link>
+                                            </div>
+                                        </a>
+                                   
+                                        {/* fourth navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-comment text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Message</p>
+                                            </div>
+                                        </a>
+                                        {/* fourth navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-calendar text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Calendar</p>
+                                            </div>
+                                        </a>
+                                        {/* fourth navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-map text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Map</p>
+                                            </div>
+                                        </a>
+                                        {/* fifth navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-cog text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">Settings</p>
+                                            </div>
+                                        </a>
+                                        {/* sixth navlink */}
+                                        <a href="#" className="nav-link w-100 my-2 mb-3">
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
+                                                <p className="text text-dark fs-5 mb-0">FAQ</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {/* <div className="dropdown pb-4">
+
               </div>
             </div>
           </div>
