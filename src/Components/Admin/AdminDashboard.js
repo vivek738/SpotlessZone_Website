@@ -175,7 +175,11 @@ const AdminDashboard = ({ adminData }) => {
                     </div>
                   </div>
                 </div>
-<<<<<<< HEAD
+                </div>
+                  </div>
+                </div>
+
+
                 <div className="row py-4 me-4">
                     <div className="col-md-3">
                         <div className="p-1">

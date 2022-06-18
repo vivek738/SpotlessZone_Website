@@ -201,7 +201,7 @@ const Checkout = () => {
                                     <small className="d-block text-secondary text-end">VAT Included</small>
                                 </div>
                             </div>
-                            <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
+                            <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning w-100" style={{ borderRadius: '0px' }}>
                             Processed to Pay
                           </button>
                             {/* <button onClick={checkout.show({ amount: 1000, mobile: 9861905670})} className="btn btn-secondary w-100" style={{ borderRadius: '0px' }}>Processed to Pay</button> */}
