@@ -11,10 +11,6 @@ import axios from "axios";
 
 
 
-<<<<<<< HEAD
-const Contactus = ()=>{
-    return(
-=======
 const Contactus = () => {
   const [sdata, setData] = useState([])
   const [fname, setFname] = useState("")
@@ -51,7 +47,6 @@ const Contactus = () => {
 
   }
   return (
->>>>>>> 25e3c650e49c11962c3720fbe81153a4ad731582
     <>
 
       {/* <div className="image">
