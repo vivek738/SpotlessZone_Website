@@ -9,12 +9,23 @@ const SingleProductInfo = () => {
   const [singleproductdata, setSingleproductdata] = useState([]);
   const [msg, setMsg] = useState("");
 
+  function parseJwt(token) {
+    if (!token) { return; }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+  // get user form the token
+  const token_data = localStorage.getItem("token")
+  const token = parseJwt(token_data)
+  const userid = token?.user._id
+
   const addCart = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
-        // userid
+        user:userid
       })
       .then((result) => {
         console.log(result.data);
@@ -31,7 +42,7 @@ const SingleProductInfo = () => {
     axios
       .get("http://localhost:5000/singleproduct/" + pid)
       .then((result) => {
-        // console.log(result.data[0].pname)
+        console.log(result.data)
         setSingleproductdata(result.data);
       })
       .catch((e) => {
@@ -70,9 +81,10 @@ const SingleProductInfo = () => {
       </div>
       <div className="container-fluid">
         <div className="row justify-content-center my-5">
-          <div className="col-md-4 ">
-            <div className="card mt-4">
+          <div className="col-md-6">
+            <div className=" mt-4">
               <img
+              style={{height:'500px',minWidth:'100%'}}
                 src={"http://localhost:5000/" + singleproductdata.pic}
                 alt=""
                 className="img-fluid"

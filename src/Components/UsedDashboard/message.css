@@ -1,0 +1,22 @@
+.message{
+    /* display: flex; */
+    position: relative;
+}
+
+.messageNumber{
+    position: absolute;
+    top: -2px;
+    left: 15px;
+    background-color: #0a9396;
+    border-radius: 100%;
+    padding: 0 8px;
+    text-align: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
+.bi-envelope-fill{
+    font-size: 2rem;
+    color: grey;
+    cursor: pointer;
+}

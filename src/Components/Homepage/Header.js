@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
-
 const Header = () => {
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user._id;
   return (
     <>
       <div className="container-fluid bg-transparent text-white">
@@ -61,11 +65,20 @@ const Header = () => {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-                <li className="nav-item mx-3">
-                  <Link className="nav-link text-white " to="/">
-                    Home
-                  </Link>
-                </li>
+                {user ? (
+                  <li className="nav-item mx-3">
+                    <Link className="nav-link text-white " to="/user-dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="nav-item mx-3">
+                    <Link className="nav-link text-white " to="/">
+                      Home
+                    </Link>
+                  </li>
+                )}
+
                 <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to="/aboutus">
                     About
@@ -104,14 +117,17 @@ const Header = () => {
                 </li>
 
                 {/* closing dropdowns  */}
-               {/* {localStorage.getItem("token") && <li className="nav-item mx-3">
+                {/* {localStorage.getItem("token") && <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to={`/display-all-products`}>
                     Products
                   </Link>
                 </li>} */}
-                <Link className="nav-link text-white" to={`/display-all-products`}>
-                    Products
-                  </Link>
+                <Link
+                  className="nav-link text-white"
+                  to={`/display-all-products`}
+                >
+                  Products
+                </Link>
                 <li className="nav-item mx-3">
                   <Link className="nav-link text-white" to="/gallery">
                     Gallery
