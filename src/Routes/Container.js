@@ -43,6 +43,7 @@ import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
 import ToolTip from "../Components/ToolTIp";
 import Checkout from "../Components/BuyProduct/Checkout";
+import ServiceOrderHistory from "../Components/Admin/ServiceOrderHistory";
 
 export const Container = () => {
   //in login branch
@@ -73,6 +74,10 @@ export const Container = () => {
             ></Route>
             <Route path="/addProduct" element={<Addproduct />}></Route>
             <Route path="/notifications" element={<Notification />}></Route>
+            <Route
+              path="/service-order-history"
+              element={<ServiceOrderHistory adminData={decodeUser.user} />}
+            ></Route>
           </>
         )}
 
@@ -167,8 +172,6 @@ export const Container = () => {
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
-
-
       </Routes>
 
 

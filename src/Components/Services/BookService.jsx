@@ -65,9 +65,11 @@ const BookService = ({ serviceData, userData, sp }) => {
         address: address,
         totalServiceCost: totalCost,
         userId: userData._id,
+        userName: userData.name,
       })
+      // console.log(data[0].userId)
       .then((result) => {
-        // console.log(result.data[0].totalServiceCost);
+        // console.log(result.data.userName);
         setSData(result.serviceData);
         setAddress("");
         toast.success(<SuccessServiceBookedToast />, {

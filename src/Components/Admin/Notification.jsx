@@ -60,15 +60,17 @@ const Notification = () => {
       {unSeenNoti && unSeenNoti.length > 0 ? (
         <div className="container my-4">
           <h3>
-            You have got{" "}
-            <span className="fst-italic text-info">{unSeenNoti.length}</span>
-            new notifications
+            You Have Got{" "}
+            <span className="fst-italic text-info me-2">
+              {unSeenNoti.length}
+            </span>
+            New Notifications
           </h3>
         </div>
       ) : (
         <div className="container">
           <div className="row">
-            <h3 className="text-center fw-bold mt-5">All the Notifications</h3>
+            <h3 className="text-center fw-bold mt-5">There is no any notifications</h3>
           </div>
         </div>
       )}
@@ -80,7 +82,7 @@ const Notification = () => {
               return (
                 <div className="col-md-3 my-3" key={d._id}>
                   <div className="card shadow-lg">
-                    <p className="ps-3 text-danger fw-bold">John Snow</p>
+                    <p className="ps-3 text-danger fw-bold">{d.userName}</p>
                     <h6 className="fw-normal ps-3">
                       Notice Regarding{" "}
                       <span className="fw-bold">{d.notiTitle}</span>

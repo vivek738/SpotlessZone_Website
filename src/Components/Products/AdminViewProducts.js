@@ -39,7 +39,7 @@ const AdminProducts = ({ adminData }) => {
       .catch(() => {
         console.log("error occur");
       });
-  },[]);
+  }, []);
 
   const deleteAdminProduct = (pid) => {
     axios.delete("http://localhost:5000/product-delete/" + pid).then(() => {
@@ -179,14 +179,24 @@ const AdminProducts = ({ adminData }) => {
                     <a href="#" className="nav-link w-100 my-2 mb-3">
                       <div className="d-flex justify-content-start align-items-center">
                         <i className="fa fa-th text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Dashboard</p>
+                        <Link
+                          className="text text-dark fs-5 mb-0 text-decoration-none"
+                          to="/admin-dashboard"
+                        >
+                          Dashboard
+                        </Link>
                       </div>
                     </a>
                     {/* second navlink */}
                     <a href="#" className="nav-link w-100 my-2 mb-3">
                       <div className="d-flex justify-content-start align-items-center">
                         <i className="fa fa-sort text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Order</p>
+                        <Link
+                          className="text text-dark fs-5 mb-0 text-decoration-none"
+                          to="/service-order-history"
+                        >
+                          Order
+                        </Link>
                       </div>
                     </a>
                     {/* third navlink */}
@@ -254,6 +264,7 @@ const AdminProducts = ({ adminData }) => {
               </div>
             </div>
           </div>
+          
           <div className="col-md-9">
             {/* implementing conditions for products in cart */}
             {pdata.length === 0 ? (
