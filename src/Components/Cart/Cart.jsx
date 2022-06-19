@@ -309,15 +309,15 @@ const ProductCart = () => {
                         </div>
                       </div>
                       <div className="flex-btns" style={{ textAlign: "end" }}>
-                        <button
-                          onClick={() =>
-                            checkout.show({ amount: 1000, mobile: 9861905670 })
-                          }
-                          className="btn btn-warning"
+                        {/* <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
+                            Checkout
+                          </button> */}
+                        <Link
+                          to="/checkout"
+                          className="text-decoration-none text-dark"
                         >
-                          Checkout
-                          {/* <Link to="/checkout" className="text-decoration-none text-dark">Proceed To Checkout</Link> */}
-                        </button>
+                          Proceed To Checkout
+                        </Link>
                         <Link
                           to="/display-all-products"
                           className="btn btn-info m-3"
@@ -325,6 +325,23 @@ const ProductCart = () => {
                           Continue Shopping
                         </Link>
                       </div>
+                    </div>
+                    <div className="flex-btns" style={{ textAlign: "end" }}>
+                      <button
+                        onClick={() =>
+                          checkout.show({ amount: 1000, mobile: 9861905670 })
+                        }
+                        className="btn btn-warning"
+                      >
+                        Checkout
+                        {/* <Link to="/checkout" className="text-decoration-none text-dark">Proceed To Checkout</Link> */}
+                      </button>
+                      <Link
+                        to="/display-all-products"
+                        className="btn btn-info m-3"
+                      >
+                        Continue Shopping
+                      </Link>
                     </div>
                   </div>
                 </div>

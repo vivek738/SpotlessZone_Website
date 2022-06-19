@@ -173,6 +173,14 @@ export const Container = () => {
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
       </Routes>
+
+
+
+
+
+
+
+      
     </>
   );
 };
