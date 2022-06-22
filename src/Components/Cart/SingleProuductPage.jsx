@@ -1,48 +1,80 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "./sp.css";
 import axios from "axios";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
 
+export const SuccessMsg = () => {
+  return (
+    <>
+      <p className="fw-bold text-success fst-italic">
+        You have added product to cart successfully!
+      </p>
+    </>
+  );
+};
+
 const SingleProductInfo = () => {
   const { pid } = useParams();
   const [singleproductdata, setSingleproductdata] = useState([]);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState(false);
 
   function parseJwt(token) {
-    if (!token) { return; }
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
     return JSON.parse(window.atob(base64));
   }
   // get user form the token
-  const token_data = localStorage.getItem("token")
-  const token = parseJwt(token_data)
-  const userid = token?.user._id
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user._id;
 
   const addCart = (e) => {
     e.preventDefault();
+    setMsg(false);
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
-        user:userid
+        userId: user,
       })
       .then((result) => {
-        console.log(result.data);
-        if (result.data.success) {
-          setMsg("You have added product to cart");
-        }
+        toast.success(<SuccessMsg />, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000,
+        });
+        console.log(result);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
+  const onEnterCart = () => {
+    let addCart = document.getElementById("addToCart");
+    let goCart = document.getElementById("goToCart");
+    addCart.disabled = true;
+    goCart.disabled = true;
+    setMsg(true);
+  };
+
+  const onLeaveCart = () => {
+    let addCart = document.getElementById("addToCart");
+    let goCart = document.getElementById("goToCart");
+    addCart.disabled = false;
+    goCart.disabled = false;
+    setMsg(false);
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/singleproduct/" + pid)
       .then((result) => {
-        console.log(result.data)
+        console.log(result.data);
         setSingleproductdata(result.data);
       })
       .catch((e) => {
@@ -84,7 +116,7 @@ const SingleProductInfo = () => {
           <div className="col-md-6">
             <div className=" mt-4">
               <img
-              style={{height:'500px',minWidth:'100%'}}
+                style={{ height: "500px", minWidth: "100%" }}
                 src={"http://localhost:5000/" + singleproductdata.pic}
                 alt=""
                 className="img-fluid"
@@ -136,28 +168,72 @@ const SingleProductInfo = () => {
                   </span>
                 </h6>
 
-                <div>
-                  <button
-                    className="btn btn-outline-success m-"
-                    style={{ width: "45%", fontWeight: "bold" }}
-                    onClick={addCart}
-                  >
-                    Add To Cart
-                  </button>
-                  <Link
-                    to="/cart"
-                    className="btn  text-white m-2 "
-                    style={{
-                      width: "45%",
-                      fontWeight: "bold",
-                      backgroundColor: "#FF7518",
-                    }}
-                  >
-                    Go To Cart
-                  </Link>
-                </div>
+                {user ? (
+                  <>
+                    <div>
+                      <button
+                        className="btn btn-outline-success m-"
+                        style={{ width: "45%", fontWeight: "bold" }}
+                        onClick={addCart}
+                      >
+                        Add To Cart
+                      </button>
+                      <Link
+                        to={`/cart`}
+                        className="btn  text-white m-2 "
+                        style={{
+                          width: "45%",
+                          fontWeight: "bold",
+                          backgroundColor: "#FF7518",
+                        }}
+                      >
+                        Go To Cart
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div onMouseEnter={onEnterCart}>
+                      <button
+                        id="addToCart"
+                        className="btn btn-success m-2"
+                        style={{ width: "45%", fontWeight: "bold" }}
+                      >
+                        Add To Cart
+                      </button>
+                      <button
+                        id="goToCart"
+                        className="disabledCartBtn btn  text-white m-2 "
+                        style={{
+                          width: "45%",
+                          fontWeight: "bold",
+                          backgroundColor: "#FF7518",
+                        }}
+                      >
+                        Go To Cart
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
+            {msg ? (
+              <div
+                className="messagebox text-center"
+                id="messageBox"
+                onMouseLeave={onLeaveCart}
+              >
+                <div className="card cardBox">
+                  <p className="loginInfoText">
+                    Currently, it seems you are not logged in <br />
+                    Please login to add and view products in cart <br />
+                    <span className="ty">Thank You !</span>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

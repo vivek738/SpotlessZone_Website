@@ -1,0 +1,14 @@
+.cardBox {
+  /* border: 1px solid rgb(169, 171, 169); */
+  padding: 20px 0;
+  border: none;
+  box-shadow: 1px 1px 1px 1px grey;
+}
+
+.loginInfoText {
+  color: rgb(9, 95, 95);
+}
+.ty {
+  color: black;
+  font-weight: bold;
+}

@@ -48,3 +48,40 @@
 .navbar .navbar-nav .frontpage_drop_down:hover .dropdown-menu {
   display: block;
 }
+
+/**
+* ! styles for header nav-link
+**/
+
+.header-link:hover {
+  background-color: rgb(201, 198, 198) !important;
+  border-radius: 10px !important;
+  width: 120px;
+  text-align: center;
+  color: black !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/**
+* ! styles for appointment btn
+**/
+
+.appointmentForm{
+  position: absolute;
+  top: 150px;
+  right: 30px;
+}
+
+.appointmentBtn:hover{
+  background-color: #25C6AA !important;
+  color: #fff;
+}
+.appointmentCard{
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+
+
