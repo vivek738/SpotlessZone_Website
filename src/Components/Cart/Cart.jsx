@@ -1,14 +1,26 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
+import { toast } from "react-toastify";
 import bgImg from "../../Images/first.png";
 import { Link } from "react-router-dom";
 import Header from "../Homepage/Header";
+
+export const SuccessMsg = () => {
+  return (
+    <>
+      <p className="fw-bold text-success fst-italic">
+        You have deleted product from cart successfully!
+      </p>
+    </>
+  );
+};
+
 // use reducer
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("");
-  const [message, setMessage] = useState("");
+  const [productQuantity, setQty] = useState(1);
 
   function parseJwt(token) {
     if (!token) {
@@ -28,7 +40,7 @@ const ProductCart = () => {
     axios
       .get("http://localhost:5000/get-products-cart/" + user)
       .then((result) => {
-        // console.log(result.data);
+        // console.log(result.data[0].productQuantity)
         setProductData(result.data);
       })
       .catch((err) => {
@@ -44,7 +56,28 @@ const ProductCart = () => {
         )
         .toFixed(2)
     );
-  }, [totalprice]);
+  }, [pdata, totalprice]);
+
+  // for increse qty
+  const increaseQuantity = (e, pid) => {
+    e.preventDefault();
+    console.log("click");
+    if (productQuantity < 10) {
+      setQty((prevCount) => prevCount + 1);
+    }
+    console.log(productQuantity);
+  };
+
+  // for increse qty
+  // const decreaseQuantity =(e, pid)=>{
+  //   e.preventDefault()
+  //   console.log("click")
+  //   if(productQuantity < 10) {
+  //     setQty(prevCount => prevCount - 1)
+  //   }
+  //   console.log(productQuantity)
+
+  // }
 
   // khalti payment integration
   let config = {
@@ -81,19 +114,21 @@ const ProductCart = () => {
     ],
   };
   let checkout = new KhaltiCheckout(config);
-  function deleteproductCart(pid) {
+  const deleteproductCart = (e, pid) => {
+    e.preventDefault();
     axios
-
-      .delete("http://localhost:5000/deleteitem/" + pid)
-
-      .then((e) => {
-        setMessage("Item delete successfully!");
+      .delete("http://localhost:5000/delete-product-cart/" + pid)
+      .then(() => {
+        toast.success(<SuccessMsg />, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 500,
+        });
       })
 
       .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
   const headers = [
     { key: "pic", label: "Product Image" },
@@ -133,12 +168,17 @@ const ProductCart = () => {
       {/* implementing conditions for products in cart */}
       {pdata.length === 0 ? (
         <div className="check_cart container">
-          <div className="row">
-            <div className="col-md-10 col-12">
-              <Link to="/display-all-products" className="btn btn-info">
+          <div className="row justify-content-center">
+            <div className="col-md-8 col-12 my-5">
+              <h3 className="m-5 text-danger text-center">
+                There is no any products in your cart !!!
+              </h3>
+              <Link
+                to="/display-all-products"
+                className="btn btn-info me-auto ms-auto d-block w-50 text-white text-uppercase fw-bold"
+              >
                 Continue Shopping
               </Link>
-              <h3 className="m-5">There is no any products in your cart !!!</h3>
             </div>
           </div>
         </div>
@@ -166,10 +206,9 @@ const ProductCart = () => {
 
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-12 mb-5">
                 <div className="row justify-content-center">
                   <div className="col-md-8 col-12">
-                    <h1> {message}</h1>
                     <div className="card my-5">
                       <div className="card-body">
                         <table class="table table-responsive">
@@ -183,9 +222,9 @@ const ProductCart = () => {
                           <tbody style={{ justifyContent: "center" }}>
                             {/* for produdct added data  data : use loop*/}
                             {pdata && pdata.length > 0
-                              ? pdata.map((items) => {
+                              ? pdata.map((items, _id) => {
                                   return (
-                                    <tr>
+                                    <tr key={_id}>
                                       <td>
                                         <img
                                           src={
@@ -221,7 +260,7 @@ const ProductCart = () => {
                                         </span>
                                         <input
                                           type="phone"
-                                          value={items.productId.pqty}
+                                          value={productQuantity}
                                           style={{
                                             maxWidth: "50px",
                                             textAlign: "center",
@@ -234,7 +273,9 @@ const ProductCart = () => {
                                           }}
                                         />
                                         <span
-                                          //   onClick={increaseQuantity}
+                                          onClick={(e) =>
+                                            increaseQuantity(e, items._id)
+                                          }
                                           style={{
                                             display: "inline-block",
                                             textAlign: "center",
@@ -275,10 +316,9 @@ const ProductCart = () => {
                                       <td>
                                         <i
                                           className="bi bi-trash-fill"
-                                          onClick={deleteproductCart.bind(
-                                            this,
-                                            items._id
-                                          )}
+                                          onClick={(e) =>
+                                            deleteproductCart(e, items._id)
+                                          }
                                           style={{
                                             cursor: "pointer",
                                             color: "red",
@@ -308,13 +348,10 @@ const ProductCart = () => {
                           </h3>
                         </div>
                       </div>
-                      <div className="flex-btns" style={{ textAlign: "end" }}>
-                        {/* <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
-                            Checkout
-                          </button> */}
+                      {/* <div className="flex-btns" style={{ textAlign: "end" }}>
                         <Link
                           to="/checkout"
-                          className="text-decoration-none text-dark"
+                          className="btn btn-warning text-decoration-none text-dark"
                         >
                           Proceed To Checkout
                         </Link>
@@ -324,7 +361,7 @@ const ProductCart = () => {
                         >
                           Continue Shopping
                         </Link>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="flex-btns" style={{ textAlign: "end" }}>
                       <button
@@ -333,7 +370,7 @@ const ProductCart = () => {
                         }
                         className="btn btn-warning"
                       >
-                        Checkout
+                        Proceed To Checkout
                         {/* <Link to="/checkout" className="text-decoration-none text-dark">Proceed To Checkout</Link> */}
                       </button>
                       <Link

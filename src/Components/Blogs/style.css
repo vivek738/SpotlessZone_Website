@@ -1,9 +1,16 @@
-.bimg{
-    width: 100%
+.bimg {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
 }
-.bimg:hover{
-    transform: scale(.9);
-    width: 100%;
-    overflow: hidden;
-    transition: 1s;
+.bimg:hover {
+  transform: scale(0.9);
+  width: 100%;
+  overflow: hidden;
+  transition: 1s ease-in-out;
+}
+
+#read-more:hover {
+  color: blue !important;
+  transform: scale(2, 1.5);
 }

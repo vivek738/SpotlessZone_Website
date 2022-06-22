@@ -24,3 +24,9 @@ code {
   color: white !important;
 }
   
+
+.cart-link:hover{
+text-decoration: none;
+font-weight: bold;
+color: teal;
+}

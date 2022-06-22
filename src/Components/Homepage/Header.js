@@ -1,13 +1,44 @@
 import React from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
 const Header = () => {
+  const [cart, setCart] = React.useState([]);
+  const [productQtyCart, setProductQtyCart] = React.useState([]);
 
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
   const user = token?.user._id;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/get-total-products-cart")
+      .then((response) => {
+        if (response) {
+          setCart(response.data);
+        } else {
+          console.log("Something went wrong");
+        }
+      })
+      .catch(() => {
+        console.log("error occur");
+      });
+  }, [cart]);
+
+  useEffect(() => {
+    calculation();
+  });
+
+  // calculating total products number in cart
+  const calculation = () => {
+    setProductQtyCart(
+      cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
+    );
+  };
+
   return (
     <>
       <div className="container-fluid bg-transparent text-white">
@@ -67,27 +98,33 @@ const Header = () => {
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                 {user ? (
                   <li className="nav-item mx-3">
-                    <Link className="nav-link text-white " to="/user-dashboard">
+                    <Link
+                      className="nav-link text-white header-link"
+                      to="/user-dashboard"
+                    >
                       Dashboard
                     </Link>
                   </li>
                 ) : (
                   <li className="nav-item mx-3">
-                    <Link className="nav-link text-white " to="/">
+                    <Link className="nav-link text-white header-link" to="/">
                       Home
                     </Link>
                   </li>
                 )}
 
                 <li className="nav-item mx-3">
-                  <Link className="nav-link text-white" to="/aboutus">
+                  <Link
+                    className="nav-link text-white header-link"
+                    to="/aboutus"
+                  >
                     About
                   </Link>
                 </li>
                 {/* adding dropdowns for other */}
                 <li className="frontpage_drop_down nav-item dropdown">
                   <Link
-                    className="nav-link dropdown-toggle text-white"
+                    className="nav-link dropdown-toggle text-white header-link"
                     to="#"
                     id="navbarDropdown"
                     role="button"
@@ -123,25 +160,31 @@ const Header = () => {
                   </Link>
                 </li>} */}
                 <Link
-                  className="nav-link text-white"
+                  className="nav-link text-white header-link"
                   to={`/display-all-products`}
                 >
                   Products
                 </Link>
                 <li className="nav-item mx-3">
-                  <Link className="nav-link text-white" to="/gallery">
+                  <Link
+                    className="nav-link text-white header-link"
+                    to="/gallery"
+                  >
                     Gallery
                   </Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <Link className="nav-link text-white" to="/contactus">
+                  <Link
+                    className="nav-link text-white header-link"
+                    to="/contactus"
+                  >
                     Contacts
                   </Link>
                 </li>
                 {/* adding dropdowns for other */}
-                <li className="frontpage_drop_down nav-item dropdown">
+                <li className="frontpage_drop_down nav-item dropdown ">
                   <Link
-                    className="nav-link dropdown-toggle text-white"
+                    className="nav-link dropdown-toggle text-white header-link"
                     to="#"
                     id="navbarDropdown"
                     role="button"
@@ -170,15 +213,56 @@ const Header = () => {
                 {/* closing dropdowns  */}
               </ul>
               <form className="d-flex justify-content-start align-items-center">
-                <button className="btn btn-link text-white">
-                  <i className="fa fa-search"></i>
-                </button>
-                <Link className="btn btn-link text-white" to={`/login`}>
-                  <i className="fa fa-user"></i>
-                </Link>
-                <button className="btn btn-link text-white">
-                  <i className="fa fa-shopping-cart"></i>
-                </button>
+                <div
+                  className="btn btn-link text-white"
+                  style={{ position: "relative" }}
+                >
+                  <i
+                    className="fa fa-search"
+                    style={{
+                      position: "absolute",
+                      top: "-20px",
+                      left: "-18px",
+                      alignItems: "center",
+                      minWidth: "40px",
+                      padding: "40px",
+                      cursor: "pointer",
+                      color: "teal",
+                      fontSize: "20px",
+                      justifyContent: "center",
+                    }}
+                  ></i>
+
+                  <input
+                    type="text"
+                    placeholder="Search here..."
+                    style={{
+                      width: "100%",
+                      textAlign: "start",
+                      padding: "10px 10px 10px 40px",
+                      borderRadius: "10px",
+                      border: "1px solid teal",
+                      justifyContent: "center",
+                    }}
+                  />
+                </div>
+                {!user && (
+                  <Link className="btn btn-link text-white" to={`/login`}>
+                    <i className="fa fa-user fa-2x"></i>
+                  </Link>
+                )}
+                {user && (
+                  <Link
+                    to={`/cart`}
+                    className="position-relative ps-2 pt-0 "
+                    style={{ backgroundColor: "transparent", border: "none" }}
+                  >
+                    <i className="fa fa-shopping-cart fa-2x text-white"></i>
+                    <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger ms-2 py-1">
+                      {productQtyCart}
+                    </span>
+                  </Link>
+                )}
               </form>
             </div>
           </div>

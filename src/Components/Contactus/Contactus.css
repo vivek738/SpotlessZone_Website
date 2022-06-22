@@ -41,6 +41,7 @@ form button:hover{
 
 .main{
     background-color: #3bb19b;
+    border-radius: 10px;
 }
 
 /* .picture{

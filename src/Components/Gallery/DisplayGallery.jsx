@@ -10,7 +10,7 @@ const DisplayGallery = () => {
   const myTimeOut = () => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -52,12 +52,12 @@ const DisplayGallery = () => {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container my-5">
         {/* <Link className="btn btn-primary float-end mt-3" to={`/add-picture`}>
           Add More
         </Link> */}
         <h1>{isloading && <Spinner />}</h1>
-        <div className="row justify-content-center">
+        <div className="row">
           {!isloading &&
             galleryData.map((gData) => {
               return (
@@ -67,6 +67,9 @@ const DisplayGallery = () => {
                     style={{
                       cursor: "pointer",
                       borderRadius: "10px",
+                      height: "300px",
+                      width: "350px",
+
                       // boxShadow: "1px 1px 1px 1px #94FFFF",
                     }}
                   >
@@ -76,8 +79,12 @@ const DisplayGallery = () => {
                         src={`http://localhost:5000/${gData.image}`}
                         alt=""
                         className="img-fluid"
-                        // style={{ height: "320px", width: "350px" }}
-                        style={{ borderRadius: "10px" }}
+                        style={{
+                          height: "300px",
+                          width: "350px",
+                          borderRadius: "10px",
+                        }}
+                        // style={{ borderRadius: "10px" }}
                       />
                       {/* </div> */}
                     </div>
