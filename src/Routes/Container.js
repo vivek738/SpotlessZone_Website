@@ -47,6 +47,8 @@ import ServiceOrderHistory from "../Components/Admin/ServiceOrderHistory";
 import AdminGallery from "../Components/Gallery/AdminGallery";
 import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
+import ForgotPasswort from "../Components/ForgotPassword";
+import PasswordReset from "../Components/PasswordReset";
 
 export const Container = () => {
   //in login branch
@@ -199,6 +201,13 @@ export const Container = () => {
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
+
+        {/* forgot pass */}
+        <Route path="/forgot-password" element={<ForgotPasswort />}></Route>
+
+          {/* pass reset */}
+          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+
       </Routes>
     </>
   );
