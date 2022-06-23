@@ -1,26 +1,15 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import KhaltiCheckout from "khalti-checkout-web";
-import { toast } from "react-toastify";
 import bgImg from "../../Images/first.png";
 import { Link } from "react-router-dom";
 import Header from "../Homepage/Header";
-
-export const SuccessMsg = () => {
-  return (
-    <>
-      <p className="fw-bold text-success fst-italic">
-        You have deleted product from cart successfully!
-      </p>
-    </>
-  );
-};
+import Items from "./Items";
 
 // use reducer
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("");
-  const [productQuantity, setQty] = useState(1);
 
   function parseJwt(token) {
     if (!token) {
@@ -51,33 +40,12 @@ const ProductCart = () => {
       pdata
         .reduce(
           (acc, curr) =>
-            acc + Number(curr.productId.pqty * curr.productId.pprice),
+            acc + Number(curr.productQuantity * curr.productId.pprice),
           0
         )
         .toFixed(2)
     );
   }, [pdata, totalprice]);
-
-  // for increse qty
-  const increaseQuantity = (e, pid) => {
-    e.preventDefault();
-    console.log("click");
-    if (productQuantity < 10) {
-      setQty((prevCount) => prevCount + 1);
-    }
-    console.log(productQuantity);
-  };
-
-  // for increse qty
-  // const decreaseQuantity =(e, pid)=>{
-  //   e.preventDefault()
-  //   console.log("click")
-  //   if(productQuantity < 10) {
-  //     setQty(prevCount => prevCount - 1)
-  //   }
-  //   console.log(productQuantity)
-
-  // }
 
   // khalti payment integration
   let config = {
@@ -114,21 +82,6 @@ const ProductCart = () => {
     ],
   };
   let checkout = new KhaltiCheckout(config);
-  const deleteproductCart = (e, pid) => {
-    e.preventDefault();
-    axios
-      .delete("http://localhost:5000/delete-product-cart/" + pid)
-      .then(() => {
-        toast.success(<SuccessMsg />, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 500,
-        });
-      })
-
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   const headers = [
     { key: "pic", label: "Product Image" },
@@ -211,7 +164,7 @@ const ProductCart = () => {
                   <div className="col-md-8 col-12">
                     <div className="card my-5">
                       <div className="card-body">
-                        <table class="table table-responsive">
+                        <table className="table table-responsive">
                           <thead>
                             <tr>
                               {headers.map((row) => {
@@ -222,111 +175,16 @@ const ProductCart = () => {
                           <tbody style={{ justifyContent: "center" }}>
                             {/* for produdct added data  data : use loop*/}
                             {pdata && pdata.length > 0
-                              ? pdata.map((items, _id) => {
+                              ? pdata.map((item) => {
                                   return (
-                                    <tr key={_id}>
-                                      <td>
-                                        <img
-                                          src={
-                                            "http://localhost:5000/" +
-                                            items.productId.pic
-                                          }
-                                          alt=""
-                                          className="img-fluid"
-                                          style={{
-                                            maxWidth: "100px",
-                                            maxHeight: "100px",
-                                            borderRadius: "5px",
-                                          }}
-                                        />
-                                      </td>
-                                      <td>{items.productId.pname}</td>
-                                      <td className="d-flex">
-                                        <span
-                                          //   onClick={decreaseQuantity}
-                                          style={{
-                                            display: "inline-block",
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                            border: "1px solid grey",
-                                            backgroundColor: "lightgrey",
-                                            padding: "0px 4px",
-                                            borderTopLeftRadius: "5px",
-                                            borderBottomLeftRadius: "5px",
-                                            cursor: "pointer",
-                                          }}
-                                        >
-                                          <i className=" bi bi-dash"></i>
-                                        </span>
-                                        <input
-                                          type="phone"
-                                          value={productQuantity}
-                                          style={{
-                                            maxWidth: "50px",
-                                            textAlign: "center",
-                                            display: "inline-block",
-                                            fontWeight: "bold",
-                                            borderRight: "none",
-                                            borderLeft: "none",
-                                            borderTop: "1px solid grey",
-                                            borderBottom: "1px solid grey",
-                                          }}
-                                        />
-                                        <span
-                                          onClick={(e) =>
-                                            increaseQuantity(e, items._id)
-                                          }
-                                          style={{
-                                            display: "inline-block",
-                                            textAlign: "center",
-                                            verticalAlign: "middle",
-                                            border: "1px solid grey",
-                                            backgroundColor: "lightgrey",
-                                            padding: "0px 4px",
-                                            borderTopRightRadius: "5px",
-                                            borderBottomRightRadius: "5px",
-                                            cursor: "pointer",
-                                          }}
-                                        >
-                                          <i className="bi bi-plus"></i>
-                                        </span>
-                                      </td>
-                                      <td>
-                                        <span
-                                          style={{
-                                            fontWeight: "600",
-                                            marginLeft: "50px",
-                                          }}
-                                        >
-                                          {items.productId.pprice}
-                                        </span>
-                                      </td>
-                                      <td>
-                                        <span
-                                          style={{
-                                            fontWeight: "600",
-                                            marginLeft: "30px",
-                                          }}
-                                        >
-                                          {items.productId.pqty *
-                                            items.productId.pprice}
-                                        </span>
-                                      </td>
-
-                                      <td>
-                                        <i
-                                          className="bi bi-trash-fill"
-                                          onClick={(e) =>
-                                            deleteproductCart(e, items._id)
-                                          }
-                                          style={{
-                                            cursor: "pointer",
-                                            color: "red",
-                                            fontSize: "1.2rem",
-                                          }}
-                                        ></i>
-                                      </td>
-                                    </tr>
+                                    <Items
+                                      key={item._id}
+                                      cartId={item._id}
+                                      productId={item.productId}
+                                      userId={item.userId}
+                                      productQuantity={item.productQuantity}
+                                      // {...item}
+                                    />
                                   );
                                 })
                               : "Loading..."}
@@ -348,20 +206,6 @@ const ProductCart = () => {
                           </h3>
                         </div>
                       </div>
-                      {/* <div className="flex-btns" style={{ textAlign: "end" }}>
-                        <Link
-                          to="/checkout"
-                          className="btn btn-warning text-decoration-none text-dark"
-                        >
-                          Proceed To Checkout
-                        </Link>
-                        <Link
-                          to="/display-all-products"
-                          className="btn btn-info m-3"
-                        >
-                          Continue Shopping
-                        </Link>
-                      </div> */}
                     </div>
                     <div className="flex-btns" style={{ textAlign: "end" }}>
                       <button
@@ -371,7 +215,6 @@ const ProductCart = () => {
                         className="btn btn-warning"
                       >
                         Proceed To Checkout
-                        {/* <Link to="/checkout" className="text-decoration-none text-dark">Proceed To Checkout</Link> */}
                       </button>
                       <Link
                         to="/display-all-products"

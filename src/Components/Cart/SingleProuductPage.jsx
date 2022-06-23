@@ -41,6 +41,7 @@ const SingleProductInfo = () => {
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
         userId: user,
+        productQuantity: singleproductdata.pqty
       })
       .then((result) => {
         toast.success(<SuccessMsg />, {
