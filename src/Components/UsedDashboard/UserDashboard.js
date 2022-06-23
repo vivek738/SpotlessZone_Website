@@ -228,7 +228,7 @@ const UserDashboard = ({ userData }) => {
                       <p className="text text-secondary mb-0">
                         You have assigned create model task.
                       </p>
-                      <span class="badge bg-danger">On Track</span>
+                      <span className="badge bg-danger">On Track</span>
                     </div>
                     <div>
                       <button className="btn btn-primary px-4">
@@ -245,7 +245,7 @@ const UserDashboard = ({ userData }) => {
                       <p className="text text-secondary mb-0">
                         You have assigned create model task.
                       </p>
-                      <span class="badge bg-success">Completed</span>
+                      <span className="badge bg-success">Completed</span>
                     </div>
                     <div>
                       <button className="btn btn-primary px-4 disabled">
@@ -262,7 +262,7 @@ const UserDashboard = ({ userData }) => {
                       <p className="text text-secondary mb-0">
                         You have assigned create model task.
                       </p>
-                      <span class="badge bg-success">Completed</span>
+                      <span className="badge bg-success">Completed</span>
                     </div>
                     <div>
                       <button className="btn btn-primary px-4 disabled">
@@ -279,7 +279,7 @@ const UserDashboard = ({ userData }) => {
                       <p className="text text-secondary mb-0">
                         You have assigned create model task.
                       </p>
-                      <span class="badge bg-success">Completed</span>
+                      <span className="badge bg-success">Completed</span>
                     </div>
                     <div>
                       <button className="btn btn-primary px-4 disabled">
@@ -305,7 +305,7 @@ const UserDashboard = ({ userData }) => {
               </p>
               <div className="card my-5">
                 <div className="card-body table-responsive">
-                  <table class="table">
+                  <table className="table">
                     <thead>
                       <tr className="bg-light">
                         <th>Full Name</th>
