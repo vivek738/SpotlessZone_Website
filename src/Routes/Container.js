@@ -49,6 +49,7 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
+import ProductHistory from "../Components/Admin/ProductHistory";
 
 export const Container = () => {
   //in login branch
@@ -116,6 +117,8 @@ export const Container = () => {
               path="/service-order-history"
               element={<ServiceOrderHistory adminData={decodeUser.user} />}
             ></Route>
+
+            <Route path="/product-order-history" element={<ProductHistory></ProductHistory>}></Route>
           </>
         )}
 
