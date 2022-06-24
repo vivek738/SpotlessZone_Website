@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
 import { WarnToast } from "../../utils/WarnToast";
 import AdminHeader from "../Admin/AdminHeader";
 import AdminSidebar from "../Admin/AdminSidebar";
 
-const AdminUpdateProduct = ({ adminData }) => {
+const AdminUpdateService = ({ adminData }) => {
   // for holding the particular category id
-  const { pid } = useParams();
-  const [pname, setPname] = useState("");
-  const [pdesc, setPdesc] = useState("");
-  const [pprice, setPprice] = useState("");
-  const [pqty, setPqty] = useState("");
-  const [pic, setPic] = useState("");
+  const { sid } = useParams();
+  const [serviceName, setSname] = useState("");
+  const [serviceDesc, setSdesc] = useState("");
+  const [servicePrice, setSprice] = useState("");
+  const [image, setImage] = useState("");
+  const [serviceCategoryName, setCategoryName] = useState("");
   const [unSeenNoti, setUnseenNoti] = useState([]);
-
   const [cart, setCart] = useState([]);
   const [productQtyCart, setProductQtyCart] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+
   //   holding data
 
-  const [productdata, setProductdata] = useState([]);
+  const [sdata, setSData] = useState([]);
   // token for admin
   const {
     register,
@@ -32,6 +33,14 @@ const AdminUpdateProduct = ({ adminData }) => {
 
   //   for display category info initail when page is render
   useEffect(() => {
+    axios
+      .get("http://localhost:5000/service-category/get")
+      .then((result) => {
+        setCategoryData(result.data);
+      })
+      .catch((e) => {
+        console.log("Something Went Wrong!!");
+      });
     axios
       .get("http://localhost:5000/get-total-products-cart")
       .then((response) => {
@@ -55,49 +64,51 @@ const AdminUpdateProduct = ({ adminData }) => {
       .catch(() => {
         console.log("error occur");
       });
-  }, [pid, unSeenNoti]);
+  }, [unSeenNoti]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/singleproduct/" + pid)
-      .then((getResult) => {
-        console.log(getResult.data.pic);
-        setProductdata(getResult.data);
-        setPname(getResult.data.pname);
-        setPdesc(getResult.data.pdesc);
-        setPprice(getResult.data.pprice);
-        setPqty(getResult.data.pqty);
-        setPic(getResult.data.pic);
+      .get(`http://localhost:5000/service/get-single-service/${sid}`)
+      .then((result) => {
+        console.log(result.data);
+        setSData(result.data);
+        setCategoryName(result.data.serviceCategoryName);
+        setSdesc(result.data.serviceDesc);
+        setSname(result.data.serviceName);
+        setSprice(result.data.servicePrice);
+        setImage(result.data.image);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
-  const onSubmitProductUpdateForm = (data, e) => {
+  const onSubmitserviceData = (data, e) => {
     e.preventDefault();
-    const productUpdateForm = new FormData();
-    productUpdateForm.append("pid", pid);
-    productUpdateForm.append("pname", pname);
-    productUpdateForm.append("pdesc", pdesc);
-    productUpdateForm.append("pprice", pprice);
-    productUpdateForm.append("pqty", pqty);
-    productUpdateForm.append("image", pic);
+    const serviceData = new FormData();
+    serviceData.append("sid", sid);
+    serviceData.append("serviceName", serviceName);
+    serviceData.append("serviceDesc", serviceDesc);
+    serviceData.append("servicePrice", servicePrice);
+    serviceData.append("serviceCategoryName", serviceCategoryName);
+    serviceData.append("image", image);
 
     axios
-      .put(`http://localhost:5000/update-product/${pid}`, productUpdateForm)
+      .put(`http://localhost:5000/service/update-service/${sid}`, serviceData)
 
       .then((result) => {
         console.log(result.data);
+        setCategoryName("")
+        setSname("");
+        setSdesc("");
+        setSprice("");
+        setImage("");
 
         // window.location = "/view-admin-products";
         toast.success(<UpdateToast />, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.BOTTOM_CENTER,
           autoClose: false,
         });
-        setPname("");
-        setPdesc("");
-        setPprice("");
-        setPqty("");
-        setPic("");
       })
       .catch((e) => {
         toast.warn(<WarnToast />, {
@@ -130,7 +141,7 @@ const AdminUpdateProduct = ({ adminData }) => {
             <div className="farm_product_heading container-fluid">
               <div className="row">
                 <div className="col-md-12 mt-2 mb-3">
-                  <h1>Update Product</h1>
+                  <h1>Update Service</h1>
                 </div>
               </div>
             </div>
@@ -144,69 +155,96 @@ const AdminUpdateProduct = ({ adminData }) => {
                           {/* customer form */}
                           <form
                             method="POST"
-                            onSubmit={handleSubmit(onSubmitProductUpdateForm)}
+                            onSubmit={handleSubmit(onSubmitserviceData)}
                             encType="multipart/form-data"
                           >
+                            <label
+                              htmlFor="serviceCategoryName"
+                              className="fw-bold fs-4 pb-2"
+                            >
+                              Service Category
+                            </label>
+                            <div className="input-group">
+                              <select
+                                style={{
+                                  border: "1px solid green",
+                                  borderRadius: "5px",
+                                  width: "100%",
+                                  padding: "5px",
+                                }}
+                                value={serviceCategoryName}
+                                onChange={(e) =>
+                                  setCategoryName(e.target.value)
+                                }
+                                className="p-2"
+                              >
+                                <option value="">
+                                  Please Choose Service Category
+                                </option>
+                                {/* using loop for display added category to product added form */}
+                                {categoryData.map((d) => {
+                                  return (
+                                    <option value={d.serviceCategoryName}>
+                                      {d.serviceCategoryName}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                            </div>
                             {/* input field for product name */}
-                            <div className="form-group fw-bold my-2">
-                              <label htmlFor="pname" className="py-2">
-                                Product Name
-                              </label>
+                            <div className="form-group">
+                              <label htmlFor="pname">PService Name</label>
                               <input
                                 type="text"
                                 className={`form-control ${
-                                  errors.setPname && "invalid"
+                                  errors.setSname && "invalid"
                                 }`}
-                                placeholder="Enter product name"
+                                placeholder="Enter service name"
                                 autoComplete="nope"
                                 // firstname : validation
-                                {...register("setPname", {
-                                  required: "product name is required",
+                                {...register("setSname", {
+                                  required: "service name is required",
                                   minLength: {
                                     value: 3,
-                                    message: "product name is too short",
+                                    message: "service name is too short",
                                   },
                                   maxLength: {
                                     value: 20,
-                                    message: "product name is too long",
+                                    message: "service name is too long",
                                   },
                                 })}
                                 // changing data on typing and set data to product name variable and send to database
-                                value={pname}
-                                onChange={(e) => setPname(e.target.value)}
+                                value={serviceName}
+                                onChange={(e) => setSname(e.target.value)}
                               />
                               {/* for displaying error message on validating */}
-                              {errors.setpname && (
+                              {errors.setSname && (
                                 <small className="text-danger">
-                                  {errors.setPname.message}
+                                  {errors.setSname.message}
                                 </small>
                               )}
                             </div>
                             {/* input field for product pic */}
-                            <div className="form-group fw-bold my-2">
-                              <label htmlFor="file" className="py-2">
-                                Choose Product pic
-                              </label>
+                            <div className="form-group">
+                              <label htmlFor="file">Choose Service Pic</label>
                               <input
                                 type="file"
-                                name="image"
+                                name="pic"
                                 className="form-control"
-                                {...register("setPic", {
+                                {...register("setImage", {
                                   required: "Choose product pic",
                                 })}
-                                onChange={(e) => setPic(e.target.files[0])}
+                                onChange={(e) => setImage(e.target.files[0])}
                               />
-                              {errors.setpic && (
+                              {errors.setImage && (
                                 <small className="text-danger">
-                                  {errors.setPic.message}
+                                  {errors.setImage.message}
                                 </small>
                               )}
                             </div>
                             {/* input field for product qty */}
-                            <div className="form-group fw-bold my-2">
-                              <label htmlFor="pqty" className="py-2">
-                                pqty
-                              </label>
+                            {/* <div className="form-group">
+                              <label htmlFor="pqty">pqty</label>
                               <input
                                 type="phone"
                                 className={`form-control ${
@@ -233,57 +271,55 @@ const AdminUpdateProduct = ({ adminData }) => {
                                   {errors.setPqty.message}
                                 </small>
                               )}
-                            </div>
+                            </div> */}
 
                             {/* input field for product price*/}
-                            <div className="form-group fw-bold my-2">
-                              <label htmlFor="pprice" className="py-2">
-                                Product Price
+                            <div className="form-group">
+                              <label htmlFor="servicePrice">
+                                Service Price
                               </label>
                               <input
                                 type="phone"
                                 className={`form-control ${
-                                  errors.setPprice && "invalid"
+                                  errors.setSprice && "invalid"
                                 }`}
-                                placeholder="Enter product price"
-                                {...register("setPprice", {
-                                  required: "product price is required",
+                                placeholder="Enter service price"
+                                {...register("setSprice", {
+                                  required: "service price is required",
                                   pattern: {
                                     value: /^[0-9\b]+$/,
                                     message: "Enter digits only",
                                   },
                                 })}
-                                value={pprice}
-                                onChange={(e) => setPprice(e.target.value)}
+                                value={servicePrice}
+                                onChange={(e) => setSprice(e.target.value)}
                               />
-                              {errors.setpprice && (
+                              {errors.setSprice && (
                                 <small className="text-danger">
-                                  {errors.setPprice.message}
+                                  {errors.setSprice.message}
                                 </small>
                               )}
                             </div>
                             {/* input field for product desc */}
-                            <div className="form-group fw-bold my-2">
-                              <label htmlFor="pdesc" className="py-2">
-                                Description
-                              </label>
+                            <div className="form-group">
+                              <label htmlFor="serviceDesc">Description</label>
                               <textarea
                                 type="text"
                                 className={`form-control ${
-                                  errors.setPdesc && "invalid"
+                                  errors.setSdesc && "invalid"
                                 }`}
                                 id="exampleFormControlTextarea1"
                                 rows="2"
                                 placeholder="write something for it"
-                                {...register("setPdesc", {
+                                {...register("setSdesc", {
                                   required: "description is required", // JS only: <p>error message</p> TS only support string
                                 })}
-                                value={pdesc}
-                                onChange={(e) => setPdesc(e.target.value)}
+                                value={serviceDesc}
+                                onChange={(e) => setSdesc(e.target.value)}
                               ></textarea>
-                              {errors.setpdesc && (
+                              {errors.setSdesc && (
                                 <small className="text-danger">
-                                  {errors.setPdesc.message}
+                                  {errors.setSdesc.message}
                                 </small>
                               )}
                             </div>
@@ -307,7 +343,7 @@ const AdminUpdateProduct = ({ adminData }) => {
     </>
   );
 };
-export default AdminUpdateProduct;
+export default AdminUpdateService;
 const UpdateToast = () => {
   return (
     <>
@@ -318,7 +354,7 @@ const UpdateToast = () => {
               You have successfully updated product !!! Click "OK" to continue..
             </p>
             <Link
-              to="/view-admin-products"
+              to="/view-services"
               className="btn btn-outline-success"
               style={{
                 fontWeight: "bold",
