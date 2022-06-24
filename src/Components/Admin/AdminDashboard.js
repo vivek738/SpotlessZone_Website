@@ -172,6 +172,8 @@ const AdminDashboard = ({ adminData }) => {
                       >
                         Add Product
                       </Link>
+
+                      
                     </div>
                   </div>
                 </div>
@@ -226,6 +228,15 @@ const AdminDashboard = ({ adminData }) => {
                         <p className="text text-dark fs-5 mb-0">Order</p>
                       </div>
                     </a>
+
+                    <a href="#" className="nav-link w-100 my-2 mb-3">
+                      <div className="d-flex justify-content-start align-items-center">
+                        <i className="fa fa-sort text-dark fs-5 me-4"></i>
+                        <Link to="/add-picture" className="text text-dark fs-5 mb-0 text-decoration-none">Gallery</Link>
+                      </div>
+                    </a>
+
+
                     {/* third navlink */}
                     <a href="#" className="nav-link w-100 my-2 mb-3">
                       <div className="d-flex justify-content-start align-items-center">

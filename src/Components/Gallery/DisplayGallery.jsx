@@ -10,7 +10,7 @@ const DisplayGallery = () => {
   const myTimeOut = () => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -67,6 +67,8 @@ const DisplayGallery = () => {
                     style={{
                       cursor: "pointer",
                       borderRadius: "10px",
+                      maxHeight: "200px",
+                      maxWidth: "300px"
                       // boxShadow: "1px 1px 1px 1px #94FFFF",
                     }}
                   >
@@ -77,7 +79,7 @@ const DisplayGallery = () => {
                         alt=""
                         className="img-fluid"
                         // style={{ height: "320px", width: "350px" }}
-                        style={{ borderRadius: "10px" }}
+                        style={{ borderRadius: "10px", maxHeight: "200px", minWidth: "300px" }}
                       />
                       {/* </div> */}
                     </div>

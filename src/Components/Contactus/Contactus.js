@@ -8,7 +8,7 @@ import placeholder from '../../Images/placeholder.png';
 import { MDBContainer } from 'mdb-react-ui-kit';
 import Header from "../Homepage/Header";
 import axios from "axios";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 import { toast } from "react-toastify";
 
 

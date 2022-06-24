@@ -31,6 +31,7 @@ const AddPicture = () => {
 
   return (
     <>
+    
       <div className="container">
         <h1 className="text-center fw-bold my-5">Add Picture For Gallery</h1>
         <div className="row justify-content-center">
