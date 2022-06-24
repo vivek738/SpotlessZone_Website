@@ -65,9 +65,11 @@ const BookService = ({ serviceData, userData, sp }) => {
         address: address,
         totalServiceCost: totalCost,
         userId: userData._id,
+        userName: userData.name,
       })
+      // console.log(data[0].userId)
       .then((result) => {
-        // console.log(result.data[0].totalServiceCost);
+        // console.log(result.data);
         setSData(result.serviceData);
         setAddress("");
         toast.success(<SuccessServiceBookedToast />, {
@@ -286,12 +288,22 @@ const BookService = ({ serviceData, userData, sp }) => {
             )}
           </div>
 
-          <input
-            type="submit"
-            id="submitBtn"
-            className="bookBtn btn w-100 my-2 fw-bold text-uppercase bg-white "
-            value="Book Now"
-          />
+          {userData ? (
+            <input
+              type="submit"
+              id="submitBtn"
+              className="bookBtn btn w-100 my-2 fw-bold text-uppercase bg-white "
+              value="Book Now"
+            />
+          ) : (
+            <input
+              type="submit"
+              className="disabledBtn btn w-100 my-2 fw-bold text-uppercase bg-white"
+              // style={{ cursor: "pointer" }}
+              value="Book Now"
+              disabled
+            />
+          )}
         </form>
       </div>
     </>

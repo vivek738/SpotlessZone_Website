@@ -4,8 +4,9 @@ import bgImg from "../../Images/first.png";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import BookService from "./BookService";
+import { parseJwt } from "../../utils/parseJwt";
 
-const SingleService = ({ userData }) => {
+const SingleService = () => {
   const { sid } = useParams();
   const [singleServiceData, setSingleServiceData] = useState([]);
 
@@ -20,7 +21,11 @@ const SingleService = ({ userData }) => {
       });
   }, []);
 
-  // console.log(userData._id)
+
+  // for token 
+  const token_data = localStorage.getItem("token")
+  const token = parseJwt(token_data)
+  const userData = token?.user
 
   return (
     <>

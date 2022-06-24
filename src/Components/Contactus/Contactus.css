@@ -40,6 +40,11 @@ form button:hover{
 } */
 
 .main{
+<<<<<<< HEAD
+=======
+    background-color: #3bb19b;
+    border-radius: 10px;
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
 }
 
 /* .picture{
