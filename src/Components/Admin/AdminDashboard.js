@@ -1,17 +1,20 @@
 import React from "react";
+import { useEffect } from "react";
+
 import "./AdminDashboard.css";
 import {
   ResponsiveContainer,
   XAxis,
   YAxis,
   CartesianGrid,
-  Legend,
   Tooltip,
   AreaChart,
   Area,
 } from "recharts";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import AdminHeader from "./AdminHeader";
+import AdminSidebar from "./AdminSidebar";
 
 // weekly like data here
 const ddata = [
@@ -67,7 +70,12 @@ const ddata = [
 // weekly like data here
 const AdminDashboard = ({ adminData }) => {
   const [noti, setNoti] = React.useState([]);
-  React.useEffect(() => {
+  const [users, setUsers] = React.useState([]);
+  const [orders, setOrders] = React.useState([]);
+  const [cart, setCart] = React.useState([]);
+  const [productQtyCart, setProductQtyCart] = React.useState([]);
+ 
+  useEffect(() => {
     //   for all notification either visible or not
 
     axios
@@ -88,21 +96,72 @@ const AdminDashboard = ({ adminData }) => {
       .catch(() => {
         console.log("error occur");
       });
-  });
-  const logoutHandle = (e) => {
-    e.preventDefault()
-    localStorage.clear();
-    window.location = "/";
-  };
 
-  const handleNoti = () => {
-    console.log("click");
-    window.location = "/notifications";
+    // for total number of registered users
+    axios
+      .get("http://localhost:5000/customer/register/get-total-users")
+      .then((response) => {
+        if (response) {
+          setUsers(response.data);
+        } else {
+          console.log("all true");
+        }
+      })
+
+      .catch(() => {
+        console.log("error occur");
+      });
+
+    // for total number of pending orders
+    axios
+      .get("http://localhost:5000/service/pending-service-orders")
+      .then((response) => {
+        if (response) {
+          setOrders(response.data);
+        } else {
+          console.log("all true");
+        }
+      })
+
+      .catch(() => {
+        console.log("error occur");
+      });
+    // for total number of registered users
+    axios
+      .get("http://localhost:5000/get-total-products-cart")
+      .then((response) => {
+        if (response) {
+          console.log(response.data[0].productQuantity);
+          setCart(response.data);
+        } else {
+          console.log("Something went wrong");
+        }
+      })
+
+      .catch(() => {
+        console.log("error occur");
+      });
+    // for total price
+  },[]);
+
+  useEffect(()=>{
+    calculation();
+
+  })
+
+
+
+  // calculating total products number in cart
+  const calculation = () => {
+    setProductQtyCart(
+      cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
+    );
   };
 
   return (
     <>
       <div className="container-fluid ps-0 py-3 bg-light">
+<<<<<<< HEAD
         <div className="">
           <div className="row">
             <div className="col-md-3">
@@ -358,6 +417,17 @@ const AdminDashboard = ({ adminData }) => {
               </div>
             </div>
           </div>
+=======
+        
+
+        <AdminHeader noti={noti} productQtyCart={productQtyCart}/>
+
+
+
+        <div className="row py-4 me-4">
+          <AdminSidebar adminData={adminData}/>
+
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
           <div className="col-md-9">
             <div className="p-1">
               <div className="row mb-5">
@@ -372,9 +442,11 @@ const AdminDashboard = ({ adminData }) => {
                         <p className="text text-success fw-bold mb-0">14%</p>
                       </div>
                     </div>
-                    <p className="text text-dark fw-bold fs-3">81</p>
+                    <p className="text text-dark fw-bold fs-3">
+                      {users.length}
+                    </p>
                     <div className="d-flex justify-content-between align-items-center">
-                      <a href="#" className="">
+                      <a href="#" className="cart-link">
                         See all users
                       </a>
                       <p className="text text-danger mb-0 bg-warning py-1 px-2 rounded">
@@ -396,7 +468,7 @@ const AdminDashboard = ({ adminData }) => {
                     </div>
                     <p className="text text-dark fw-bold fs-3">90</p>
                     <div className="d-flex justify-content-between align-items-center">
-                      <a href="#" className="">
+                      <a href="#" className="cart-link">
                         See all reviews
                       </a>
                       <p className="text text-danger mb-0 bg-warning py-1 px-2 rounded">
@@ -418,7 +490,7 @@ const AdminDashboard = ({ adminData }) => {
                     </div>
                     <p className="text text-dark fw-bold fs-3">81</p>
                     <div className="d-flex justify-content-between align-items-center">
-                      <a href="#" className="">
+                      <a href="#" className="cart-link">
                         See all earning
                       </a>
                       <p className="text text-danger mb-0 bg-warning py-1 px-2 rounded">
@@ -438,11 +510,13 @@ const AdminDashboard = ({ adminData }) => {
                         <p className="text text-success fw-bold mb-0">14%</p>
                       </div>
                     </div>
-                    <p className="text text-dark fw-bold fs-3">81</p>
+                    <p className="text text-dark fw-bold fs-3">
+                      {orders.length}
+                    </p>
                     <div className="d-flex justify-content-between align-items-center">
-                      <a href="#" className="">
+                      <Link to="/service-order-history" className="cart-link">
                         See all Orders
-                      </a>
+                      </Link>
                       <p className="text text-danger mb-0 bg-warning py-1 px-2 rounded">
                         <i className="fa fa-shopping-cart"></i>
                       </p>

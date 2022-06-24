@@ -45,6 +45,12 @@ import ToolTip from "../Components/ToolTIp";
 import Gallery from "../Components/galleryy/Gallery";
 
 import Checkout from "../Components/BuyProduct/Checkout";
+import ServiceOrderHistory from "../Components/Admin/ServiceOrderHistory";
+import AdminGallery from "../Components/Gallery/AdminGallery";
+import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
+import AdminBlogPost from "../Components/Admin/AdminBlogPost";
+import ForgotPasswort from "../Components/ForgotPassword";
+import PasswordReset from "../Components/PasswordReset";
 
 export const Container = () => {
   //in login branch
@@ -73,27 +79,52 @@ export const Container = () => {
               path="/view-admin-products"
               element={<AdminProducts adminData={decodeUser.user} />}
             ></Route>
-            <Route path="/addProduct" element={<Addproduct />}></Route>
-            <Route path="/notifications" element={<Notification />}></Route>
+            <Route
+              path="/addProduct"
+              element={<Addproduct adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/update-product/:pid"
+              element={<UpdateProduct adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/notifications"
+              element={<Notification adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/admin-gallery"
+              element={<AdminGallery adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/add-picture"
+              element={<AddPicture adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/update-image/:gid"
+              element={<AdminUpdateGallery adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/admin-blog-home"
+              element={<AdminBlogHome adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/admin-blog-post"
+              element={<AdminBlogPost adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/service-order-history"
+              element={<ServiceOrderHistory adminData={decodeUser.user} />}
+            ></Route>
           </>
         )}
 
         {/* for customer activity only */}
         {token && decodeUser.user?.role === "user" && (
           <>
-            <Route
-              path="/all-commercial-services"
-              element={<AllCommercialServices />}
-            ></Route>
-            <Route
-              path="/all-residential-services"
-              element={<AllResidentialServices />}
-            ></Route>
             <Route path="/all-services" element={<AllServices />}></Route>
-            <Route
-              path="/single-service/:sid"
-              element={<SingleService userData={decodeUser.user} />}
-            ></Route>
             <Route
               path="/user-dashboard"
               element={<UserDashboard userData={decodeUser.user} />}
@@ -101,6 +132,15 @@ export const Container = () => {
             <Route path="/cart" element={<ProductCart />}></Route>
           </>
         )}
+        <Route path="/single-service/:sid" element={<SingleService />}></Route>
+        <Route
+          path="/all-commercial-services"
+          element={<AllCommercialServices />}
+        ></Route>
+        <Route
+          path="/all-residential-services"
+          element={<AllResidentialServices />}
+        ></Route>
         <Route path="/display-all-products" element={<AllProducts />}></Route>
         <Route
           path="/single-product/:pid"
@@ -140,13 +180,11 @@ export const Container = () => {
         <Route path="/add-services" element={<TestingService />}></Route>
         <Route path="/book-services" element={<TestBookService />}></Route>
 
-        <Route path="/add-picture" element={<AddPicture />}></Route>
         <Route path="/gallery" element={<DisplayGallery />}></Route>
 
         <Route path="/aboutus" element={<AboutUs></AboutUs>}></Route>
 
         <Route path="/getproduct" element={<Product />}></Route>
-        <Route path="/update-product/:pid" element={<UpdateProduct />}></Route>
 
         <Route path="/edit-profile" element={<EditProfile />}></Route>
 
@@ -157,14 +195,10 @@ export const Container = () => {
           element={<Trainingfaq></Trainingfaq>}
         ></Route>
         <Route path="/contactus" element={<Contactus></Contactus>}></Route>
-
         <Route path="/blogs" element={<Blogs />}></Route>
-
         <Route path="/blogdetail/:id" element={<BlogDetail />}></Route>
 
-        {/* <Route path="/blogpost" element={<AdminBlogPost />}></Route> */}
-        <Route path="/admin-blogdetail" element={<AdminBlogDetail />}></Route>
-        <Route path="/admin-blog-home" element={<AdminBlogHome />}></Route>
+        <Route path="/admin-blog-detail" element={<AdminBlogDetail />}></Route>
 
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
 
@@ -172,6 +206,15 @@ export const Container = () => {
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
 
+<<<<<<< HEAD
+=======
+        {/* forgot pass */}
+        <Route path="/forgot-password" element={<ForgotPasswort />}></Route>
+
+          {/* pass reset */}
+          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
       </Routes>
     </>
   );

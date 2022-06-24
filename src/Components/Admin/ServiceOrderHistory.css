@@ -1,0 +1,145 @@
+/**
+* ! styles for whole order history container  
+**/
+.orderContainer {
+  border-radius: 20px;
+}
+
+/**
+* ! styles for search filter 
+**/
+.search-filter-container {
+  margin: 40px 0;
+}
+
+.search-input {
+  position: relative;
+}
+.bi-search {
+  position: absolute;
+  min-width: 40px;
+  padding: 10px;
+  color: #6c757d;
+  font-weight: bold;
+  cursor: pointer;
+}
+.search {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  text-align: start;
+  border: 1px solid #bde0fe;
+  border-radius: 10px;
+  font-weight: 400;
+}
+
+.search-input-filter {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.filter-icon {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background-color: #a1b5d8;
+  align-items: center;
+  font-weight: bold;
+  padding: 4px;
+  width: 100px;
+  justify-content: center;
+  border-radius: 10px;
+  color: #001233;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/**
+* ! styles for status btns
+**/
+.pendingBtn,
+.deliveredBtn,
+.transitBtn {
+  width: 100px;
+  background-color: #faedcd;
+  border-radius: 50px;
+  padding: 7px 10px 7px 20px;
+  cursor: pointer;
+}
+
+.deliveredBtn {
+  background-color: #a8dadc;
+}
+.transitBtn {
+  background-color: #bde0fe;
+}
+
+.pending,
+.delivered {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.transit {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+* ! styles for status numbers
+**/
+.number {
+  background-color: #ced4da;
+  border-radius: 50px;
+  padding: 0 10px;
+  text-align: center;
+}
+.orderType {
+  cursor: pointer;
+}
+.number:hover {
+  background-color: #ffba08;
+}
+
+/**
+* !styles for pending orders card
+**/
+.cusname-address-cost {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cusname-address {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.address-date {
+  display: flex;
+  flex-direction: column !important;
+}
+.image {
+  padding: 10px;
+}
+.image img {
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deny-approve-buttons {
+  cursor: pointer;
+}
+
+/**
+* ! Styles for card
+**/
+.orderCard {
+  border: none;
+  background-color: #fffcf7;
+  border-radius: 10px;
+}

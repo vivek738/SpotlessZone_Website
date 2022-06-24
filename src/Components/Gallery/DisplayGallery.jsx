@@ -52,12 +52,12 @@ const DisplayGallery = () => {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container my-5">
         {/* <Link className="btn btn-primary float-end mt-3" to={`/add-picture`}>
           Add More
         </Link> */}
         <h1>{isloading && <Spinner />}</h1>
-        <div className="row justify-content-center">
+        <div className="row">
           {!isloading &&
             galleryData.map((gData) => {
               return (
@@ -67,8 +67,14 @@ const DisplayGallery = () => {
                     style={{
                       cursor: "pointer",
                       borderRadius: "10px",
+<<<<<<< HEAD
                       maxHeight: "200px",
                       maxWidth: "300px"
+=======
+                      height: "300px",
+                      width: "350px",
+
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
                       // boxShadow: "1px 1px 1px 1px #94FFFF",
                     }}
                   >
@@ -78,8 +84,17 @@ const DisplayGallery = () => {
                         src={`http://localhost:5000/${gData.image}`}
                         alt=""
                         className="img-fluid"
+<<<<<<< HEAD
                         // style={{ height: "320px", width: "350px" }}
                         style={{ borderRadius: "10px", maxHeight: "200px", minWidth: "300px" }}
+=======
+                        style={{
+                          height: "300px",
+                          width: "350px",
+                          borderRadius: "10px",
+                        }}
+                        // style={{ borderRadius: "10px" }}
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
                       />
                       {/* </div> */}
                     </div>
