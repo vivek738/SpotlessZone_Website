@@ -93,6 +93,21 @@ const AdminSidebar = ({ adminData }) => {
                   </div>
                 </a>
 
+
+                <Link to="/view-service-category" className="nav-link w-100 my-2 mb-3">
+                  <div className="d-flex justify-content-start align-items-center">
+                    <i className="fa fa-comment text-dark fs-5 me-4"></i>
+                    <p className="text text-dark fs-5 mb-0">Service Category</p>
+                  </div>
+                </Link>
+
+                <Link to="/view-services" className="nav-link w-100 my-2 mb-3">
+                  <div className="d-flex justify-content-start align-items-center">
+                    <i className="fa fa-comment text-dark fs-5 me-4"></i>
+                    <p className="text text-dark fs-5 mb-0">Services</p>
+                  </div>
+                </Link>
+
                 <Link to="/admin-gallery" className="nav-link w-100 my-2 mb-3">
                   <div className="d-flex justify-content-start align-items-center">
                     <i className="fa fa-comment text-dark fs-5 me-4"></i>
