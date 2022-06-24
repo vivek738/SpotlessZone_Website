@@ -48,9 +48,13 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
+
+import ProductHistory from "../Components/Admin/ProductHistory";
+
 import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
+
 
 export const Container = () => {
   //in login branch
@@ -119,6 +123,8 @@ export const Container = () => {
               element={<ServiceOrderHistory adminData={decodeUser.user} />}
             ></Route>
 
+            <Route path="/product-order-history" element={<ProductHistory></ProductHistory>}></Route>
+
             <Route
               path="/add-service-category"
               element={<AddServiceCategory adminData={decodeUser.user} />}
@@ -142,6 +148,7 @@ export const Container = () => {
               path="/update-service/:sid"
               element={<AdminUpdateService adminData={decodeUser.user} />}
             ></Route>
+
           </>
         )}
 
