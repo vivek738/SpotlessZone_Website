@@ -1,14 +1,13 @@
-
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./message.css";
 const UserDashboard = ({ userData }) => {
   const [isHover, setHover] = useState(false);
   const [serviceOrder, setServiceOrders] = useState([]);
   const [pendingOrder, setPendingOrder] = useState([]);
-
 
   useEffect(() => {
     // for all order services data
@@ -30,7 +29,7 @@ const UserDashboard = ({ userData }) => {
       .catch(() => {
         console.log("error occur");
       });
-      axios
+    axios
       .get("http://localhost:5000/service/pending-service-orders")
       .then((response) => {
         if (response) {
@@ -55,25 +54,28 @@ const UserDashboard = ({ userData }) => {
     window.location = "/";
   };
   function parseJwt(token) {
-    if (!token) { return; }
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
     return JSON.parse(window.atob(base64));
   }
   // get user form the token
-  const token_data = localStorage.getItem("token")
-  const token = parseJwt(token_data)
-  const userId = token?.user._id
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const userId = token?.user._id;
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/show-own-order/${userId}`).then(res => {
-      setData(res.data)
-      console.log(res)
-    }).catch(e => [
-      console.log(e)
-    ])
-  }, [])
+    axios
+      .get(`http://localhost:5000/show-own-order/${userId}`)
+      .then((res) => {
+        setData(res.data);
+        console.log(res);
+      })
+      .catch((e) => [console.log(e)]);
+  }, []);
 
   return (
     <>
@@ -145,7 +147,9 @@ const UserDashboard = ({ userData }) => {
                                   members for providing your requested service{" "}
                                   <br /> Please be at home
                                   <br />
-                                  <span className="fw-bold fs-7">Thank You !</span>
+                                  <span className="fw-bold fs-7">
+                                    Thank You !
+                                  </span>
                                 </p>
                               )}
                               {!x.deliveryStatus && (
@@ -186,23 +190,39 @@ const UserDashboard = ({ userData }) => {
             </div>
 
             <div className="">
-              <div>
-                <img
-                  src="https://cdn.pixabay.com/photo/2018/01/29/17/01/woman-3116587__340.jpg"
-                  alt=""
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                    backgroundSize: "cover",
-                  }}
-                />
-              </div>
+              {userData && userData?.pic ? (
+                <div>
+                  <img
+                    src={`http://localhost:5000/${userData.pic}`}
+                    alt=""
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "50%",
+                      backgroundSize: "cover",
+                    }}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <img
+                    // src="https://cdn.pixabay.com/photo/2018/01/29/17/01/woman-3116587__340.jpg"
+                    src = "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-20.jpg"
+                    alt=""
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "50%",
+                      backgroundSize: "cover",
+                    }}
+                  />
+                </div>
+              )}
 
               <div>
-                <a href="/" className="text-decoration-none">
+                <Link to="/profile-creation" className="text-decoration-none">
                   View Profile
-                </a>
+                </Link>
                 /
                 <a
                   className="text-decoration-none text-danger fw-bold text-uppercase "
@@ -293,31 +313,27 @@ const UserDashboard = ({ userData }) => {
           </div>
         </div>
         {/* checkout section */}
-        <div className="container col-md-8 mb-4">
-
-        </div>
+        <div className="container col-md-8 mb-4"></div>
         {/* checkout section */}
-        <div className="container col-md-8 py-4 ">
-          <div className="bg-white p-2">
-            <div className="mx-3">
-              <p className="text text-bold fs-5 p-2">
-                Address Book
-              </p>
-              <div className="card my-5">
-                <div className="card-body table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr className="bg-light">
-                        <th>Full Name</th>
-                        <th>Address</th>
-                        <th>State</th>
-                        <th>Phone Number</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody style={{ justifyContent: "center" }}>
-                      {
-                        data?.map(val => {
+        {data && data.length > 0 ? (
+          <div className="container col-md-8 py-4">
+            <div className="bg-white p-2">
+              <div className="mx-3">
+                <p className="text text-bold fs-5 p-2">Address Book</p>
+                <div className="card my-5">
+                  <div className="card-body table-responsive">
+                    <table className="table">
+                      <thead>
+                        <tr className="bg-light">
+                          <th>Full Name</th>
+                          <th>Address</th>
+                          <th>State</th>
+                          <th>Phone Number</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody style={{ justifyContent: "center" }}>
+                        {data?.map((val) => {
                           return (
                             <tr>
                               <td>{val?.firstname}</td>
@@ -325,21 +341,22 @@ const UserDashboard = ({ userData }) => {
                               <td>{val?.address_detail.state}</td>
                               <td>{val?.phone}</td>
                               <td>
-                                <button  
-                                className="btn btn-link text-decoration-none"
-                                type="button"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                >EDIT</button>
+                                <button
+                                  className="btn btn-link text-decoration-none"
+                                  type="button"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal"
+                                >
+                                  EDIT
+                                </button>
                               </td>
                             </tr>
-                          )
-                        })
-                      }
-                    </tbody>
-                  </table>
-                </div>
-                {/*  */}
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  {/*  */}
                   {/* Button trigger modal */}
                   {/* Modal */}
                   <div
@@ -363,75 +380,120 @@ const UserDashboard = ({ userData }) => {
                           />
                         </div>
                         <div className="modal-body">
-                        <div className="px-4 bg-white py-3">
-                                <form>
-                                    <div className='bg-white'>
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>First Name</label>
-                                                    <input type="text" className="form-control" style={{ borderRadius: '0px' }} />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>State</label>
-                                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                                        <option selected="">Please select your state</option>
-                                                        <option value='Bagmati'>Bagmati</option>
-                                                        <option value='Lumbini'>Lumbini</option>
-                                                        <option value='Karnali'>Karnali</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>Phone no</label>
-                                                    <input type="text" className="form-control" style={{ borderRadius: '0px' }} />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>City</label>
-                                                    <select  className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                                        <option selected="">Please select your City</option>
-                                                        <option  value='Kathmandu'>Kathmandu</option>
-                                                        <option value='Lalitpur'>Lalitpur</option>
-                                                        <option value='Bhaktapur'>Bhaktapur</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>Area</label>
-                                                    <select  className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                                        <option selected="">Area</option>
-                                                        <option value={1}>One</option>
-                                                        <option value={2}>Two</option>
-                                                        <option value={3}>Three</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="p-1">
-                                                    <label htmlFor="" className='mb-2'>Address</label>
-                                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                                        <option selected="">Address</option>
-                                                        <option value={1}>One</option>
-                                                        <option value={2}>Two</option>
-                                                        <option value={3}>Three</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                          <div className="px-4 bg-white py-3">
+                            <form>
+                              <div className="bg-white">
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        First Name
+                                      </label>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        style={{ borderRadius: "0px" }}
+                                      />
                                     </div>
-                                </form>
-                            </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        State
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">
+                                          Please select your state
+                                        </option>
+                                        <option value="Bagmati">Bagmati</option>
+                                        <option value="Lumbini">Lumbini</option>
+                                        <option value="Karnali">Karnali</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Phone no
+                                      </label>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        style={{ borderRadius: "0px" }}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        City
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">
+                                          Please select your City
+                                        </option>
+                                        <option value="Kathmandu">
+                                          Kathmandu
+                                        </option>
+                                        <option value="Lalitpur">
+                                          Lalitpur
+                                        </option>
+                                        <option value="Bhaktapur">
+                                          Bhaktapur
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Area
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">Area</option>
+                                        <option value={1}>One</option>
+                                        <option value={2}>Two</option>
+                                        <option value={3}>Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Address
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">Address</option>
+                                        <option value={1}>One</option>
+                                        <option value={2}>Two</option>
+                                        <option value={3}>Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                         <div className="modal-footer">
                           <button
@@ -449,7 +511,7 @@ const UserDashboard = ({ userData }) => {
                     </div>
                   </div>
 
-                {/* <div className="flex-btns" style={{ textAlign: "end" }}>
+                  {/* <div className="flex-btns" style={{ textAlign: "end" }}>
                           <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
                             Checkout
                           </button>
@@ -460,8 +522,8 @@ const UserDashboard = ({ userData }) => {
                             Continue Shopping
                           </Link>
                         </div> */}
-              </div>
-              {/* <div className="table-responsive">
+                </div>
+                {/* <div className="table-responsive">
                 <table className="table table-bordered" border="2">
                   <tr>
                     <th>Full Name</th>
@@ -479,9 +541,12 @@ const UserDashboard = ({ userData }) => {
                   </tr>
                 </table>
               </div> */}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
