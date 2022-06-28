@@ -54,7 +54,7 @@ import ProductHistory from "../Components/Admin/ProductHistory";
 import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
-
+import UserProfileView from "../Components/Profile/ProfileView";
 
 export const Container = () => {
   //in login branch
@@ -123,7 +123,10 @@ export const Container = () => {
               element={<ServiceOrderHistory adminData={decodeUser.user} />}
             ></Route>
 
-            <Route path="/product-order-history" element={<ProductHistory></ProductHistory>}></Route>
+            <Route
+              path="/product-order-history"
+              element={<ProductHistory></ProductHistory>}
+            ></Route>
 
             <Route
               path="/add-service-category"
@@ -148,7 +151,6 @@ export const Container = () => {
               path="/update-service/:sid"
               element={<AdminUpdateService adminData={decodeUser.user} />}
             ></Route>
-
           </>
         )}
 
@@ -161,6 +163,9 @@ export const Container = () => {
               element={<UserDashboard userData={decodeUser.user} />}
             ></Route>
             <Route path="/cart" element={<ProductCart />}></Route>
+            <Route path="/profile-creation" element={<UserProfile />}></Route>
+            <Route path="/edit-profile" element={<EditProfile />}></Route>
+            <Route path="/view-profile" element={<UserProfileView />}></Route>
           </>
         )}
         <Route path="/single-service/:sid" element={<SingleService />}></Route>
@@ -188,9 +193,6 @@ export const Container = () => {
           path="/customer/register/:id/verify/:token"
           element={<EmailVerify />}
         />
-
-        <Route path="/edit-profile" element={<EditProfile />}></Route>
-        <Route path="/profile-creation" element={<UserProfile />}></Route>
 
         <Route path="/job-form-submit" element={<Hiring />}></Route>
 
