@@ -3,3 +3,23 @@
   background-color: rgb(9, 28, 232) !important;
   border: 1px solid #fff;
 }
+
+/**
+* !styles for disabled book btn
+**/
+
+/* input.disabledBtn{
+  cursor: none;
+}
+input.disabledBtn:hover {
+  cursor: not-allowed
+} */
+
+
+/* input.disabledBtn[disabled] {
+  pointer-events: none;
+}
+
+input.disabled {
+  cursor: not-allowed;
+} */

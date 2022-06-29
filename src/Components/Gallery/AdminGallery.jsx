@@ -3,25 +3,22 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AdminHeader from "../Admin/AdminHeader";
 import AdminSidebar from "../Admin/AdminSidebar";
-// import AdminDashboard from "../Admin/AdminDashboard"
 
-// use reducer
-
-const AdminProducts = ({ adminData }) => {
-  const [pdata, setProductData] = useState([]);
+const AdminGallery = ({ adminData }) => {
+  const [gdata, setGalleryData] = useState([]);
   const [unSeenNoti, setUnseenNoti] = useState([]);
 
   const [cart, setCart] = useState([]);
   const [productQtyCart, setProductQtyCart] = useState([]);
 
-  const { pid } = useParams();
+  const { gid } = useParams();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get/product")
+      .get("http://localhost:5000/picture/get")
       .then((result) => {
         // console.log(result.data.pname);
-        setProductData(result.data);
+        setGalleryData(result.data);
       })
       .catch((err) => {
         console.log(err);
@@ -58,8 +55,6 @@ const AdminProducts = ({ adminData }) => {
     calculation();
   });
 
- 
-
   // calculating total products number in cart
   const calculation = () => {
     setProductQtyCart(
@@ -67,17 +62,16 @@ const AdminProducts = ({ adminData }) => {
     );
   };
 
-  const deleteAdminProduct = (pid) => {
-    axios.delete("http://localhost:5000/product-delete/" + pid).then(() => {
-      console.log("item deletex");
-    });
-    console.log(pid);
+  const deleteImage = (gid) => {
+    axios
+      .delete("http://localhost:5000/picture/image-delete/" + gid)
+      .then(() => {
+        console.log("image deletex");
+      });
   };
 
   const headers = [
     { key: "pic", label: "Product Image" },
-    { key: "pname", label: "Product Name" },
-    { key: "pqty", label: "Quantity" },
     { key: "pdesc", label: "Description" },
     { key: "action", label: "Action" },
   ];
@@ -91,15 +85,15 @@ const AdminProducts = ({ adminData }) => {
           <AdminSidebar adminData={adminData} />
           <div className="col-md-9">
             {/* implementing conditions for products in cart */}
-            {pdata.length === 0 ? (
+            {gdata.length === 0 ? (
               <div className="container">
                 <div className="row">
                   <div className="col-md-10 col-12">
-                    <Link to="/addProduct" className="btn btn-info">
-                      Add Product
+                    <Link to="/add-picture" className="btn btn-info">
+                      Add Image
                     </Link>
                     <h3 className="m-5">
-                      There is no any products to display!!!
+                      There is no any image added to your gallery!!!
                     </h3>
                   </div>
                 </div>
@@ -110,7 +104,13 @@ const AdminProducts = ({ adminData }) => {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="row justify-content-center">
-                        <div className="col-md-10 col-12">
+                        <div className="col-md-8 col-12">
+                          <Link
+                            to="/add-picture"
+                            className="btn btn-info me-auto float-end fw-bold text-white"
+                          >
+                            Add Image
+                          </Link>
                           <div className="card my-5">
                             <div className="card-body">
                               <table class="table table-responsive">
@@ -123,14 +123,14 @@ const AdminProducts = ({ adminData }) => {
                                 </thead>
                                 <tbody style={{ justifyContent: "center" }}>
                                   {/* for produdct added data  data : use loop*/}
-                                  {pdata.map((items) => {
+                                  {gdata.map((items) => {
                                     return (
                                       <tr>
                                         <td>
                                           <img
                                             src={
                                               "http://localhost:5000/" +
-                                              items.pic
+                                              items.image
                                             }
                                             alt=""
                                             className="img-fluid"
@@ -143,51 +143,19 @@ const AdminProducts = ({ adminData }) => {
                                         </td>
 
                                         <td>
-                                          <span
-                                            style={{
-                                              fontWeight: "600",
-                                              marginLeft: "50px",
-                                            }}
-                                          >
-                                            {items.pname}
-                                          </span>
+                                          This is for the image short
+                                          description
                                         </td>
 
                                         <td>
-                                          <span
-                                            style={{
-                                              fontWeight: "600",
-                                              marginLeft: "50px",
-                                            }}
-                                          >
-                                            {items.pqty}
-                                          </span>
-                                        </td>
-
-                                        <td>{items.pdesc}</td>
-
-                                        <td>
-                                          {/* <i
-                                          className="bi bi-trash-fill"
-                                          onClick={deleteAdminProduct.bind(
-                                            this,
-                                            items._id
-                                          )}
-                                          style={{
-                                            cursor: "pointer",
-                                            color: "red",
-                                            fontSize: "1.2rem",
-                                          }}
-                                        ></i> */}
-                                          {/* fkjkfj */}
                                           <Link
-                                            to={`/update-product/${items._id}`}
+                                            to={`/update-image/${items._id}`}
                                             className="d-flex"
                                           >
                                             <i className="bi bi-pencil-square fa-2x text-primary"></i>
                                           </Link>
                                           <span
-                                            onClick={deleteAdminProduct.bind(
+                                            onClick={deleteImage.bind(
                                               this,
                                               items._id
                                             )}
@@ -217,4 +185,4 @@ const AdminProducts = ({ adminData }) => {
     </>
   );
 };
-export default AdminProducts;
+export default AdminGallery;

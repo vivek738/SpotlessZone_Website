@@ -1,0 +1,16 @@
+.profileAccount:hover{
+    color: teal;
+    font-weight: bold;
+}
+
+.addressBook:hover{
+    color: teal;
+    font-weight: bold;
+}
+
+.verticle-line{
+    border-left: 2px solid rgb(233, 232, 232);
+    height: 150px;
+    margin: 10px 0;
+ 
+}

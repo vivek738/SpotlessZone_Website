@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import './Accordion.css';
 import { MDBContainer } from 'mdb-react-ui-kit';
-import MyAccordion from "./MyAccordion";
-
-import faq2 from "./images/faq2.jpg"
 import { Link } from "react-router-dom";
+import Header from "../Homepage/Header"
+import MyAccordion from "./MyAccordion";
+import faq2 from "./images/faq2.jpg"
+import bgImg from "../../Images/first.png"
 
 
 
@@ -40,18 +41,42 @@ const Accordion = () => {
     const [data, setdata] = useState(questions);
     return (
         <>
+          <div
+        className="container-fluid homeImg py-3"
+        style={{
+          paddingTop: 70,
+          backgroundColor: "#ebebeb",
+          background: `url(${bgImg})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "50vh",
+          backgroundSize: "cover",
+          position: "relative",
+        }}
+      >
+        <Header />
+
+        <div className="bread-crumb-section">
+          <h1 className="text-center text-white my-4 fw-bold">FAQ</h1>
+          <div className="row text-center">
+            <Link className="text-success fw-bold text-decoration-none" to="/">
+              Home &gt;&gt; <span className="text-white">FAQ</span>
+            </Link>
+          </div>
+        </div>
+      </div>
             <MDBContainer>
 
-                <div className="main">
+                <div className="main my-5 p-4">
                     <div className="row">
-                        <div className="heading col-md-4 mt-3">
-                            <h4>Have a <span>Question?</span> </h4>
+                        <div className="heading col-md-4">
+                            <h4>Have a <span className="text-white">Question?</span> </h4>
                             <h4>Look here</h4>
                         </div>
 
 
                         <div className="faqimg col-md-6">
-                            <img src={faq2}></img>
+                            <img src={faq2} className="img-fluid"></img>
 
                         </div>
                         </div>
@@ -61,30 +86,7 @@ const Accordion = () => {
 
                         
 
-{/* 
-                        <div className="faqimg col-md-6">
-                            <img src={faq2} alt="" />
-                        </div>
-                    </div>
 
-                    <div className="row">
-                        <div className="category col-md-4">
-                            <div className="linkkk">
-
-                                <ul className="linkk">
-                                    <li><Link to='/faq'>Service</Link></li>
-                                    <li><Link to='/productfaq'>Product</Link></li>
-                                    <li><Link to='/trainingfaq'>Training</Link></li>
-
-
-
-
-                                </ul>
-                            </div>
-
-
-
-                        </div> */}
 
 
                         <div className="row">
@@ -126,7 +128,7 @@ const Accordion = () => {
 
                 </div>
             </MDBContainer>
-            <div className="contactus">
+            <div className="container contactus mb-5">
                 <h4>Still have a question?</h4>
                 <p>Can't find the answer? please contact us.</p>
                 <button  > Contact Us</button>
