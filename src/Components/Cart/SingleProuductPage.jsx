@@ -25,12 +25,29 @@ const SingleProductInfo = () => {
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
-        user:userid
+        user: userid
       })
       .then((result) => {
         console.log(result.data);
         if (result.data.success) {
           setMsg("You have added product to cart");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const addToWishlist = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/add-to-wishlist", {
+        pid: pid,
+        user: userid
+      })
+      .then((result) => {
+        console.log(result.data);
+        if (result.data.success) {
+          setMsg("You have added product to your wishlist");
         }
       })
       .catch((e) => {
@@ -84,7 +101,7 @@ const SingleProductInfo = () => {
           <div className="col-md-6">
             <div className=" mt-4">
               <img
-              style={{height:'500px',minWidth:'100%'}}
+                style={{ height: '500px', minWidth: '100%' }}
                 src={"http://localhost:5000/" + singleproductdata.pic}
                 alt=""
                 className="img-fluid"
@@ -93,9 +110,13 @@ const SingleProductInfo = () => {
           </div>
           <div className="col-md-4">
             <div className="card my-4 shadow-lg">
+              <span onClick={addToWishlist} className="ms-auto mx-3 mt-3">
+                <i className="fas fa-heart"></i>
+              </span>
               <h4 className="text-center my-3">
                 Details of <span>{singleproductdata.pname}</span>
               </h4>
+
               <div className="card-body">
                 <h6 style={{ fontWeight: "bold" }}>
                   Product Name:{" "}
