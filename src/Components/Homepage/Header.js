@@ -1,13 +1,17 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
 const Header = () => {
+
+  const navigate = useNavigate()
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
+
+  const [query, setQuery] = useState()
 
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
@@ -213,7 +217,7 @@ const Header = () => {
                 {/* closing dropdowns  */}
               </ul>
               <form className="d-flex justify-content-start align-items-center">
-                <div
+                {/* <div
                   className="btn btn-link text-white"
                   style={{ position: "relative" }}
                 >
@@ -245,7 +249,14 @@ const Header = () => {
                       justifyContent: "center",
                     }}
                   />
+                </div> */}
+
+                <div className="input-group my-3">
+                  {/* <span className="input-group-text" id="basic-addon1">@</span> */}
+                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search products here..." aria-label="search" aria-describedby="basic-addon1" />
+                  <button onClick={()=>navigate('/search-product/'+query)} className="btn btn-secondary"><i className="fas fa-search"></i></button>
                 </div>
+
                 {!user && (
                   <Link className="btn btn-link text-white" to={`/login`}>
                     <i className="fa fa-user fa-2x"></i>

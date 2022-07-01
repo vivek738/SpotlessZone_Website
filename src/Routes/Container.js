@@ -49,6 +49,7 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
+import Search from "../Components/Search/Search";
 
 export const Container = () => {
   //in login branch
@@ -143,6 +144,11 @@ export const Container = () => {
         <Route
           path="/single-product/:pid"
           element={<SingleProductInfo />}
+        ></Route>
+                    
+        <Route
+          path="/search-product/:query"
+          element={<Search/>}
         ></Route>
 
         <Route path="/" exact element={<Homepage />} />
