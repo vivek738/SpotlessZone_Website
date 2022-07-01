@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
+
 import axios from "axios";
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
@@ -7,8 +8,21 @@ import Spinner from "../Spinner/Spinner";
 import "./viewproduct.css";
 
 const AllProducts = () => {
+  const navigate = useNavigate()
+
   const [productdata, setProductdata] = useState([]);
   const [isloading, setLoading] = useState(true);
+  const [query, setQuery] = useState()
+
+
+  
+  const searching = (query)=>{
+    if(query === undefined){
+      return;
+    }else{
+      navigate('/search-product/'+query)
+    }
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -68,6 +82,11 @@ const AllProducts = () => {
             </span>
           </span>{" "} */}
         </h1>
+        <div className="input-group my-3 w-25" style={{display: "display", marginLeft: "auto", marginRight: "auto"}}>
+                  {/* <span className="input-group-text" id="basic-addon1">@</span> */}
+                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search products here..." aria-label="search" aria-describedby="basic-addon1" />
+                  <button onClick={()=>searching(query)}   className="btn btn-secondary"><i className="fas fa-search"></i></button>
+                </div>
       </div>
 
       {isloading && <Spinner />}

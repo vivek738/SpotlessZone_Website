@@ -21,20 +21,14 @@ const AdminUpdateGallery = ({ adminData }) => {
   // token for admin
   const {
     register,
+    handleSubmit,
     // getValues,
     formState: { errors },
   } = useForm({ shouldUseNativeValidation: false });
 
   //   for display category info initail when page is render
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/single-image/" + gid)
-      .then((getResult) => {
-        console.log(getResult.data.pic);
-        setGalleryData(getResult.data);
-        setPic(getResult.data.image);
-      })
-      .catch((err) => console.log(err));
+   
     axios
       .get("http://localhost:5000/get-total-products-cart")
       .then((response) => {
@@ -59,8 +53,18 @@ const AdminUpdateGallery = ({ adminData }) => {
         console.log("error occur");
       });
   }, [gid, unSeenNoti]);
+  useEffect(()=>{
+    axios
+    .get("http://localhost:5000/single-image/" + gid)
+    .then((getResult) => {
+      console.log(getResult.data.pic);
+      setGalleryData(getResult.data);
+      setPic(getResult.data.image);
+    })
+    .catch((err) => console.log(err));
+  }, [])
 
-  const onSubmitProductUpdateForm = (e) => {
+  const onSubmitProductUpdateForm = (data, e) => {
     e.preventDefault();
     const imageUpdateForm = new FormData();
     imageUpdateForm.append("gid", gid);
@@ -74,7 +78,7 @@ const AdminUpdateGallery = ({ adminData }) => {
 
         // window.location = "/view-admin-products";
         toast.success(<UpdateToast />, {
-          position: toast.POSITION.BOTTOM_CENTER,
+          position: toast.POSITION.TOP_RIGHT,
           autoClose: false,
         });
         setPic("");
@@ -104,32 +108,23 @@ const AdminUpdateGallery = ({ adminData }) => {
         <div className="row py-4 me-4">
           <AdminSidebar adminData={adminData} />
           <div className="col-md-9">
-            <div className="hori_line">
-              <hr />
-            </div>
-            <div className="farm_product_heading container-fluid">
-              <div className="row">
-                <div className="col-md-12 mt-2 mb-3">
-                  <h1>Update Product</h1>
-                </div>
-              </div>
-            </div>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-10">
+            <div className="container mt-5">
+              <div className="row justify-content-center">
+                <div className="col-md-8">
                   <div className="card">
+                    <h4 className="fw-bold text-center mt-3">Update Image</h4>
                     <div className="card-body">
                       <div className="row">
                         <div className="col-md-12">
                           {/* customer form */}
                           <form
                             method="POST"
-                            onSubmit={onSubmitProductUpdateForm}
+                            onSubmit={handleSubmit(onSubmitProductUpdateForm)}
                             encType="multipart/form-data"
                           >
                             {/* input field for product pic */}
-                            <div className="form-group">
-                              <label htmlFor="file">Choose Product pic</label>
+                            <div className="form-group my-2">
+                              <label htmlFor="file" className="fw-bold py-2">Choose Product pic</label>
                               <input
                                 type="file"
                                 name="pic"

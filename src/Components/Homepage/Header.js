@@ -1,18 +1,33 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link , useNavigate } from "react-router-dom";
+
+
 import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
 const Header = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
+  const [query, setQuery] = useState()
+
 
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
   const user = token?.user._id;
+
+  const searching = (query)=>{
+    if(query === undefined){
+      return;
+    }else{
+      navigate('/search-service/'+query)
+    }
+  }
+  
+
+
 
   useEffect(() => {
     axios
@@ -27,6 +42,7 @@ const Header = () => {
       .catch(() => {
         console.log("error occur");
       });
+  
   }, [cart]);
 
   useEffect(() => {
@@ -40,12 +56,13 @@ const Header = () => {
     );
   };
 
-const [search, setSearch] = React.useState('')
+// const [search, setSearch] = React.useState('')
 
-const  searchApi = ()=>{
-  navigate(`/services/${search}`)
-  // console.log(search)
-}
+// const  searchApi = () => {
+//   navigate(`/services/${search}`)
+//   // console.log(search)
+// }
+
 
 
   return (
@@ -223,7 +240,7 @@ const  searchApi = ()=>{
                 {/* closing dropdowns  */}
               </ul>
               <form className="d-flex justify-content-start align-items-center">
-                <div
+                {/* <div
                   className="btn btn-link text-white"
                   style={{ position: "relative" }}
                 >
@@ -256,11 +273,21 @@ const  searchApi = ()=>{
                       border: "1px solid teal",
                       justifyContent: "center",
                     }}
+<<<<<<< HEAD
                     />
                     <button className="btn btn-primary p-3" type="button" onClick={searchApi.bind(this)}>Search</button>
                   </div>
                    
+=======
+                  />
+                </div> */}
+
+                <div className="input-group my-3">
+                  {/* <span className="input-group-text" id="basic-addon1">@</span> */}
+                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search services here..." aria-label="search" aria-describedby="basic-addon1" />
+                  <button onClick={()=>searching(query)}   className="btn btn-secondary"><i className="fas fa-search"></i></button>
                 </div>
+
                 {!user && (
                   <Link className="btn btn-link text-white" to={`/login`}>
                     <i className="fa fa-user fa-2x"></i>

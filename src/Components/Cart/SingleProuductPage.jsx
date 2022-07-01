@@ -54,6 +54,23 @@ const SingleProductInfo = () => {
         console.log(e);
       });
   };
+  const addToWishlist = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/add-to-wishlist", {
+        pid: pid,
+        user: user,
+      })
+      .then((result) => {
+        console.log(result.data);
+        if (result.data.success) {
+          setMsg("You have added product to your wishlist");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const onEnterCart = () => {
     let addCart = document.getElementById("addToCart");
@@ -126,9 +143,13 @@ const SingleProductInfo = () => {
           </div>
           <div className="col-md-4">
             <div className="card my-4 shadow-lg">
+              <span onClick={addToWishlist} className="ms-auto mx-3 mt-3">
+                <i className="fas fa-heart"></i>
+              </span>
               <h4 className="text-center my-3">
                 Details of <span>{singleproductdata.pname}</span>
               </h4>
+
               <div className="card-body">
                 <h6 style={{ fontWeight: "bold" }}>
                   Product Name:{" "}

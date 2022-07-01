@@ -6,7 +6,7 @@ import Spinner from '../Spinner/Spinner'
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 
-const Search = (props) => {
+const ServiceSearch = (props) => {
 
     const query = useParams().query
 
@@ -16,7 +16,7 @@ const Search = (props) => {
 
     useEffect(()=>{
         setLoading(true)
-        axios.get('http://localhost:5000/search-product/'+query).then(function(res){
+        axios.get('http://localhost:5000/service/search-service/'+query).then(function(res){
             console.log(res.data)
             setResult(res.data)
             setTimeout(() => {
@@ -43,10 +43,10 @@ const Search = (props) => {
         <Header />
 
         <div className="bread-crumb-section">
-          <h1 className="text-center text-white my-4 fw-bold">Products</h1>
+          <h1 className="text-center text-white my-4 fw-bold">Services</h1>
           <div className="row text-center">
             <Link className="text-success fw-bold text-decoration-none" to="/">
-              Home &gt;&gt; <span className="text-white">All Products</span>
+              Home &gt;&gt; <span className="text-white">All Services</span>
             </Link>
           </div>
         </div>
@@ -90,7 +90,7 @@ const Search = (props) => {
                           style={{ width: "90%", height: "40%" }}
                         >
                           <img
-                            src={"http://localhost:5000/" + allProductsdata.pic}
+                            src={"http://localhost:5000/" + allProductsdata.image}
                             alt=""
                             className="img-fluid bghv"
                             style={{ height: "100%" }}
@@ -98,17 +98,15 @@ const Search = (props) => {
                         </div>
                         <div className="product_text">
                           <h3 className="text-center py-3">
-                            {allProductsdata.pname}
+                            {allProductsdata.serviceName}
                           </h3>
                           <h6
                             className="text-center"
                             style={{ fontStyle: "italic" }}
                           >
                             Rs{" "}
-                            {allProductsdata.pprice +
-                              " per " +
-                              allProductsdata.pqty}
-                          </h6>
+                            {allProductsdata.servicePrice }
+                            </h6>
                         </div>
                         <Link
                           to={"/single-product/" + allProductsdata._id}
@@ -129,4 +127,4 @@ const Search = (props) => {
   )
 }
 
-export default Search
+export default ServiceSearch
