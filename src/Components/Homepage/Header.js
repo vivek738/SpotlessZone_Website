@@ -1,21 +1,33 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+
+
 import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
 const Header = () => {
-
   const navigate = useNavigate()
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
-
   const [query, setQuery] = useState()
+
 
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
   const user = token?.user._id;
+
+  const searching = (query)=>{
+    if(query === undefined){
+      return;
+    }else{
+      navigate('/search-service/'+query)
+    }
+  }
+  
+
+
 
   useEffect(() => {
     axios
@@ -30,6 +42,7 @@ const Header = () => {
       .catch(() => {
         console.log("error occur");
       });
+  
   }, [cart]);
 
   useEffect(() => {
@@ -42,6 +55,15 @@ const Header = () => {
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
+
+// const [search, setSearch] = React.useState('')
+
+// const  searchApi = () => {
+//   navigate(`/services/${search}`)
+//   // console.log(search)
+// }
+
+
 
   return (
     <>
@@ -87,6 +109,7 @@ const Header = () => {
             <button
               className="navbar-toggler"
               type="button"
+              
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
@@ -237,7 +260,9 @@ const Header = () => {
                     }}
                   ></i>
 
+                  <div className="d-flex">
                   <input
+                 onChange= {e=>setSearch(e.target.value)}
                     type="text"
                     placeholder="Search here..."
                     style={{
@@ -248,13 +273,19 @@ const Header = () => {
                       border: "1px solid teal",
                       justifyContent: "center",
                     }}
+<<<<<<< HEAD
+                    />
+                    <button className="btn btn-primary p-3" type="button" onClick={searchApi.bind(this)}>Search</button>
+                  </div>
+                   
+=======
                   />
                 </div> */}
 
                 <div className="input-group my-3">
                   {/* <span className="input-group-text" id="basic-addon1">@</span> */}
-                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search products here..." aria-label="search" aria-describedby="basic-addon1" />
-                  <button onClick={()=>navigate('/search-product/'+query)} className="btn btn-secondary"><i className="fas fa-search"></i></button>
+                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search services here..." aria-label="search" aria-describedby="basic-addon1" />
+                  <button onClick={()=>searching(query)}   className="btn btn-secondary"><i className="fas fa-search"></i></button>
                 </div>
 
                 {!user && (
