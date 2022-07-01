@@ -73,6 +73,46 @@ const AddPicture = ({ adminData }) => {
 
   return (
     <>
+<<<<<<< HEAD
+    
+      <div className="container">
+        <h1 className="text-center fw-bold my-5">Add Picture For Gallery</h1>
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <div
+              className="card p-4 shadow-lg"
+              style={{ border: "1px solid grey", borderRadius: "20px" }}
+            >
+              <form
+                method="POST"
+                action=""
+                onSubmit={handleSubmit(pictureAddHandler)}
+                encType="multipart/form-data"
+              >
+                {/* input field for service image */}
+                <div className="form-group">
+                  <label htmlFor="file" className="fw-bold fs-4 pb-2 mt-3">
+                    Choose Gallery Image
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    className="form-control"
+                    {...register("setImage", {
+                      required: "Choose service image",
+                    })}
+                    onChange={(e) => setImage(e.target.files[0])}
+                    style={{
+                      border: "1px solid green",
+                    }}
+                  />
+                  {errors.setImage && (
+                    <small className="text-danger">
+                      {errors.setImage.message}
+                    </small>
+                  )}
+                </div>
+=======
       <div className="container-fluid ps-0 py-3">
         <AdminHeader noti={unSeenNoti} productQtyCart={productQtyCart} />
         <div className="row py-4 me-4">
@@ -120,6 +160,7 @@ const AddPicture = ({ adminData }) => {
                           </small>
                         )}
                       </div>
+>>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
 
                       <button
                         type="submit"

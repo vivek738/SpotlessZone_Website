@@ -41,6 +41,8 @@ import AdminProducts from "../Components/Products/AdminViewProducts";
 import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
 import ToolTip from "../Components/ToolTIp";
+import Gallery from "../Components/galleryy/Gallery";
+
 import Checkout from "../Components/BuyProduct/Checkout";
 import ServiceOrderHistory from "../Components/Admin/ServiceOrderHistory";
 import AdminGallery from "../Components/Gallery/AdminGallery";
@@ -231,6 +233,8 @@ export const Container = () => {
         <Route path="/admin-blog-detail" element={<AdminBlogDetail />}></Route>
 
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+
+        <Route path="/gall" element={<Gallery />}></Route>
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
 
@@ -239,6 +243,9 @@ export const Container = () => {
 
         {/* pass reset */}
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+          {/* pass reset */}
+          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+
       </Routes>
     </>
   );
