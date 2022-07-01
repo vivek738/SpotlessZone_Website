@@ -16,7 +16,6 @@ import UserProfile from "../Components/Profile/UserProfile";
 import AllServices from "../Components/Services/AllServices";
 import AddServiceCategory from "../Components/Services/AddServiceCategory";
 import UpdateCategoryService from "../Components/Services/UpdateCategoryService";
-import ViewServiceCategory from "../Components/Services/ViewServiceCategory";
 import SignUp from "../Components/SignUp";
 import { parseJwt } from "../utils/parseJwt";
 import AddService from "../Components/Services/AddService";
@@ -51,6 +50,14 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
+import Search from "../Components/Search/Search";
+
+import ProductHistory from "../Components/Admin/ProductHistory";
+
+import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
+import AdminService from "../Components/Services/AdminService";
+import AdminUpdateService from "../Components/Services/UpdateService";
+import UserProfileView from "../Components/Profile/ProfileView";
 
 export const Container = () => {
   //in login branch
@@ -118,6 +125,35 @@ export const Container = () => {
               path="/service-order-history"
               element={<ServiceOrderHistory adminData={decodeUser.user} />}
             ></Route>
+
+            <Route
+              path="/product-order-history"
+              element={<ProductHistory></ProductHistory>}
+            ></Route>
+
+            <Route
+              path="/add-service-category"
+              element={<AddServiceCategory adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/view-service-category"
+              element={<AdminServiceCategory adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/add-service"
+              element={<AddService adminData={decodeUser.user} />}
+            ></Route>
+            <Route
+              path="/view-services"
+              element={<AdminService adminData={decodeUser.user} />}
+            ></Route>
+
+            <Route
+              path="/update-service/:sid"
+              element={<AdminUpdateService adminData={decodeUser.user} />}
+            ></Route>
           </>
         )}
 
@@ -130,6 +166,9 @@ export const Container = () => {
               element={<UserDashboard userData={decodeUser.user} />}
             ></Route>
             <Route path="/cart" element={<ProductCart />}></Route>
+            <Route path="/profile-creation" element={<UserProfile />}></Route>
+            <Route path="/edit-profile" element={<EditProfile />}></Route>
+            <Route path="/view-profile" element={<UserProfileView />}></Route>
           </>
         )}
         <Route path="/single-service/:sid" element={<SingleService />}></Route>
@@ -146,6 +185,11 @@ export const Container = () => {
           path="/single-product/:pid"
           element={<SingleProductInfo />}
         ></Route>
+                    
+        <Route
+          path="/search-product/:query"
+          element={<Search/>}
+        ></Route>
 
         <Route path="/" exact element={<Homepage />} />
 
@@ -158,25 +202,13 @@ export const Container = () => {
           element={<EmailVerify />}
         />
 
-        <Route path="/edit-profile" element={<EditProfile />}></Route>
-        <Route path="/profile-creation" element={<UserProfile />}></Route>
-
         <Route path="/job-form-submit" element={<Hiring />}></Route>
 
-        <Route
-          path="/add-service-category"
-          element={<AddServiceCategory />}
-        ></Route>
-        <Route
-          path="/view-service-category"
-          element={<ViewServiceCategory />}
-        ></Route>
         <Route
           path="/update-service-category/:scid"
           element={<UpdateCategoryService />}
         ></Route>
 
-        <Route path="/add-service" element={<AddService />}></Route>
         <Route path="/add-services" element={<TestingService />}></Route>
         <Route path="/book-services" element={<TestBookService />}></Route>
 
@@ -206,15 +238,14 @@ export const Container = () => {
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
 
-<<<<<<< HEAD
-=======
         {/* forgot pass */}
         <Route path="/forgot-password" element={<ForgotPasswort />}></Route>
 
+        {/* pass reset */}
+        <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
           {/* pass reset */}
           <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
 
->>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
       </Routes>
     </>
   );
