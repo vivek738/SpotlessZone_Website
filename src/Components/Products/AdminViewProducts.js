@@ -110,7 +110,7 @@ const AdminProducts = ({ adminData }) => {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="row justify-content-center">
-                        <div className="col-md-8 col-12">
+                        <div className="col-md-10 col-12">
                           <div className="card my-5">
                             <div className="card-body">
                               <table class="table table-responsive">
