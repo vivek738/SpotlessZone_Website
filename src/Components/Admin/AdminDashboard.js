@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect } from "react";
-
 import "./AdminDashboard.css";
 import {
   ResponsiveContainer,
@@ -15,7 +14,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
-
 // weekly like data here
 const ddata = [
   {
@@ -74,10 +72,8 @@ const AdminDashboard = ({ adminData }) => {
   const [orders, setOrders] = React.useState([]);
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
- 
   useEffect(() => {
     //   for all notification either visible or not
-
     axios
       .get("http://localhost:5000/service/all-noti-unseen")
       .then((response) => {
@@ -92,11 +88,9 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
-
     // for total number of registered users
     axios
       .get("http://localhost:5000/customer/register/get-total-users")
@@ -107,11 +101,9 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
-
     // for total number of pending orders
     axios
       .get("http://localhost:5000/service/pending-service-orders")
@@ -122,7 +114,6 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
@@ -137,297 +128,26 @@ const AdminDashboard = ({ adminData }) => {
           console.log("Something went wrong");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
     // for total price
   },[]);
-
   useEffect(()=>{
     calculation();
-
   })
-
-
-
   // calculating total products number in cart
   const calculation = () => {
     setProductQtyCart(
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-
   return (
     <>
       <div className="container-fluid ps-0 py-3 bg-light">
-<<<<<<< HEAD
-        <div className="">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="p-1 ms-5">
-                <a
-                  href="#"
-                  className="text-decoration-none fs-3 text-dark fw-bold"
-                >
-                  <span className="" style={{ color: "#25C6AA" }}>
-                    S
-                  </span>
-                  potless{" "}
-                  <span className="" style={{ color: "#25C6AA" }}>
-                    Z
-                  </span>
-                  one
-                </a>
-              </div>
-            </div>
-            <div className="col-md-9">
-              <div className="p-1">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="w-50 d-flex">
-                    <p className="text text-dark fs-4 fw-bold">Overview</p>
-                    <div className="w-100" style={{ marginLeft: "80px" }}>
-                      <form>
-                        <input
-                          type="search"
-                          className="form-control w-100"
-                          placeholder="search here..."
-                        />
-                      </form>
-                    </div>
-                  </div>
-                  <div className="w-50">
-                    <div style={{ marginLeft: "210px" }}>
-                      <button
-                        type="button"
-                        className="position-relative btn ps-2 pt-0 mx-3"
-                      >
-                        <i className="fa fa-bell"></i>
-                        <span
-                          className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1"
-                          onClick={handleNoti}
-                        >
-                          {noti.length}
-                          <span className="visually-hidden">
-                            unread messages
-                          </span>
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        className="position-relative btn ps-2 pt-0 me-3"
-                      >
-                        <i className="fa fa-shopping-cart"></i>
-                        <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger px-2 py-1">
-                          0
-                          <span className="visually-hidden">
-                            unread messages
-                          </span>
-                        </span>
-                      </button>
-                      <Link
-                        className="btn btn-danger px-3 ms-5"
-                        to="/addProduct"
-                      >
-                        Add Product
-                      </Link>
-
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row py-4 me-4">
-          <div className="col-md-3">
-            <div className="p-1">
-              <div className="text-white">
-                <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                  <div className="bg-white text-dark p-3 rounded w-100">
-                    <div className="d-flex justify-content-start align-items-center">
-                      <div className="div">
-                        <img
-                          src="https://cdn.pixabay.com/photo/2018/02/24/20/40/fashion-3179178__340.jpg"
-                          alt=""
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-                      <div className="jj ms-3">
-                        <p className="text text-dark fw-bold fs-6 mb-0">
-                          {adminData?.name}
-                        </p>
-                        <small className="text text-dark d-block">
-                          {adminData?.email}
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="my-3">
-                    <p className="text text-secondary h6 mb-0 mx-3">Menu</p>
-                  </div>
-                  <div className="py-2 w-100 mx-2">
-                    {/* first navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-th text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Dashboard</p>
-                      </div>
-                    </a>
-                    {/* second navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-sort text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Order</p>
-                      </div>
-                    </a>
-
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-sort text-dark fs-5 me-4"></i>
-                        <Link to="/add-picture" className="text text-dark fs-5 mb-0 text-decoration-none">Gallery</Link>
-                      </div>
-                    </a>
-
-
-                    {/* third navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
-                        {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
-                        <Link
-                          className="text text-dark fs-5 mb-0 text-decoration-none"
-                          to="/view-admin-products"
-                        >
-                          Products
-                        </Link>
-                      </div>
-                    </a>
-                    {/*  */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-shopping-bag text-dark fs-5 me-4"></i>
-                        {/* <Link to="/display-all-products" className="text-decoration-none"><p className="text text-dark fs-5 mb-0">Product</p></Link> */}
-                        <Link
-                          className="text text-dark fs-5 mb-0 text-decoration-none"
-                          to="/admin-blog-home"
-                        >
-                          Blogs
-                        </Link>
-                      </div>
-                    </a>
-                    {/* fourth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-comment text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Message</p>
-                      </div>
-                    </a>
-                    {/* fourth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-calendar text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Calendar</p>
-                      </div>
-                    </a>
-                    {/* fourth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-map text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Map</p>
-                      </div>
-                    </a>
-                    {/* fifth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-cog text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">Settings</p>
-                      </div>
-                    </a>
-                    {/* sixth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
-                        <p className="text text-dark fs-5 mb-0">FAQ</p>
-                      </div>
-                    </a>
-                    {/* sixth navlink */}
-                    <a href="#" className="nav-link w-100 my-2 mb-3">
-                      <div className="d-flex justify-content-start align-items-center">
-                        <i className="fa fa-question-circle text-dark fs-5 me-4"></i>
-                        <p
-                          className="text text-dark fs-5 mb-0"
-                          onClick={logoutHandle}
-                        >
-                          LOGOUT
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  {/* <div className="dropdown pb-4">
-                    <a
-                      href="#"
-                      className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                      id="dropdownUser1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="https://github.com/mdo.png"
-                        alt="hugenerd"
-                        width={30}
-                        height={30}
-                        className="rounded-circle"
-                      />
-                      <span className="d-none d-sm-inline mx-1">loser</span>
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          New project...
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Settings
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Profile
-                        </a>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Sign out
-                        </a>
-                      </li>
-                    </ul>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-          </div>
-=======
-        
-
         <AdminHeader noti={noti} productQtyCart={productQtyCart}/>
-
-
-
         <div className="row py-4 me-4">
           <AdminSidebar adminData={adminData}/>
-
->>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
           <div className="col-md-9">
             <div className="p-1">
               <div className="row mb-5">

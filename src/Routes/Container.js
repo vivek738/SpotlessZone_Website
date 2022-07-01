@@ -32,6 +32,7 @@ import { ToastContainer } from "react-toastify";
 import Accordion from "../Components/Faq/Accordion";
 import Productfaq from "../Components/Faq/Productfaq";
 import Trainingfaq from "../Components/Faq/Trainingfaq";
+// import Contactus from "../Components/Contactus/Contactus";
 import Contactus from "../Components/Contactus/Contactus";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import Blogs from "../Components/Blogs/Blogs";
@@ -51,6 +52,7 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
+import Search from "../Components/search/Search";
 
 export const Container = () => {
   //in login branch
@@ -181,6 +183,7 @@ export const Container = () => {
         <Route path="/book-services" element={<TestBookService />}></Route>
 
         <Route path="/gallery" element={<DisplayGallery />}></Route>
+        <Route path="/services/:search" element={<Search />}></Route>
 
         <Route path="/aboutus" element={<AboutUs></AboutUs>}></Route>
 
@@ -206,15 +209,13 @@ export const Container = () => {
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
 
-<<<<<<< HEAD
-=======
+
         {/* forgot pass */}
         <Route path="/forgot-password" element={<ForgotPasswort />}></Route>
 
           {/* pass reset */}
           <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
 
->>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
       </Routes>
     </>
   );

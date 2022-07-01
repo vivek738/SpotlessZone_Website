@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { parseJwt } from "../../utils/parseJwt";
 import "./Homepage.css";
 
 const Header = () => {
+  let navigate = useNavigate()
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
 
@@ -38,6 +39,14 @@ const Header = () => {
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
+
+const [search, setSearch] = React.useState('')
+
+const  searchApi = ()=>{
+  navigate(`/services/${search}`)
+  // console.log(search)
+}
+
 
   return (
     <>
@@ -83,6 +92,7 @@ const Header = () => {
             <button
               className="navbar-toggler"
               type="button"
+              
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
@@ -233,7 +243,9 @@ const Header = () => {
                     }}
                   ></i>
 
+                  <div className="d-flex">
                   <input
+                 onChange= {e=>setSearch(e.target.value)}
                     type="text"
                     placeholder="Search here..."
                     style={{
@@ -244,7 +256,10 @@ const Header = () => {
                       border: "1px solid teal",
                       justifyContent: "center",
                     }}
-                  />
+                    />
+                    <button className="btn btn-primary p-3" type="button" onClick={searchApi.bind(this)}>Search</button>
+                  </div>
+                   
                 </div>
                 {!user && (
                   <Link className="btn btn-link text-white" to={`/login`}>

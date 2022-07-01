@@ -2,12 +2,10 @@
     height: 200px;
     width: 100%;
 }
-
 .middle .heading{
     text-align: center;
     color: #3bb19b;
     font-weight: bold;
-    
 }
 .form{
     width: 400px;
@@ -16,12 +14,10 @@
 .middle p{
     text-align: center;
 }
-
 .last img{
     height: 30px;
     width: 30px;
 }
-
 form button{
     background-color:#3bb19b;
     border-color: #3bb19b;
@@ -30,57 +26,16 @@ form button{
     width: 120px;
     margin-left: 80px;
     font-weight: bold;
-
 }
-
 form button:hover{
     transition: ease-out 1s;
     background-color: aquamarine;
-    
 } */
-
 .main{
-<<<<<<< HEAD
-=======
     background-color: #3bb19b;
     border-radius: 10px;
->>>>>>> b15534e22a70c1c606007962bf77dd84cfc35a74
 }
-
 /* .picture{
     height: 50px;
     width: 50px;
 } */
-
-
-.secondmain button:hover{
-    background-color: white;
-    color: #3bb19b;
-    border-color: #3bb19b;
-    font-weight: bold;
-    transition: ease-out 0.5s;
-
-}
-
-
-.secondmain button{
-    background: #174543;
-    color: white;
-    border-color: #174543;
-    font-weight: bold;
-}
-.last img{
-    height: 30px;
-    width: 30px;
-}
-
-.last .row{
-    margin-left: 190px;
-}
-
-form{
-    box-shadow: 5px 5px 5px white;
-
-}
-
-
