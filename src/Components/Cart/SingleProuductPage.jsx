@@ -52,6 +52,10 @@ const SingleProductInfo = () => {
       })
       .catch((e) => {
         console.log(e);
+
+
+
+        
       });
   };
   const addToWishlist = (e) => {

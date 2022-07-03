@@ -22,50 +22,58 @@ const Checkout = () => {
     const [address, setAddress] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
-
-    // var addDetail = 
     // khalti payment integration
     let config = {
         publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
-        productIdentity: '12345',
-        productName: 'foods',
+        productIdentity: "12345",
+        productName: "foods",
         productUrl: "http://localhost:3000",
         eventHandler: {
-          onSuccess(payload) {
-            axios.post('http://localhost:5000/order', {
-              products: pdata,
-              total: totalprice,
-              user: user,
-              firstname,
-              phone,
-              address_detail: {
-                address:address,
-                state:state,
-                city:city
-              }
-            }).then(res => {
-              console.log(res.data)
-            })
-            console.log(payload);
-  
-          },
-          onError(error) {
-            console.log(error);
-          },
-          onClose() {
-            console.log("widget is closing");
-          },
+            onSuccess(payload) {
+                axios
+                    .post("http://localhost:5000/order", {
+                        products: pdata,
+                        total: totalprice,
+                        user: user,
+                        firstname,
+                        phone,
+                        address_detail: {
+                            address: address,
+                            state: state,
+                            city: city
+                        }
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                    });
+                console.log(payload);
+            },
+            onError(error) {
+                console.log(error);
+            },
+            onClose() {
+                console.log("widget is closing");
+            },
         },
         paymentPreference: [
-          "KHALTI",
-          "EBANKING",
-          "MOBILE_BANKING",
-          "CONNECT_IPS",
-          "SCT",
+            "KHALTI",
+            "EBANKING",
+            "MOBILE_BANKING",
+            "CONNECT_IPS",
+            "SCT",
         ],
-      };
-      let checkout = new KhaltiCheckout(config);
-  
+    };
+    let checkout = new KhaltiCheckout(config);
+
+    const headers = [
+        { key: "pic", label: "Product Image" },
+        { key: "pname", label: "Product Name" },
+        { key: "pqty", label: "Quantity" },
+        { key: "pprice", label: "Price Per Qty" },
+        { key: "tprice", label: "Total Price" },
+        { key: "action", label: "Action" },
+    ];
+
 
     React.useEffect(() => {
         axios
@@ -76,13 +84,13 @@ const Checkout = () => {
             .catch((err) => {
                 console.log(err);
             });
-            setTotalPrice(
-                pdata.reduce(
-                  (acc, curr) =>
+        setTotalPrice(
+            pdata.reduce(
+                (acc, curr) =>
                     acc + Number(curr.productId.pqty * curr.productId.pprice),
-                  0
-                )
-              );
+                0
+            )
+        );
     }, [])
     console.log(city)
     return (
@@ -117,13 +125,13 @@ const Checkout = () => {
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>First Name</label>
-                                                    <input onChange={e=>setFirstname(e.target.value)} type="text" className="form-control" style={{ borderRadius: '0px' }} />
+                                                    <input onChange={e => setFirstname(e.target.value)} type="text" className="form-control" style={{ borderRadius: '0px' }} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>State</label>
-                                                    <select onChange={e=>setState(e.target.value)} className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
+                                                    <select onChange={e => setState(e.target.value)} className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
                                                         <option selected="">Please select your state</option>
                                                         <option value='Bagmati'>Bagmati</option>
                                                         <option value='Lumbini'>Lumbini</option>
@@ -137,15 +145,15 @@ const Checkout = () => {
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>Phone no</label>
-                                                    <input onChange={e=>setPhone(e.target.value)} type="text" className="form-control" style={{ borderRadius: '0px' }} />
+                                                    <input onChange={e => setPhone(e.target.value)} type="text" className="form-control" style={{ borderRadius: '0px' }} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>City</label>
-                                                    <select onChange={e=>setCity(e.target.value)}  className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
+                                                    <select onChange={e => setCity(e.target.value)} className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
                                                         <option selected="">Please select your City</option>
-                                                        <option  value='Kathmandu'>Kathmandu</option>
+                                                        <option value='Kathmandu'>Kathmandu</option>
                                                         <option value='Lalitpur'>Lalitpur</option>
                                                         <option value='Bhaktapur'>Bhaktapur</option>
                                                     </select>
@@ -156,7 +164,7 @@ const Checkout = () => {
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>Area</label>
-                                                    <select  className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
+                                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
                                                         <option selected="">Area</option>
                                                         <option value={1}>One</option>
                                                         <option value={2}>Two</option>
@@ -167,7 +175,7 @@ const Checkout = () => {
                                             <div className="col-md-6">
                                                 <div className="p-1">
                                                     <label htmlFor="" className='mb-2'>Address</label>
-                                                    <select onChange={e=>setAddress(e.target.value)} className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
+                                                    <select onChange={e => setAddress(e.target.value)} className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
                                                         <option selected="">Address</option>
                                                         <option value={1}>One</option>
                                                         <option value={2}>Two</option>
@@ -202,8 +210,8 @@ const Checkout = () => {
                                 </div>
                             </div>
                             <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning w-100" style={{ borderRadius: '0px' }}>
-                            Processed to Pay
-                          </button>
+                                Processed to Pay
+                            </button>
                             {/* <button onClick={checkout.show({ amount: 1000, mobile: 9861905670})} className="btn btn-secondary w-100" style={{ borderRadius: '0px' }}>Processed to Pay</button> */}
                         </div>
 
