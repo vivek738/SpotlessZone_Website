@@ -338,7 +338,7 @@ const UserDashboard = ({ userData }) => {
                             <tr>
                               <td>{val?.firstname}</td>
                               <td>{val?.address_detail?.address}</td>
-                              <td>{val?.address_detail.state}</td>
+                              <td>{val?.address_detail?.state}</td>
                               <td>{val?.phone}</td>
                               <td>
                                 <button
