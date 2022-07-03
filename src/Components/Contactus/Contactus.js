@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import "./Contactus.css";
 import pic from "../../Images/faq.jpg";
 import First from "../../Images/first.png";
 import { MDBContainer } from "mdb-react-ui-kit";
 import Header from "../Homepage/Header";
-import axios from "axios";
 import { toast } from "react-toastify";
-
 const Contactus = () => {
   const [sdata, setData] = useState([]);
   const [fullName, setFname] = useState("");
@@ -14,7 +14,6 @@ const Contactus = () => {
   const [phone, setPhone] = useState("");
   const [serviceName, setSName] = useState("");
   const [description, setDesc] = useState("");
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/service/get")
@@ -25,7 +24,6 @@ const Contactus = () => {
         console.log(err);
       });
   });
-
   const contactData = {
     fullName: fullName,
     email: email,
@@ -87,14 +85,12 @@ const Contactus = () => {
           </nav>
         </div>
       </div>
-
       <MDBContainer className="main my-5 px-4">
         <div>
           <h2 className="text-white fs-4 text-uppercase fw-bold py-4">
             Get in Touch...
           </h2>
         </div>
-
         <form>
           <h3 className="text-center text-white pb-3">Contact for Services</h3>
           <div className="row">
@@ -121,7 +117,6 @@ const Contactus = () => {
                   />
                 </div>
               </div>
-
               <div class="row mb-3">
                 <div class="col">
                   <input
@@ -133,7 +128,6 @@ const Contactus = () => {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
-
                 <div className="input-group">
                   <select
                     style={{
@@ -187,9 +181,7 @@ const Contactus = () => {
     </>
   );
 };
-
 export default Contactus;
-
 const SendMessageToast = () => {
   return (
     <>

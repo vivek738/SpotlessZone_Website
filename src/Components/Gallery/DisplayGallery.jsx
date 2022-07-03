@@ -12,7 +12,6 @@ const DisplayGallery = () => {
       setLoading(false);
     }, 500);
   };
-
   useEffect(() => {
     setLoading(true);
     axios
@@ -42,7 +41,6 @@ const DisplayGallery = () => {
         }}
       >
         <Header />
-
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">Gallery</h1>
           <div className="row text-center">
@@ -69,7 +67,6 @@ const DisplayGallery = () => {
                       borderRadius: "10px",
                       height: "300px",
                       width: "350px",
-
                       // boxShadow: "1px 1px 1px 1px #94FFFF",
                     }}
                   >
@@ -97,5 +94,4 @@ const DisplayGallery = () => {
     </>
   );
 };
-
 export default DisplayGallery;

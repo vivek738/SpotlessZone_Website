@@ -267,7 +267,8 @@ const AddService = ({ adminData }) => {
                           Service Price
                         </label>
                         <input
-                          type="number"
+                          //type="number"
+                          type="phone"
                           className={`form-control ${
                             errors.setServicePrice && "invalid"
                           }`}

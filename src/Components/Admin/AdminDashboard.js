@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect } from "react";
-
 import "./AdminDashboard.css";
 import {
   ResponsiveContainer,
@@ -15,7 +14,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
-
 // weekly like data here
 const ddata = [
   {
@@ -74,10 +72,8 @@ const AdminDashboard = ({ adminData }) => {
   const [orders, setOrders] = React.useState([]);
   const [cart, setCart] = React.useState([]);
   const [productQtyCart, setProductQtyCart] = React.useState([]);
- 
   useEffect(() => {
     //   for all notification either visible or not
-
     axios
       .get("http://localhost:5000/service/all-noti-unseen")
       .then((response) => {
@@ -92,11 +88,9 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
-
     // for total number of registered users
     axios
       .get("http://localhost:5000/customer/register/get-total-users")
@@ -107,11 +101,9 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
-
     // for total number of pending orders
     axios
       .get("http://localhost:5000/service/pending-service-orders")
@@ -122,7 +114,6 @@ const AdminDashboard = ({ adminData }) => {
           console.log("all true");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
@@ -137,39 +128,26 @@ const AdminDashboard = ({ adminData }) => {
           console.log("Something went wrong");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
     // for total price
   },[]);
-
   useEffect(()=>{
     calculation();
-
   })
-
-
-
   // calculating total products number in cart
   const calculation = () => {
     setProductQtyCart(
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-
   return (
     <>
       <div className="container-fluid ps-0 py-3 bg-light">
-        
-
         <AdminHeader noti={noti} productQtyCart={productQtyCart}/>
-
-
-
         <div className="row py-4 me-4">
           <AdminSidebar adminData={adminData}/>
-
           <div className="col-md-9">
             <div className="p-1">
               <div className="row mb-5">
