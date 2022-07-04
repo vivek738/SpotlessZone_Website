@@ -59,7 +59,6 @@ import Search from "../Components/Search/Search";
 import ServiceSearch from "../Components/Search/ServiceSearch";
 
 
-
 export const Container = () => {
   //in login branch
   const token = localStorage.getItem("token");
@@ -186,13 +185,13 @@ export const Container = () => {
           path="/single-product/:pid"
           element={<SingleProductInfo />}
         ></Route>
-                    
+
         <Route
           path="/search-product/:query"
           element={<Search />}
         ></Route>
 
-<Route
+        <Route
           path="/search-service/:query"
           element={<ServiceSearch />}
         ></Route>
@@ -249,8 +248,8 @@ export const Container = () => {
 
         {/* pass reset */}
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-          {/* pass reset */}
-          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+        {/* pass reset */}
+        <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
 
       </Routes>
     </>

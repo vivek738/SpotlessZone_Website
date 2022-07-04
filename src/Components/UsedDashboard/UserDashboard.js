@@ -3,12 +3,6 @@ import bgImg from "../../Images/first.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 const UserDashboard = ({ userData }) => {
-  const [data, setData] = useState([]);
-  const [pdata, setProductData] = useState([]);
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location = "/";
-  };
   function parseJwt(token) {
     if (!token) {
       return;
@@ -20,10 +14,31 @@ const UserDashboard = ({ userData }) => {
   // get user form the token
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
+  // const userId = token?.user._id
+  const user = token?.user._id;
+
+  const [data, setData] = useState([]);
+  const [pdata, setProductData] = useState([]);
+  const [points, setPoints] = useState(userData.points);
+  const [rewarded, setRewarded] = useState({ rewarded: false, reward: 0 });
 
   // get user form the token
 
-  const user = token?.user._id;
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location = "/";
+  };
+
+  // Find rewards
+  useEffect(() => {
+    axios
+      .put(`http://localhost:5000/reward-user/${userId}`)
+      .then(function (res) {
+        console.log(res.data.rewarded);
+        setPoints(res.data.points);
+        setRewarded({ rewarded: true, reward: res.data.reward });
+      });
+  }, []);
 
   useEffect(() => {
     axios
@@ -47,7 +62,6 @@ const UserDashboard = ({ userData }) => {
       });
   }, []);
 
-  //
   const addCart = (e, pid) => {
     e.preventDefault();
     axios
@@ -67,6 +81,13 @@ const UserDashboard = ({ userData }) => {
         console.log(e);
       });
   };
+
+  // const deleteWisilist = (id) => {
+  //   // delete-wishlists
+  //   axios.delete("http://localhost:5000/delete-wishlists/" + id).then((res) => {
+  //     window.location = "/user-dashboard";
+  //   });
+  // };
 
   const deleteWisilist = (id) => {
     // delete-wishlists
@@ -107,6 +128,29 @@ const UserDashboard = ({ userData }) => {
           <p className="text text-center text-secondary fs-3 fw-bold">
             Customer Dashboard
           </p>
+
+          {rewarded.rewarded ? (
+            <>
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>Congratulations!</strong> You have earned{" "}
+                <span className="fw-bold fs-5 text-secondary mt-1">
+                  {rewarded.reward}
+                </span>{" "}
+                points.
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
           <div className="d-flex justify-content-between align-items-center border p-3 rounded bg-white mb-3">
             <div className="desc">
               <p className="text text-primary fs-5">{userData.name}</p>
@@ -125,8 +169,23 @@ const UserDashboard = ({ userData }) => {
                   className="fa fa-check-circle me-2"
                   style={{ cursor: "pointer" }}
                 ></i>
+                <i className="fa fa-check-circle me-2 text-success"></i>
+                <p className="text text-secondary mb-0">Earn Points</p>
+              </div>
+              <div className="d-flex justify-content-start align-items-center">
+                <i className="fa fa-check-circle me-2 text-success"></i>
                 <p className="text text-secondary mb-0">
                   Reedem points to get discount
+                </p>
+              </div>
+              <div>
+                <p className="text-secondary">
+                  Your have earned{" "}
+                  <span className="fw-bold fs-5 text-warning mt-1">
+                    {points}
+                  </span>{" "}
+                  points so far.{" "}
+                  <span className="fw-bold text-primary">Keep Earning!</span>
                 </p>
               </div>
             </div>
@@ -496,7 +555,6 @@ const UserDashboard = ({ userData }) => {
                                 {items.product.pprice}
                               </span>
                             </td>
-
                             <td>
                               <i
                                 onClick={(e) => addCart(e, items.product._id)}

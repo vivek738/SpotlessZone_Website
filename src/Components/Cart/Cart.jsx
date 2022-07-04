@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import KhaltiCheckout from "khalti-checkout-web";
 import bgImg from "../../Images/first.png";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../Homepage/Header";
 import Items from "./Items";
 
@@ -59,6 +59,11 @@ const ProductCart = () => {
       pdata.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
+  const navigate = useNavigate()
+
+  const proceed = ()=>{
+    navigate('/checkout', {state: pdata})
+  }
 
   // khalti payment integration
   let config = {
@@ -221,13 +226,11 @@ const ProductCart = () => {
                       </div>
                     </div>
                     <div className="flex-btns" style={{ textAlign: "end" }}>
-                      <button
-                        // onClick={() =>
-                        //   checkout.show({ amount: 1000, mobile: 9861905670 })
-                        // }
-                        className="btn btn-warning"
+                      
+                      <button onClick={proceed}
+                        className="btn btn-warning "
                       >
-                        Proceed To Checkout
+                        Proceed to checkout
                       </button>
                       <Link
                         to="/display-all-products"
