@@ -40,7 +40,6 @@ const SingleProductInfo = () => {
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
-        user: userid,
         userId: user,
         productQuantity: singleproductdata.pqty
       })
@@ -60,7 +59,7 @@ const SingleProductInfo = () => {
     axios
       .post("http://localhost:5000/add-to-wishlist", {
         pid: pid,
-        user: userid
+        user: user,
       })
       .then((result) => {
         console.log(result.data);
