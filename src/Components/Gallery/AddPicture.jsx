@@ -3,26 +3,21 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import AdminHeader from "../Admin/AdminHeader";
 import AdminSidebar from "../Admin/AdminSidebar";
-
 const AddPicture = ({ adminData }) => {
   const [image, setImage] = useState("");
   const [unSeenNoti, setUnseenNoti] = useState([]);
-
   const [cart, setCart] = useState([]);
   const [productQtyCart, setProductQtyCart] = useState([]);
-
   const {
     register,
     handleSubmit,
     // getValues,
     formState: { errors },
   } = useForm({ shouldUseNativeValidation: false });
-
   const pictureAddHandler = (data, e) => {
     e.preventDefault();
     const serviceData = new FormData();
     serviceData.append("image", image);
-
     axios
       .post("http://localhost:5000/picture/add", serviceData)
       .then((result) => {
@@ -38,9 +33,9 @@ const AddPicture = ({ adminData }) => {
     axios
     .get("http://localhost:5000/service/all-noti-unseen")
     .then((response) => {
+
       setUnseenNoti(response.data);
     })
-
     .catch(() => {
       console.log("error occur");
     });
@@ -54,23 +49,19 @@ const AddPicture = ({ adminData }) => {
           console.log("Something went wrong");
         }
       })
-
       .catch(() => {
         console.log("error occur");
       });
   }, [unSeenNoti]);
-
   useEffect(() => {
     calculation();
   });
-
   // calculating total products number in cart
   const calculation = () => {
     setProductQtyCart(
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-
   return (
     <>
       <div className="container-fluid ps-0 py-3">
@@ -78,7 +69,7 @@ const AddPicture = ({ adminData }) => {
         <div className="row py-4 me-4">
           <AdminSidebar adminData={adminData} />
           <div className="col-md-9">
-            <div className="container">
+          <div className="container">
               <h1 className="text-center fw-bold my-5">
                 Add Picture For Gallery
               </h1>
@@ -120,7 +111,6 @@ const AddPicture = ({ adminData }) => {
                           </small>
                         )}
                       </div>
-
                       <button
                         type="submit"
                         className="btn btn-info w-100 text-uppercase fw-bold text-white mt-4"

@@ -3,7 +3,6 @@ import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 const UserDashboard = ({ userData }) => {
   const handleLogout = () => {
     localStorage.clear();
@@ -55,7 +54,8 @@ const UserDashboard = ({ userData }) => {
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
-        user: userId
+        userId: user,
+        productQuantity: pdata.product.pqty
       })
       .then((result) => {
         console.log(result.data);
@@ -147,7 +147,6 @@ const UserDashboard = ({ userData }) => {
                   className="text-decoration-none text-danger fw-bold text-uppercase "
                   style={{ cursor: "pointer" }}
                   onClick={handleLogout}
-                  href="/"
                 >
                   Logout
                 </a>
@@ -472,11 +471,11 @@ const UserDashboard = ({ userData }) => {
 
                       <td>
                         <i onClick={e=>addCart(e,items.product._id)}
-                          className="bi bi-cart text-success"
+                          className="bi bi-cart text-success" style={{cursor: "pointer"}}
                         ></i>
                       </td>
                       <td>
-                        <i onClick={deleteWisilist.bind(this,items._id)} className="bi bi-trash text-danger"></i>
+                        <i onClick={deleteWisilist.bind(this,items._id)} className="bi bi-trash text-danger" style={{cursor: "pointer"}}></i>
                       </td>
                     </tr>
                   );

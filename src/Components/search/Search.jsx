@@ -1,46 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate} from "react-router-dom";
-
-import axios from "axios";
+import axios from 'axios'
+import React from 'react'
+import { useEffect, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import Spinner from '../Spinner/Spinner'
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
-import Spinner from "../Spinner/Spinner";
-import "./viewproduct.css";
 
-const AllProducts = () => {
-  const navigate = useNavigate()
+const Search = (props) => {
 
-  const [productdata, setProductdata] = useState([]);
-  const [isloading, setLoading] = useState(true);
-  const [query, setQuery] = useState()
+    const query = useParams().query
+
+    const [result, setResult] = useState([])
+    const [isloading, setLoading] = useState(true);
 
 
-  
-  const searching = (query)=>{
-    if(query === undefined){
-      return;
-    }else{
-      navigate('/search-product/'+query)
-    }
-  }
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://localhost:5000/get/product")
-      .then((result) => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-        console.log(result.data);
-        setProductdata(result.data);
-      })
-      .catch((e) => {
-        console.log("Something Went Wrong!!");
-      });
-  }, []);
-
-  // for showing total products
+    useEffect(()=>{
+        setLoading(true)
+        axios.get('http://localhost:5000/search-product/'+query).then(function(res){
+            console.log(res.data)
+            setResult(res.data)
+            setTimeout(() => {
+                setLoading(false);
+              }, 500);
+        })
+    },[])
 
   return (
     <>
@@ -71,8 +54,7 @@ const AllProducts = () => {
 
       <div className="container-fluid py-5 text-center">
         <h1 className="text-success">
-          We have wide ranges of truely satisfying <br /> customer favourite
-          products
+            Search Results For '{query}'
           {/* <br /> */}
           {/* <span className="fs-5">
             Believing on{" "}
@@ -82,11 +64,6 @@ const AllProducts = () => {
             </span>
           </span>{" "} */}
         </h1>
-        <div className="input-group my-3 w-25" style={{display: "display", marginLeft: "auto", marginRight: "auto"}}>
-                  {/* <span className="input-group-text" id="basic-addon1">@</span> */}
-                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search products here..." aria-label="search" aria-describedby="basic-addon1" />
-                  <button onClick={()=>searching(query)}   className="btn btn-secondary"><i className="fas fa-search"></i></button>
-                </div>
       </div>
 
       {isloading && <Spinner />}
@@ -96,7 +73,7 @@ const AllProducts = () => {
         <div className="container col-md-11 my-3">
           <div className="row">
             {!isloading &&
-              productdata.map((allProductsdata) => {
+              result.map((allProductsdata) => {
                 return (
                   <div className="text-center col-md-3">
                     <div
@@ -149,6 +126,7 @@ const AllProducts = () => {
         </div>
       </div>
     </>
-  );
-};
-export default AllProducts;
+  )
+}
+
+export default Search

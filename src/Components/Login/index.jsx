@@ -5,8 +5,6 @@ import { useState } from "react";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
 import { parseJwt } from "../../utils/parseJwt";
-import AdminDashboard from "../Admin/AdminDashboard";
-import UserDashboard from "../UsedDashboard/UserDashboard";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -16,6 +14,7 @@ const Login = () => {
 
   //   const navigate = useNavigate();
   const [error, setError] = useState("");
+
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
@@ -31,22 +30,11 @@ const Login = () => {
           localStorage.setItem("token", result.data.data.token);
           const token = localStorage.getItem("token");
           const tokenUser = parseJwt(token);
-          console.log(tokenUser.user?.role)
-
-          // {
-          //   tokenUser && tokenUser.user?.role === "admin" ? (<AdminDashboard/>) : ("") 
-          // }
-
-          // {
-          //   tokenUser && tokenUser.user?.role === "user" && <UserDashboard/>
-          // }
           // console.log(object);
           // console.log(result.data)
           if (tokenUser.user?.role === "admin") {
             window.location = "/admin-dashboard";
-            // console.log(tokenUser.user.admin);
             // console.log(tokenUser.user.role);
-
             // console.log("this is admin dashboard");
           } else if (tokenUser.user?.role === "user") {
             // console.log("this is user dashboard");
@@ -196,7 +184,7 @@ const Login = () => {
                 className={styles.green_btn}
                 disabled={data.email === "" && data.password === ""}
               >
-                Login
+                SIGN IN
               </button>
             </form>
           </div>

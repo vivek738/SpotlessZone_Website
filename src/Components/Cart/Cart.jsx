@@ -208,14 +208,13 @@ const ProductCart = () => {
                       </div>
                     </div>
                     <div className="flex-btns" style={{ textAlign: "end" }}>
-                      <button
-                        // onClick={() =>
-                        //   checkout.show({ amount: 1000, mobile: 9861905670 })
-                        // }
-                        className="btn btn-warning"
+                      
+                      <Link
+                        to="/checkout"
+                        className="btn btn-warning "
                       >
-                        Proceed To Checkout
-                      </button>
+                        Proceed to checkout
+                      </Link>
                       <Link
                         to="/display-all-products"
                         className="btn btn-info m-3"

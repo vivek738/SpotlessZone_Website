@@ -31,6 +31,7 @@ import { ToastContainer } from "react-toastify";
 import Accordion from "../Components/Faq/Accordion";
 import Productfaq from "../Components/Faq/Productfaq";
 import Trainingfaq from "../Components/Faq/Trainingfaq";
+// import Contactus from "../Components/Contactus/Contactus";
 import Contactus from "../Components/Contactus/Contactus";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import Blogs from "../Components/Blogs/Blogs";
@@ -41,6 +42,7 @@ import AdminProducts from "../Components/Products/AdminViewProducts";
 import AdminUpdateProduct from "../Components/Products/AdminUpdateproduct";
 import Notification from "../Components/Admin/Notification";
 import ToolTip from "../Components/ToolTIp";
+import Gallery from "../Components/galleryy/Gallery";
 import Checkout from "../Components/BuyProduct/Checkout";
 import ServiceOrderHistory from "../Components/Admin/ServiceOrderHistory";
 import AdminGallery from "../Components/Gallery/AdminGallery";
@@ -48,13 +50,13 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
-
 import ProductHistory from "../Components/Admin/ProductHistory";
-
 import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
 import UserProfileView from "../Components/Profile/ProfileView";
+import Search from "../Components/search/Search";
+import ServiceSearch from "../Components/search/ServiceSearch";
 
 export const Container = () => {
   //in login branch
@@ -182,6 +184,16 @@ export const Container = () => {
           path="/single-product/:pid"
           element={<SingleProductInfo />}
         ></Route>
+                    
+        <Route
+          path="/search-product/:query"
+          element={<Search/>}
+        ></Route>
+
+<Route
+          path="/search-service/:query"
+          element={<ServiceSearch />}
+        ></Route>
 
         <Route path="/" exact element={<Homepage />} />
 
@@ -225,6 +237,8 @@ export const Container = () => {
         <Route path="/admin-blog-detail" element={<AdminBlogDetail />}></Route>
 
         <Route path="/blogs/blog-details" element={<BlogDetail />}></Route>
+
+        <Route path="/gall" element={<Gallery />}></Route>
         {/* checkout */}
         <Route path="/checkout" element={<Checkout />}></Route>
 
@@ -233,6 +247,9 @@ export const Container = () => {
 
         {/* pass reset */}
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+          {/* pass reset */}
+          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+
       </Routes>
     </>
   );
