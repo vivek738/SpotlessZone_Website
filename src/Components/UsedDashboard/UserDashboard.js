@@ -31,16 +31,11 @@ const UserDashboard = ({ userData }) => {
 
   // Find rewards
   useEffect(() => {
-    axios
-      .put(`http://localhost:5000/reward-user/${userId}`)
-      .then(function (res) {
-        console.log(res.data.rewarded);
-        setPoints(res.data.points);
-        setRewarded({ rewarded: true, reward: res.data.reward });
-      });
-  }, []);
-
-  useEffect(() => {
+    axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
+      console.log(res.data.rewarded);
+      setPoints(res.data.points);
+      setRewarded({ rewarded: true, reward: res.data.reward });
+    });
     axios
       .get(`http://localhost:5000/show-own-order/${user}`)
       .then((res) => {
@@ -48,9 +43,6 @@ const UserDashboard = ({ userData }) => {
         // console.log(res)
       })
       .catch((e) => [console.log(e)]);
-  }, []);
-
-  useEffect(() => {
     axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
@@ -82,16 +74,10 @@ const UserDashboard = ({ userData }) => {
       });
   };
 
-  // const deleteWisilist = (id) => {
-  //   // delete-wishlists
-  //   axios.delete("http://localhost:5000/delete-wishlists/" + id).then((res) => {
-  //     window.location = "/user-dashboard";
-  //   });
-  // };
-
   const deleteWisilist = (id) => {
     // delete-wishlists
     axios.delete("http://localhost:5000/delete-wishlists/" + id).then((res) => {
+      console.log(res.data);
       window.location = "/user-dashboard";
     });
   };
@@ -157,23 +143,25 @@ const UserDashboard = ({ userData }) => {
               <small className="d-block text-secondary mb-3">
                 Enjoy your free membership for lifetime access in our website.
               </small>
-              <div className="d-flex justify-content-start align-items-center">
+              {/* <div className="d-flex justify-content-start align-items-center">
                 <i
                   className="fa fa-check-circle me-2"
+                  style={{ cursor: "pointer" }}
+                ></i>
+                <p className="text text-secondary mb-0">Earn Points</p>
+              </div> */}
+              <div className="d-flex justify-content-start align-items-center">
+                <i
+                  className="fa fa-check-circle me-2 text-success"
                   style={{ cursor: "pointer" }}
                 ></i>
                 <p className="text text-secondary mb-0">Earn Points</p>
               </div>
               <div className="d-flex justify-content-start align-items-center">
                 <i
-                  className="fa fa-check-circle me-2"
+                  className="fa fa-check-circle me-2 text-success"
                   style={{ cursor: "pointer" }}
                 ></i>
-                <i className="fa fa-check-circle me-2 text-success"></i>
-                <p className="text text-secondary mb-0">Earn Points</p>
-              </div>
-              <div className="d-flex justify-content-start align-items-center">
-                <i className="fa fa-check-circle me-2 text-success"></i>
                 <p className="text text-secondary mb-0">
                   Reedem points to get discount
                 </p>
@@ -215,13 +203,13 @@ const UserDashboard = ({ userData }) => {
                   View Profile
                 </a>
                 /
-                <a
+                <p
                   className="text-decoration-none text-danger fw-bold text-uppercase "
                   style={{ cursor: "pointer" }}
                   onClick={handleLogout}
                 >
                   Logout
-                </a>
+                </p>
               </div>
             </div>
           </div>
