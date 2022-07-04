@@ -10,6 +10,8 @@ import Items from "./Items";
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("");
+  const [productQtyCart, setProductQtyCart] = React.useState([]);
+
 
   function parseJwt(token) {
     if (!token) {
@@ -23,7 +25,7 @@ const ProductCart = () => {
   // get user form the token
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
-  const user = token?.user._id;
+  const user = token?.user?._id;
 
   useEffect(() => {
     axios
@@ -47,6 +49,16 @@ const ProductCart = () => {
     );
   }, [pdata, totalprice]);
 
+
+  useEffect(() => {
+    calculation();
+  });
+
+  const calculation = () => {
+    setProductQtyCart(
+      pdata.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
+    );
+  };
   const navigate = useNavigate()
 
   const proceed = ()=>{
@@ -155,7 +167,7 @@ const ProductCart = () => {
                       color: "green",
                     }}
                   >
-                    {pdata.length}
+                    {productQtyCart}
                   </span>{" "}
                   Items To Your Cart.
                 </h4>
@@ -187,7 +199,7 @@ const ProductCart = () => {
                                       key={item._id}
                                       cartId={item._id}
                                       productId={item.productId}
-                                      userId={item.userId}
+                                      // userId={item.userId}
                                       productQuantity={item.productQuantity}
                                       // {...item}
                                     />

@@ -1,29 +1,29 @@
-import axios from 'axios'
-import React from 'react'
-import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import Spinner from '../Spinner/Spinner'
+import axios from "axios";
+import React from "react";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 
 const Search = (props) => {
+  const query = useParams().query;
 
-    const query = useParams().query
+  const [result, setResult] = useState([]);
+  const [isloading, setLoading] = useState(true);
 
-    const [result, setResult] = useState([])
-    const [isloading, setLoading] = useState(true);
-
-
-    useEffect(()=>{
-        setLoading(true)
-        axios.get('http://localhost:5000/search-product/'+query).then(function(res){
-            console.log(res.data)
-            setResult(res.data)
-            setTimeout(() => {
-                setLoading(false);
-              }, 500);
-        })
-    },[])
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("http://localhost:5000/search-product/" + query)
+      .then(function (res) {
+        console.log(res.data);
+        setResult(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      });
+  }, []);
 
   return (
     <>
@@ -54,8 +54,7 @@ const Search = (props) => {
 
       <div className="container-fluid py-5 text-center">
         <h1 className="text-success">
-            Search Results For '{query}'
-          {/* <br /> */}
+          Search Results For '{query}'{/* <br /> */}
           {/* <span className="fs-5">
             Believing on{" "}
             <span className="fw-normal fs-6">
@@ -126,7 +125,7 @@ const Search = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;
