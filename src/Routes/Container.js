@@ -55,8 +55,9 @@ import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
 import UserProfileView from "../Components/Profile/ProfileView";
-import Search from "../Components/search/search";
-import ServiceSearch from "../Components/search/ServiceSearch";
+import Search from "../Components/Search/Search";
+import ServiceSearch from "../Components/Search/ServiceSearch";
+
 
 export const Container = () => {
   //in login branch
@@ -184,13 +185,13 @@ export const Container = () => {
           path="/single-product/:pid"
           element={<SingleProductInfo />}
         ></Route>
-                    
+
         <Route
           path="/search-product/:query"
-          element={<Search/>}
+          element={<Search />}
         ></Route>
 
-<Route
+        <Route
           path="/search-service/:query"
           element={<ServiceSearch />}
         ></Route>
@@ -247,8 +248,8 @@ export const Container = () => {
 
         {/* pass reset */}
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-          {/* pass reset */}
-          <Route path="/password-reset/:id/:token" element={<PasswordReset/>}/>
+        {/* pass reset */}
+        <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
 
       </Routes>
     </>
