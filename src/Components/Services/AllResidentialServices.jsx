@@ -72,7 +72,7 @@ const AllResidentialServices = () => {
           </div>
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container">
         <h1>{isloading && <Spinner />}</h1>
         <div className="row">
           {!isloading &&
@@ -84,24 +84,25 @@ const AllResidentialServices = () => {
                     style={{
                       cursor: "pointer",
                       boxShadow: "2px 2px 2px 2px #94FFFF",
+                      height: "50vh"
                     }}
                   >
                     <div className="card-body">
-                      <div className="service_image_part">
+                      <div className="service_image_part c-image">
                         <img
                           src={`http://localhost:5000/${rData.image}`}
                           alt=""
-                          className="img-fluid"
+                          className="img-fluid c-image"
                           // style={{ height: "100px", minWidth: "100px" }}
                         />
                       </div>
                       <div className="product_text">
                         <h3 className="py-3">{rData.serviceName}</h3>
-                        <p>{rData.serviceDesc}</p>
+                        <p>{rData.serviceDesc.slice(0, 60)}...</p>
                       </div>
                       <Link
                         to={`/single-service/${rData._id}`}
-                        className="btn btn-info text-center text-white text-uppercase my-3 fw-bold float-end"
+                        className="btn btn-info text-center text-white text-uppercase mb-3 fw-bold float-end"
                       >
                         Read More &gt;&gt;
                       </Link>
