@@ -4,6 +4,10 @@ import First from "../../Images/first.png";
 import Header from "../Homepage/Header";
 import KhaltiCheckout from "khalti-checkout-web";
 
+import { useLocation } from 'react-router-dom';
+import {toast} from 'react-toastify'
+
+
 const Checkout = () => {
   function parseJwt(token) {
     if (!token) {
@@ -13,6 +17,53 @@ const Checkout = () => {
     const base64 = base64Url.replace("-", "+").replace("_", "/");
     return JSON.parse(window.atob(base64));
   }
+
+
+    const [pdata, setProductData] = useState()
+    // get user form the token
+    const token_data = localStorage.getItem("token")
+    const token = parseJwt(token_data)
+    const user = token?.user._id
+    const [totalprice, setTotalPrice] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState('');
+    const [state, setState] = useState('');
+    const [city, setCity] = useState('');
+    const [points, setPoints] = useState(0)
+
+    // khalti payment integration
+    let config = {
+        publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
+        productIdentity: "12345",
+        productName: "foods",
+        productUrl: "http://localhost:3000",
+        eventHandler: {
+            onSuccess(payload) {
+                axios
+                    .post("http://localhost:5000/order", {
+                        products: pdata,
+                        total: totalprice,
+                        user: user,
+                        points: points,
+                        firstname,
+                        phone,
+                        address_detail: {
+                            address: address,
+                            state: state,
+                            city: city
+                        }
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                    });
+                console.log(payload);
+            },
+            onError(error) {
+                console.log(error);
+            },
+            onClose() {
+                console.log("widget is closing");
 
   const [pdata, setProductData] = useState([]);
   // get user form the token
@@ -47,6 +98,7 @@ const Checkout = () => {
               address: address,
               state: state,
               city: city,
+
             },
           })
           .then((res) => {
@@ -107,9 +159,25 @@ const Checkout = () => {
   }, [pdata, totalprice]);
   console.log(city);
 
+
+    const discount = ()=>{
+        const wallet = token?.user.points
+        if(points> wallet){
+            toast.error("Insufficient Points!", {position: toast.POSITION.TOP_RIGHT})
+        }else{
+            var discountPrice = points/10
+            const tprice = totalprice - discountPrice
+            setTotalPrice(tprice)
+        }
+    }
+
+    return (
+        <>
+
   useEffect(() => {
     calculation();
   });
+
 
   const calculation = () => {
     setProductQtyCart(
@@ -176,6 +244,33 @@ const Checkout = () => {
                             style={{ borderRadius: "0px" }}
                           />
                         </div>
+
+                        <div className="col-md-3 bg-white py-3 px-4">
+                            <p className="text text-dark fs-5 border-bottom border-2 mb-3">Order Summary</p>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <p className="text text-secondary mb-0">Subtotal ({pdata?.length} Items)</p>
+                                <p className="text text-dark fw-bold mb-0">Rs. {totalprice}</p>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <p className="text text-secondary mb-0">Shipping Fee</p>
+                                <p className="text text-dark fw-bold mb-0">Rs. 0</p>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <input onChange={(e)=>setPoints(e.target.value)} type="text" className="form-control me-2" style={{ borderRadius: '0px' }} />
+                                <button onClick={discount} className="btn btn-primary px-3" style={{ borderRadius: '0px' }}>Apply</button>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <p className="text text-secondary mb-0">Total:</p>
+                                <div>
+                                    <p className="text text-dark fw-bold text-end mb-0">Rs. {totalprice}</p>
+                                    <small className="d-block text-secondary text-end">VAT Included</small>
+                                </div>
+                            </div>
+                            <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning w-100" style={{ borderRadius: '0px' }}>
+                                Processed to Pay
+                            </button>
+                            {/* <button onClick={checkout.show({ amount: 1000, mobile: 9861905670})} className="btn btn-secondary w-100" style={{ borderRadius: '0px' }}>Processed to Pay</button> */}
+
                       </div>
                       <div className="col-md-6">
                         <div className="p-1">
@@ -195,6 +290,7 @@ const Checkout = () => {
                             <option value="Lumbini">Lumbini</option>
                             <option value="Karnali">Karnali</option>
                           </select>
+
                         </div>
                       </div>
                     </div>

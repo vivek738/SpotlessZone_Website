@@ -31,6 +31,25 @@ const UserDashboard = ({ userData }) => {
 
   // Find rewards
   useEffect(() => {
+
+    axios.put(`http://localhost:5000/reward-user/${userId}`).then(function (res) {
+      console.log(res.data.rewarded)
+      setPoints(res.data.points)
+      setRewarded({rewarded: res.data.rewarded, reward: res.data.reward})
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/show-own-order/${userId}`).then(res => {
+      setData(res.data)
+      // console.log(res)
+    }).catch(e => [
+      console.log(e)
+    ])
+  }, [])
+
+  useEffect(() => {
+
     axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
       console.log(res.data.rewarded);
       setPoints(res.data.points);
@@ -43,10 +62,10 @@ const UserDashboard = ({ userData }) => {
         // console.log(res)
       })
       .catch((e) => [console.log(e)]);
+
     axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
-        console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
