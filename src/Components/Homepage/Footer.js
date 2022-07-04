@@ -1,4 +1,5 @@
 import React from "react";
+import "./Homepage.css";
 
 const Footer = () => {
   return (
@@ -14,22 +15,22 @@ const Footer = () => {
           {/* Left */}
           {/* Right */}
           <div>
-            <a href className="me-4 text-reset">
-              <i className="fab fa-facebook-f" />
+            <a href="https://www.facebook.com" className="me-4 text-reset">
+              <i className="fab fa-facebook-f f-facebook" />
             </a>
-            <a href className="me-4 text-reset">
-              <i className="fab fa-twitter" />
+            <a href="https://twitter.com" className="me-4 text-reset">
+              <i className="fab fa-twitter f-twitter" />
             </a>
-            <a href className="me-4 text-reset">
-              <i className="fab fa-google" />
+            <a href="https://www.google.com" className="me-4 text-reset">
+              <i className="fab fa-google f-google" />
             </a>
-            <a href className="me-4 text-reset">
-              <i className="fab fa-instagram" />
+            <a href="https://www.instagram.com" className="me-4 text-reset">
+              <i className="fab fa-instagram f-instagram" />
             </a>
-            <a href className="me-4 text-reset">
-              <i className="fab fa-linkedin" />
+            <a href="https://www.linkedin.com" className="me-4 text-reset">
+              <i className="fab fa-linkedin f-linkedin" />
             </a>
-            <a href className="me-4 text-reset">
+            <a href="https://github.com" className="me-4 text-reset">
               <i className="fab fa-github" />
             </a>
           </div>
@@ -37,8 +38,11 @@ const Footer = () => {
         </section>
         {/* Section: Social media */}
         {/* Section: Links  */}
-        <section className="text-white py-3" style={{ backgroundColor: "#A0A0A0" }}>
-          <div className="container text-center text-md-start mt-5" >
+        <section
+          className="text-white py-3"
+          style={{ backgroundColor: "#A0A0A0" }}
+        >
+          <div className="container text-center text-md-start mt-5">
             {/* Grid row */}
             <div className="row mt-3">
               {/* Grid column */}
@@ -62,7 +66,7 @@ const Footer = () => {
                 <p>
                   <a
                     style={{ textDecoration: "none" }}
-                    href="#!"
+                    href="/"
                     className="text-reset"
                   >
                     Floor and carpet
@@ -71,7 +75,7 @@ const Footer = () => {
                 <p>
                   <a
                     style={{ textDecoration: "none" }}
-                    href="#!"
+                    href="/"
                     className="text-reset"
                   >
                     House Painting
@@ -80,7 +84,7 @@ const Footer = () => {
                 <p>
                   <a
                     style={{ textDecoration: "none" }}
-                    href="#!"
+                    href="/"
                     className="text-reset"
                   >
                     Office Cleaning
@@ -89,7 +93,7 @@ const Footer = () => {
                 <p>
                   <a
                     style={{ textDecoration: "none" }}
-                    href="#!"
+                    href="/"
                     className="text-reset"
                   >
                     Job Recruting
@@ -102,7 +106,7 @@ const Footer = () => {
                 {/* Links */}
                 <h6 className="text-uppercase fw-bold mb-4">ContactUs</h6>
                 <p>
-                  <i className="fas fa-home me-3" /> New York, NY 10012, US
+                  <i className="fas fa-home me-2" /> Chabahil-07, KTM, Nepal
                 </p>
                 <p>
                   <i className="fas fa-envelope me-3" />
@@ -168,10 +172,7 @@ const Footer = () => {
           className="text-center p-4 text-white"
           style={{ backgroundColor: "#707070" }}
         >
-          © 2021 Copyright:Spotless Zone
-          {/* <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
-            MDBootstrap.com
-          </a> */}
+          © 2021 Copyright: SpotlessZone.com
         </div>
       </footer>
       {/* Footer */}
@@ -179,6 +180,4 @@ const Footer = () => {
   );
 };
 
-export default Footer
-
-
+export default Footer;

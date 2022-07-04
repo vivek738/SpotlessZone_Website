@@ -237,41 +237,7 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-        {/* <div
-          className="d-flex flex-wrap justify-content-center align-items-center w-100"
-          style={{ position: "absolute", bottom: "-6%" }}
-        >
-          <div
-            className="text-center bg-light rounded shadow"
-            style={{ height: "auto" }}
-          >
-            <div className="d-flex flex-wrap justify-content-center align-items-center mx-4 my-3">
-              <div className="me-md-5 me-2 mb-3">
-                <p className="text text-secondary h5 mb-3">Choose Packages</p>
-                <select
-                  className="form-select"
-                  aria-label="Default select example"
-                >
-                  <option selected>Select Packages</option>
-                  <option value={1}>One</option>
-                  <option value={2}>Two</option>
-                  <option value={3}>Three</option>
-                </select>
-              </div>
-              <div className="me-md-5 me-2 mb-3">
-                <p className="text text-secondary h5 mb-3">Choose Packages</p>
-                <input type="date" className="form-control" />
-              </div>
-              <div className="me-md-5 me-2 mb-3">
-                <p className="text text-secondary h5 mb-3">Phone Number</p>
-                <input type="number" className="form-control" />
-              </div>
-              <div className="me-md-5 me-2 mb-3">
-                <button className="btn btn-primary px-4">Book Now</button>
-              </div>
-            </div>
-          </div>
-        </div> */}
+        
       </div>
       <ChooseUs />
       <div

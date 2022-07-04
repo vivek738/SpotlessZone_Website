@@ -3,8 +3,8 @@ const ResidentialServiceItem = ({ rData }) => {
   return (
     <>
       <div
-        className="card bg-light"
-        style={{ borderTopLeftRadius: "5rem", borderTopRightRadius: "1.5rem" }}
+        className="card bg-light mb-2"
+        style={{ borderTopLeftRadius: "5rem", borderTopRightRadius: "1.5rem", height: "300px" }}
       >
         <h6
           className="text-center fw-bold pt-4"
@@ -25,12 +25,12 @@ const ResidentialServiceItem = ({ rData }) => {
           }}
         />
         <p className="ps-3">{rData.serviceDesc}</p>
-        <a
+        {/* <a
           href="/all-services"
           className="ms-auto p-3 text-info text-decoration-none fw-bold fst-italic"
         >
           <small>Read More &gt;&gt;</small>
-        </a>
+        </a> */}
       </div>
     </>
   );
