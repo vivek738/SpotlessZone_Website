@@ -55,7 +55,7 @@ import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
 import UserProfileView from "../Components/Profile/ProfileView";
-import Search from "../Components/search/Search";
+import Search from "../Components/search/search";
 import ServiceSearch from "../Components/search/ServiceSearch";
 
 export const Container = () => {
