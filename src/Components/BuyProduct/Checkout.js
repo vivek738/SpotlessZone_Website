@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import First from '../../Images/first.png';
 import Header from '../Homepage/Header';
 import KhaltiCheckout from "khalti-checkout-web";
+import { useLocation } from 'react-router-dom';
 
 const Checkout = () => {
     function parseJwt(token) {
@@ -11,11 +12,12 @@ const Checkout = () => {
         const base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(window.atob(base64));
     }
+
+    const [pdata, setProductData] = useState()
     // get user form the token
     const token_data = localStorage.getItem("token")
     const token = parseJwt(token_data)
     const user = token?.user._id
-    const [pdata, setProductData] = useState([]);
     const [totalprice, setTotalPrice] = useState("");
     const [firstname, setFirstname] = useState("");
     const [phone, setPhone] = useState("");
@@ -80,19 +82,20 @@ const Checkout = () => {
             .get("http://localhost:5000/get-products-cart/" + user)
             .then((result) => {
                 setProductData(result.data);
+    
+                const items = result.data
+                items.map((val, ind)=>{
+                    const total = val.productId.pprice*val.productQuantity
+                    setTotalPrice(totalprice+total)
+                })
             })
             .catch((err) => {
                 console.log(err);
             });
-        setTotalPrice(
-            pdata.reduce(
-                (acc, curr) =>
-                    acc + Number(curr.productId.pqty * curr.productId.pprice),
-                0
-            )
-        );
+        
     }, [])
     console.log(city)
+
     return (
         <>
 
@@ -191,7 +194,7 @@ const Checkout = () => {
                         <div className="col-md-3 bg-white py-3 px-4">
                             <p className="text text-dark fs-5 border-bottom border-2 mb-3">Order Summary</p>
                             <div className="d-flex justify-content-between align-items-center mb-3">
-                                <p className="text text-secondary mb-0">Subtotal (1 items)</p>
+                                <p className="text text-secondary mb-0">Subtotal ({pdata?.length} Items)</p>
                                 <p className="text text-dark fw-bold mb-0">Rs. {totalprice}</p>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-4">

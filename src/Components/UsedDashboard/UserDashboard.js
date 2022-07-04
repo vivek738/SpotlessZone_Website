@@ -20,11 +20,22 @@ const UserDashboard = ({ userData }) => {
   const userId = token?.user._id
   const [data, setData] = useState([]);
   const [pdata, setProductData] = useState([]);
+  const [points, setPoints] = useState(userData.points)
+  const [rewarded, setRewarded] = useState({ rewarded: false, reward: 0 })
 
   // get user form the token
 
   const user = token?.user._id
 
+
+  // Find rewards
+  useEffect(() => {
+    axios.put(`http://localhost:5000/reward-user/${userId}`).then(function (res) {
+      console.log(res.data.rewarded)
+      setPoints(res.data.points)
+      setRewarded({ rewarded: true, reward: res.data.reward })
+    })
+  }, [])
 
   useEffect(() => {
     axios.get(`http://localhost:5000/show-own-order/${userId}`).then(res => {
@@ -49,7 +60,7 @@ const UserDashboard = ({ userData }) => {
   }, []);
 
   // 
-  const addCart = (e , pid) => {
+  const addCart = (e, pid) => {
     e.preventDefault();
     axios
       .post("http://localhost:5000/add-to-cart", {
@@ -70,10 +81,10 @@ const UserDashboard = ({ userData }) => {
   };
 
 
-  const deleteWisilist = (id) =>{
+  const deleteWisilist = (id) => {
     // delete-wishlists
-    axios.delete('http://localhost:5000/delete-wishlists/'+id).then(res=>{
-      window.location = '/user-dashboard' 
+    axios.delete('http://localhost:5000/delete-wishlists/' + id).then(res => {
+      window.location = '/user-dashboard'
     })
   }
 
@@ -108,6 +119,17 @@ const UserDashboard = ({ userData }) => {
           <p className="text text-center text-secondary fs-3 fw-bold">
             Customer Dashboard
           </p>
+
+          {
+            rewarded.rewarded ?
+              <>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>Congratulations!</strong> You have earned <span className="fw-bold fs-5 text-secondary mt-1">{rewarded.reward}</span> points.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </> :
+              <></>
+          }
           <div className="d-flex justify-content-between align-items-center border p-3 rounded bg-white mb-3">
             <div className="desc">
               <p className="text text-primary fs-5">{userData.name}</p>
@@ -115,14 +137,17 @@ const UserDashboard = ({ userData }) => {
                 Enjoy yur free membership for lifetime access in our website.
               </small>
               <div className="d-flex justify-content-start align-items-center">
-                <i className="fa fa-check-circle me-2"></i>
+                <i className="fa fa-check-circle me-2 text-success"></i>
                 <p className="text text-secondary mb-0">Earn Points</p>
               </div>
               <div className="d-flex justify-content-start align-items-center">
-                <i className="fa fa-check-circle me-2"></i>
+                <i className="fa fa-check-circle me-2 text-success"></i>
                 <p className="text text-secondary mb-0">
                   Reedem points to get discount
                 </p>
+              </div>
+              <div>
+                <p className="text-secondary">Your have earned <span className="fw-bold fs-5 text-warning mt-1">{points}</span> points so far. <span className="fw-bold text-primary">Keep Earning!</span></p>
               </div>
             </div>
             <div className="">
@@ -470,12 +495,12 @@ const UserDashboard = ({ userData }) => {
                       </td>
 
                       <td>
-                        <i onClick={e=>addCart(e,items.product._id)}
-                          className="bi bi-cart text-success" style={{cursor: "pointer"}}
+                        <i onClick={e => addCart(e, items.product._id)}
+                          className="bi bi-cart text-success" style={{ cursor: "pointer" }}
                         ></i>
                       </td>
                       <td>
-                        <i onClick={deleteWisilist.bind(this,items._id)} className="bi bi-trash text-danger" style={{cursor: "pointer"}}></i>
+                        <i onClick={deleteWisilist.bind(this, items._id)} className="bi bi-trash text-danger" style={{ cursor: "pointer" }}></i>
                       </td>
                     </tr>
                   );
