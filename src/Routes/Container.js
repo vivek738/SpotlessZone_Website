@@ -55,8 +55,8 @@ import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
 import UserProfileView from "../Components/Profile/ProfileView";
-import Search from "../Components/search/Search";
-import ServiceSearch from "../Components/search/ServiceSearch";
+import Search from "../Components/Search/Search";
+import ServiceSearch from "../Components/Search/ServiceSearch";
 
 export const Container = () => {
   //in login branch
