@@ -33,7 +33,7 @@ const UserDashboard = ({ userData }) => {
     axios.put(`http://localhost:5000/reward-user/${userId}`).then(function (res) {
       console.log(res.data.rewarded)
       setPoints(res.data.points)
-      setRewarded({ rewarded: true, reward: res.data.reward })
+      setRewarded({rewarded: res.data.rewarded, reward: res.data.reward})
     })
   }, [])
 
@@ -50,7 +50,6 @@ const UserDashboard = ({ userData }) => {
     axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
-        console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
