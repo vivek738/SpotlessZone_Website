@@ -31,6 +31,25 @@ const UserDashboard = ({ userData }) => {
 
   // Find rewards
   useEffect(() => {
+
+    axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
+      console.log(res.data.rewarded)
+      setPoints(res.data.points)
+      setRewarded({rewarded: res.data.rewarded, reward: res.data.reward})
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/show-own-order/${user}`).then(res => {
+      setData(res.data)
+      // console.log(res)
+    }).catch(e => [
+      console.log(e)
+    ])
+  }, [])
+
+  useEffect(() => {
+
     axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
       console.log(res.data.rewarded);
       setPoints(res.data.points);
@@ -43,10 +62,10 @@ const UserDashboard = ({ userData }) => {
         // console.log(res)
       })
       .catch((e) => [console.log(e)]);
+
     axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
-        console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
@@ -99,15 +118,6 @@ const UserDashboard = ({ userData }) => {
         }}
       >
         <Header />
-
-        {/* <div className="bread-crumb-section">
-          <h1 className="text-center text-white my-4 fw-bold">Cart</h1>
-          <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
-              Home &gt;&gt; <span className="text-white">Cart</span>
-            </Link>
-          </div>
-        </div> */}
       </div>
       <div className="bg-light container-fluid p-0">
         <div className="container col-md-8 py-4 mb-4">
