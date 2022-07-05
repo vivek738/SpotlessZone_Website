@@ -105,7 +105,7 @@ const Checkout = () => {
         .toFixed(2)
     );
   }, [pdata, totalprice]);
-  console.log(city);
+  // console.log(city);
 
   useEffect(() => {
     calculation();
