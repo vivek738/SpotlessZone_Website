@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import axios from "axios";
 import { parseJwt } from "../../utils/parseJwt";
 import "./UserProfile.css";
-import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import UserSideBar from "./UserSideBar";
 import { toast } from "react-toastify";
+import UserHeader from "../UserDashboard/UserHeader";
 
 const DeleteProfileToast = () => {
   const handleOk = () => {
@@ -84,7 +84,7 @@ const UserProfileView = () => {
           position: "relative",
         }}
       >
-        <Header />
+        <UserHeader />
       </div>
 
       <div className="container-fluid" style={{ backgroundColor: "#d9d9d9" }}>

@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import First from "../../Images/first.png";
-import Header from "../Homepage/Header";
 import KhaltiCheckout from "khalti-checkout-web";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
+import UserHeader from "../UserDashboard/UserHeader";
+
 
 const Checkout = () => {
   function parseJwt(token) {
@@ -22,15 +24,16 @@ const Checkout = () => {
   const token = parseJwt(token_data);
   const user = token?.user._id;
   const [totalprice, setTotalPrice] = useState("");
-  const [firstname, setFirstname] = useState("");
+  const [fullname, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [points, setPoints] = useState(0);
-  const location = useLocation()
+  const location = useLocation();
   const [productQtyCart, setProductQtyCart] = useState([]);
-  
+  console.log(location.state);
+
   // khalti payment integration
   let config = {
     publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
@@ -45,7 +48,7 @@ const Checkout = () => {
             total: totalprice,
             user: user,
             points: points,
-            firstname,
+            fullname,
             phone,
             address_detail: {
               address: address,
@@ -75,14 +78,14 @@ const Checkout = () => {
   };
   let checkout = new KhaltiCheckout(config);
 
-//   const headers = [
-//     { key: "pic", label: "Product Image" },
-//     { key: "pname", label: "Product Name" },
-//     { key: "pqty", label: "Quantity" },
-//     { key: "pprice", label: "Price Per Qty" },
-//     { key: "tprice", label: "Total Price" },
-//     { key: "action", label: "Action" },
-//   ];
+  //   const headers = [
+  //     { key: "pic", label: "Product Image" },
+  //     { key: "pname", label: "Product Name" },
+  //     { key: "pqty", label: "Quantity" },
+  //     { key: "pprice", label: "Price Per Qty" },
+  //     { key: "tprice", label: "Total Price" },
+  //     { key: "action", label: "Action" },
+  //   ];
 
   // const items = result.data
   // items.map((val, ind)=>{
@@ -96,7 +99,7 @@ const Checkout = () => {
       .get("http://localhost:5000/get-products-cart/" + user)
       .then((result) => {
         setProductData(result.data);
-// console.log(result.data[0].productQuantity)
+        console.log(result.data);
         // const items = result.data
         // items.map((val, ind)=>{
         //     const total = val.productId.pprice*val.productQuantity
@@ -117,7 +120,7 @@ const Checkout = () => {
     );
   }, []);
   // console.log(totalprice)
-//   console.log(city);
+  //   console.log(city);
   const discount = () => {
     const wallet = token?.user.points;
     if (points > wallet) {
@@ -127,9 +130,9 @@ const Checkout = () => {
     } else {
       var discountPrice = points / 10;
       const tprice = totalprice - discountPrice;
-        setTotalPrice(tprice);
+      setTotalPrice(tprice);
+    }
   };
-}
 
   useEffect(() => {
     calculation();
@@ -140,10 +143,8 @@ const Checkout = () => {
       location.state.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-  console.log(productQtyCart)
+  console.log(productQtyCart);
 
-
-  
   return (
     <>
       <div
@@ -159,24 +160,18 @@ const Checkout = () => {
           position: "relative",
         }}
       >
-        <Header></Header>
+        <UserHeader />
 
-        <div className="bread-crumb-section d-flex justify-content-center align-items-center">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Home
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
-              >
-                Checkout
-              </li>
-            </ol>
-          </nav>
+        <div className="bread-crumb-section">
+        <h1 className="text-center text-white my-4 fw-bold">Checkout Page</h1>
+          <div className="row text-center">
+            <Link
+              className="text-success fw-bold text-decoration-none"
+              to="/user-dashboard"
+            >
+              Dashboard &gt;&gt; <span className="text-white">Checkout Page</span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -194,10 +189,10 @@ const Checkout = () => {
                       <div className="col-md-6">
                         <div className="p-1">
                           <label htmlFor="" className="mb-2">
-                            First Name
+                            Full Name
                           </label>
                           <input
-                            onChange={(e) => setFirstname(e.target.value)}
+                            onChange={(e) => setFullName(e.target.value)}
                             type="text"
                             className="form-control"
                             style={{ borderRadius: "0px" }}

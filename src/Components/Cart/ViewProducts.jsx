@@ -6,6 +6,9 @@ import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import Spinner from "../Spinner/Spinner";
 import "./viewproduct.css";
+import { parseJwt } from "../../utils/parseJwt";
+import UserHeader from "../UserDashboard/UserHeader";
+
 
 const AllProducts = () => {
   const navigate = useNavigate();
@@ -13,6 +16,10 @@ const AllProducts = () => {
   const [productdata, setProductdata] = useState([]);
   const [isloading, setLoading] = useState(true);
   const [query, setQuery] = useState();
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
 
   const searching = (query) => {
     if (query === undefined) {
@@ -55,14 +62,22 @@ const AllProducts = () => {
           position: "relative",
         }}
       >
-        <Header />
+        {user ? <UserHeader /> : <Header />}
 
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">Products</h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
+            {
+              user ? (
+                <Link className="text-success fw-bold text-decoration-none" to="/user-dashboard">
+              Dashboard &gt;&gt; <span className="text-white">All Products</span>
+            </Link>
+              ) : (
+                <Link className="text-success fw-bold text-decoration-none" to="/">
               Home &gt;&gt; <span className="text-white">All Products</span>
             </Link>
+              )
+            }
           </div>
         </div>
       </div>

@@ -4,8 +4,18 @@ import First from "../../Images/first.png";
 import { Link } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
+import { parseJwt } from "../../utils/parseJwt";
+import UserHeader from "../UserDashboard/UserHeader";
+
 const Blogs = () => {
   const [blog, setBlog] = React.useState([]);
+
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
+
+
   React.useEffect(() => {
     axios.get("http://localhost:5000/all-blog").then((res) => {
       setBlog(res.data);
@@ -14,6 +24,8 @@ const Blogs = () => {
     });
     // latestDate();
   }, []);
+
+
 
   //   var mostRecentDate = new Date(
   //     Math.max.apply(
@@ -50,24 +62,35 @@ const Blogs = () => {
           position: "relative",
         }}
       >
-        <Header></Header>
+        {user ? <UserHeader /> : <Header />}
 
-        <div className="bread-crumb-section d-flex justify-content-center align-items-center">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Home
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
+        <div className="bread-crumb-section">
+        <h1 className="text-center text-white my-4 fw-bold">
+            Blogs
+          </h1>
+          <div className="row text-center">
+            {user ? (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/user-dashboard"
               >
-                Blogs
-              </li>
-            </ol>
-          </nav>
+                Dashboard &gt;&gt;{" "}
+                <span className="text-white">
+                  Blogs
+                </span>
+              </Link>
+            ) : (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/"
+              >
+                Home &gt;&gt;{" "}
+                <span className="text-white">
+                  Blogs
+                </span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <div className="container my-5">

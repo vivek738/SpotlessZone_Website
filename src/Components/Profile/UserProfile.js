@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import { parseJwt } from "../../utils/parseJwt";
 import "./UserProfile.css";
-import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import UserSideBar from "./UserSideBar";
+import UserHeader from "../UserDashboard/UserHeader";
 
 const UserProfile = () => {
   const token_data = localStorage.getItem("token");
@@ -38,7 +38,7 @@ const UserProfile = () => {
           position: "relative",
         }}
       >
-        <Header />
+        <UserHeader />
       </div>
 
       <div className="container-fluid" style={{ backgroundColor: "#d9d9d9" }}>

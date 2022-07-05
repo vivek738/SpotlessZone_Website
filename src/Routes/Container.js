@@ -24,7 +24,7 @@ import AllResidentialServices from "../Components/Services/AllResidentialService
 import SingleService from "../Components/Services/SingleService";
 import AddPicture from "../Components/Gallery/AddPicture";
 import DisplayGallery from "../Components/Gallery/DisplayGallery";
-import UserDashboard from "../Components/UsedDashboard/UserDashboard";
+import UserDashboard from "../Components/UserDashboard/UserDashboard";
 import TestingService from "../Components/Services/TestingService";
 import TestBookService from "../Components/Services/TestingBookService";
 import { ToastContainer } from "react-toastify";
@@ -58,6 +58,8 @@ import UserProfileView from "../Components/Profile/ProfileView";
 import Search from "../Components/Search/Search";
 import ServiceSearch from "../Components/Search/ServiceSearch";
 import ProductOrderHistory from "../Components/Profile/ProductOrderHistory";
+import ProductWishlist from "../Components/Wishlist/ProductWishlist";
+import AddressBook from "../Components/Profile/AddressBook";
 
 
 export const Container = () => {
@@ -170,6 +172,12 @@ export const Container = () => {
             <Route path="/profile-creation" element={<UserProfile />}></Route>
             <Route path="/edit-profile" element={<EditProfile />}></Route>
             <Route path="/view-profile" element={<UserProfileView />}></Route>
+            <Route path="/product-order-history" element={<ProductOrderHistory />}></Route>
+            <Route path="/product-wishlist" element={<ProductWishlist />}></Route>
+            <Route path="/address-book" element={<AddressBook />}></Route>
+
+
+
           </>
         )}
         <Route path="/single-service/:sid" element={<SingleService />}></Route>

@@ -5,11 +5,17 @@ import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import "./services.css";
 import Spinner from "../Spinner/Spinner";
+import UserHeader from "../UserDashboard/UserHeader";
+import { parseJwt } from "../../utils/parseJwt";
 
 const AllCommercialServices = () => {
   const [commercialData, setCommercialData] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
 
   const myTimeOut = () => {
     setTimeout(() => {
@@ -56,19 +62,34 @@ const AllCommercialServices = () => {
           position: "relative",
         }}
       >
-        <Header />
+        {user ? <UserHeader /> : <Header />}
 
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">
             {categoryName.serviceCategoryName}
           </h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
-              Home &gt;&gt;{" "}
-              <span className="text-white">
-                {categoryName.serviceCategoryName}
-              </span>
-            </Link>
+            {user ? (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/user-dashboard"
+              >
+                Dashboard &gt;&gt;{" "}
+                <span className="text-white">
+                  {categoryName.serviceCategoryName}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/"
+              >
+                Home &gt;&gt;{" "}
+                <span className="text-white">
+                  {categoryName.serviceCategoryName}
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -98,17 +119,15 @@ const AllCommercialServices = () => {
                       </div>
                       <div className="product_text">
                         <h3 className="py-3">{cData.serviceName}</h3>
-                        
+
                         <p>{cData.serviceDesc.slice(0, 60)}...</p>
-                      
                       </div>
                       <Link
                         to={`/single-service/${cData._id}`}
                         className="btn btn-info text-center text-white text-uppercase mb-3 fw-bold float-end w-24"
                       >
                         Read More &gt;&gt;
-                      </Link> 
-                       
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -56,9 +56,9 @@ const UserSideBar = () => {
             >
               <span className="text profileAccount active">My Profile</span>
             </Link>
-            <a href="#" className="text-decoration-none text-secondary ms-5">
+            <Link to="/address-book" className="text-decoration-none text-secondary ms-5">
               <span className="text addressBook">Address Book</span>
-            </a>
+            </Link>
           </div>
 
           <div className="w-100" style={{ cursor: "pointer" }}>
@@ -71,7 +71,10 @@ const UserSideBar = () => {
             <h5 className="mt-2">My Reviews</h5>
           </div>
           <div className="w-100 " style={{ cursor: "pointer" }}>
+            <Link to={`/product-wishlist`} className="text-decoration-none text-dark">
+
             <h5 className="mt-2">My Wishlist</h5>
+            </Link>
           </div>
         </div>
       </div>

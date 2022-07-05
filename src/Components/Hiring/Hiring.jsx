@@ -5,12 +5,18 @@ import bgImage from "../../Images/job-image.jpg";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
 import { Link } from "react-router-dom";
+import UserHeader from "../UserDashboard/UserHeader";
+import { parseJwt } from "../../utils/parseJwt";
 
 const Hiring = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setPhone] = useState("");
   const [resume, setImage] = useState("");
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
 
   const {
     register,
@@ -54,14 +60,22 @@ const Hiring = () => {
           position: "relative",
         }}
       >
-        <Header />
+        {user ? <UserHeader /> : <Header />}
 
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">Job Form</h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
+            {
+              user ? (
+                <Link className="text-success fw-bold text-decoration-none" to="/user-dashboard">
+              Dashboard &gt;&gt; <span className="text-white">Job Form</span>
+            </Link>
+              ): (
+                <Link className="text-success fw-bold text-decoration-none" to="/">
               Home &gt;&gt; <span className="text-white">Job Form</span>
             </Link>
+              )
+            }
           </div>
         </div>
       </div>
