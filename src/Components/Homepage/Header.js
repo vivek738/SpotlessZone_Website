@@ -60,7 +60,7 @@ const Header = () => {
     axios
       .get("http://localhost:5000/service/pending-service-orders")
       .then((result) => {
-        console.log(result.data.length);
+        // console.log(result.data.length);
         setPendingOrder(result.data.length);
       })
       .catch((err) => {

@@ -208,7 +208,7 @@ const UserDashboard = ({ userData }) => {
                   />
                 )}
               </div>
-              <div>
+              <div className="d-flex">
                 <a href="/profile-creation" className="text-decoration-none">
                   View Profile
                 </a>
