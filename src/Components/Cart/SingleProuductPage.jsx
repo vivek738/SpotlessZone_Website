@@ -5,6 +5,7 @@ import "./sp.css";
 import axios from "axios";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
+import ReactStars from "react-rating-stars-component";
 
 export const SuccessMsg = () => {
   return (
@@ -16,6 +17,7 @@ export const SuccessMsg = () => {
   );
 };
 
+
 export const WishlistMsg = () => {
   return (
     <>
@@ -25,9 +27,10 @@ export const WishlistMsg = () => {
     </>
   );
 };
+
 const SingleProductInfo = () => {
   const { pid } = useParams();
-  const [singleproductdata, setSingleproductdata] = useState([]);
+  const [singleproductdata, setSingleproductdata] = useState({});
   const [msg, setMsg] = useState(false);
   const [isMark, setIsMark] = useState(false);
 
@@ -44,6 +47,10 @@ const SingleProductInfo = () => {
   const token = parseJwt(token_data);
   const user = token?.user._id;
 
+  const [rating, setRating] = useState('')
+  const [review, setReview] = useState('')
+  const [reviewdata, setReviewData] = useState([])
+  console.log(token);
   const addCart = (e) => {
     e.preventDefault();
     axios
@@ -61,10 +68,6 @@ const SingleProductInfo = () => {
       })
       .catch((e) => {
         console.log(e);
-
-
-
-        
       });
   };
   const addToWishlist = (e) => {
@@ -90,7 +93,18 @@ const SingleProductInfo = () => {
         console.log(e);
       });
   };
-
+  // console.log(object);
+  const Reatingreview = () => {
+    axios.put("http://localhost:5000/reviewandrating/" + pid, {
+      review, rating, user
+    }).then((result) => {
+      if (result.data.success) {
+        setMsg("You have added product to your wishlist");
+      }
+    }).catch((e) => {
+      console.log(e);
+    });
+  };
   const onEnterCart = () => {
     let addCart = document.getElementById("addToCart");
     let goCart = document.getElementById("goToCart");
@@ -113,11 +127,16 @@ const SingleProductInfo = () => {
       .then((result) => {
         console.log(result.data);
         setSingleproductdata(result.data);
+
+        setReviewData(result.data?.reviewandrating)
+
       })
       .catch((e) => {
         console.log("Something Went Wrong!!");
       });
   }, []);
+
+
 
   return (
     <>
@@ -282,6 +301,132 @@ const SingleProductInfo = () => {
                   </>
                 )}
               </div>
+            </div>
+            <div className="bg-white rounded my-2 p-2">
+              {/* Button trigger modal */}
+              <button
+                type="button"
+                className="btn text-white mx-3 my-3"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                style={{
+                  width: "45%",
+                  fontWeight: "bold",
+                  backgroundColor: "#FF7518",
+                  borderRadius: "0px"
+                }}
+              >
+                Review and Rating
+              </button>
+              {/* Modal */}
+              <div
+                className="modal fade"
+                id="exampleModal"
+                tabIndex={-1}
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">
+                        Modal title
+                      </h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      />
+                    </div>
+                    <form>
+                      <div className="modal-body">
+                        <div className="review-ratighn">
+                          <ReactStars
+
+                            count={5}
+                            onChange={(e) => { setRating(e) }}
+                            size={24}
+                            activeColor="#ffd700"
+                          />
+                          <input onChange={e => setReview(e.target.value)} className="form-control form-sm" type="text" />
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button onClick={Reatingreview} type="button" className="btn btn-primary">
+                          Save changes
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {
+                reviewdata?.map((data, ind) => {
+                  return (
+                    <div className="bg-white rounded shadow-sm border border-muted p-3 mb-3">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-start align-items-center">
+                          <img
+                            src={"http://localhost:5000/"+token.user?.pic}
+                            alt=""
+                            className="me-2"
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              objectFit: "cover",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        <p className="text text-secondary mb-0 fw-bold">{token.user?.name}</p>
+                        </div>
+                        <div className="show-rating d-flex justify-content-start align-items-start">
+                          {
+                            data.rating === 1 ?
+                              <i class="bi bi-star-fill text-warning"></i> :
+                              data.rating === 2 ?
+                                <><i class="bi bi-star-fill text-warning"></i>
+                                  <i class="bi bi-star-fill text-warning"></i> </>
+                                : data.rating === 3 ?
+                                  <>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                  </> :
+                                  data.rating === 4 ?
+                                    <>
+
+                                      <i class="bi bi-star-fill text-warning"></i>
+                                      <i class="bi bi-star-fill text-warning"></i>
+                                      <i class="bi bi-star-fill text-warning"></i>
+                                      <i class="bi bi-star-fill text-warning"></i>
+                                    </> : data.rating === 5 ?
+                                      <>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                      </> :
+                                      null
+                          }
+                        </div>
+                      </div>
+                      <p className="text text-secondary mb-0 ms-5">
+                        {data.review}
+                      </p>
+                    </div>
+                  )
+                })
+              }
+
             </div>
             {msg ? (
               <div
