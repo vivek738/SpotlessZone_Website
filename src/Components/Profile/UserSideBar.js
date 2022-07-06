@@ -61,8 +61,11 @@ const UserSideBar = () => {
             </a>
           </div>
 
-          <div className="w-100 " style={{ cursor: "pointer" }}>
-            <h5 className="mt-2">Manage Orders</h5>
+          <div className="w-100" style={{ cursor: "pointer" }}>
+            <Link to={`/product-order-history`} className="text-decoration-none text-dark">
+            <h5 className="mt-2 ">Manage Orders</h5>
+
+            </Link>
           </div>
           <div className="w-100 " style={{ cursor: "pointer" }}>
             <h5 className="mt-2">My Reviews</h5>

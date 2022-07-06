@@ -50,13 +50,14 @@ import AdminUpdateGallery from "../Components/Gallery/UpdateGallery";
 import AdminBlogPost from "../Components/Admin/AdminBlogPost";
 import ForgotPasswort from "../Components/ForgotPassword";
 import PasswordReset from "../Components/PasswordReset";
-import ProductHistory from "../Components/Admin/ProductHistory";
+// import ProductHistory from "../Components/Admin/ProductHistory";
 import AdminServiceCategory from "../Components/Services/AdminServiceCategory";
 import AdminService from "../Components/Services/AdminService";
 import AdminUpdateService from "../Components/Services/UpdateService";
 import UserProfileView from "../Components/Profile/ProfileView";
 import Search from "../Components/Search/Search";
 import ServiceSearch from "../Components/Search/ServiceSearch";
+import ProductOrderHistory from "../Components/Profile/ProductOrderHistory";
 
 
 export const Container = () => {
@@ -128,7 +129,7 @@ export const Container = () => {
 
             <Route
               path="/product-order-history"
-              element={<ProductHistory></ProductHistory>}
+              element={<ProductOrderHistory />}
             ></Route>
 
             <Route

@@ -19,6 +19,8 @@ const UserDashboard = ({ userData }) => {
 
   const [data, setData] = useState([]);
   const [pdata, setProductData] = useState([]);
+  const [qty, setQty] = useState({});
+
   const [points, setPoints] = useState(userData.points);
   const [rewarded, setRewarded] = useState({ rewarded: false, reward: 0 });
 
@@ -37,7 +39,7 @@ const UserDashboard = ({ userData }) => {
       setPoints(res.data.points)
       setRewarded({rewarded: res.data.rewarded, reward: res.data.reward})
     })
-  }, [])
+  }, [rewarded])
 
   useEffect(() => {
     axios.get(`http://localhost:5000/show-own-order/${user}`).then(res => {
@@ -46,52 +48,45 @@ const UserDashboard = ({ userData }) => {
     }).catch(e => [
       console.log(e)
     ])
-  }, [])
-
-  useEffect(() => {
-
-    axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
-      console.log(res.data.rewarded);
-      setPoints(res.data.points);
-      setRewarded({ rewarded: true, reward: res.data.reward });
-    });
-    axios
-      .get(`http://localhost:5000/show-own-order/${user}`)
-      .then((res) => {
-        setData(res.data);
-        // console.log(res)
-      })
-      .catch((e) => [console.log(e)]);
-
-    axios
+      axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
+        // console.log(result.data[0].product.pqty)
         setProductData(result.data);
+        // setQty(result.data.product.pqty)
+
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [])
+
+  
 
   const addCart = (e, pid) => {
     e.preventDefault();
+    // console.log(pid)
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
         userId: user,
-        productQuantity: pdata.product.pqty,
+        /////// need to work on,
+        productQuantity: pdata?.product?.pqty,
       })
+
       .then((result) => {
         console.log(result.data);
-        if (result.data.success) {
           window.location = "/cart";
           // setMsg("You have added product to cart");
-        }
+        
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+
+
 
   const deleteWisilist = (id) => {
     // delete-wishlists

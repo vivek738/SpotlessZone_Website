@@ -10,7 +10,7 @@ import Items from "./Items";
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("");
-  const [productQtyCart, setProductQtyCart] = React.useState([]);
+  const [productQtyCart, setProductQtyCart] = useState([]);
 
 
   function parseJwt(token) {
@@ -62,13 +62,16 @@ const ProductCart = () => {
   const navigate = useNavigate()
 
   const proceed = ()=>{
-    navigate('/checkout', {state: pdata})
+    navigate('/checkout',
+    {state: pdata}
+    )
   }
+
 
   // khalti payment integration
   // let config = {
   //   publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
-  //   productIdentity: "12345",
+  //  stt productIdentity: "12345",
   //   productName: "foods",
   //   productUrl: "http://localhost:3000",
   //   eventHandler: {
