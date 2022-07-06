@@ -4,6 +4,7 @@ import First from "../../Images/first.png";
 import Header from "../Homepage/Header";
 import KhaltiCheckout from "khalti-checkout-web";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const Checkout = () => {
   function parseJwt(token) {
@@ -27,7 +28,9 @@ const Checkout = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [points, setPoints] = useState(0);
-
+  const location = useLocation()
+  const [productQtyCart, setProductQtyCart] = useState([]);
+  
   // khalti payment integration
   let config = {
     publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
@@ -93,7 +96,7 @@ const Checkout = () => {
       .get("http://localhost:5000/get-products-cart/" + user)
       .then((result) => {
         setProductData(result.data);
-
+// console.log(result.data[0].productQuantity)
         // const items = result.data
         // items.map((val, ind)=>{
         //     const total = val.productId.pprice*val.productQuantity
@@ -103,18 +106,18 @@ const Checkout = () => {
       .catch((err) => {
         console.log(err);
       });
-    // setTotalPrice(
-    //   pdata
-    //     .reduce(
-    //       (acc, curr) =>
-    //         acc + Number(curr.productQuantity * curr.productId.pprice),
-    //       0
-    //     )
-    //     .toFixed(2)
-    // );
-  }, [pdata]);
+    setTotalPrice(
+      location.state
+        .reduce(
+          (acc, curr) =>
+            acc + Number(curr.productQuantity * curr.productId.pprice),
+          0
+        )
+        .toFixed(2)
+    );
+  }, []);
+  // console.log(totalprice)
 //   console.log(city);
-
   const discount = () => {
     const wallet = token?.user.points;
     if (points > wallet) {
@@ -124,10 +127,23 @@ const Checkout = () => {
     } else {
       var discountPrice = points / 10;
       const tprice = totalprice - discountPrice;
-      setTotalPrice(tprice);
-    }
+        setTotalPrice(tprice);
   };
+}
 
+  useEffect(() => {
+    calculation();
+  });
+
+  const calculation = () => {
+    setProductQtyCart(
+      location.state.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
+    );
+  };
+  console.log(productQtyCart)
+
+
+  
   return (
     <>
       <div
@@ -289,7 +305,7 @@ const Checkout = () => {
               </p>
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <p className="text text-secondary mb-0">
-                  Subtotal ({pdata?.length} Items)
+                  Subtotal ({productQtyCart})
                 </p>
                 <p className="text text-dark fw-bold mb-0">Rs. {totalprice}</p>
               </div>
