@@ -18,10 +18,21 @@ export const SuccessMsg = () => {
 };
 
 
+export const WishlistMsg = () => {
+  return (
+    <>
+      <p className="fw-bold text-success fst-italic">
+        You have successfully added item to your wishlist
+      </p>
+    </>
+  );
+};
+
 const SingleProductInfo = () => {
   const { pid } = useParams();
   const [singleproductdata, setSingleproductdata] = useState({});
   const [msg, setMsg] = useState(false);
+  const [isMark, setIsMark] = useState(false);
 
   function parseJwt(token) {
     if (!token) {
@@ -42,12 +53,11 @@ const SingleProductInfo = () => {
   console.log(token);
   const addCart = (e) => {
     e.preventDefault();
-    setMsg(false);
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
         userId: user,
-        productQuantity: singleproductdata.pqty
+        productQuantity: singleproductdata.pqty,
       })
       .then((result) => {
         toast.success(<SuccessMsg />, {
@@ -62,6 +72,9 @@ const SingleProductInfo = () => {
   };
   const addToWishlist = (e) => {
     e.preventDefault();
+    console.log("click")
+
+    setIsMark(true);
     axios
       .post("http://localhost:5000/add-to-wishlist", {
         pid: pid,
@@ -70,7 +83,10 @@ const SingleProductInfo = () => {
       .then((result) => {
         console.log(result.data);
         if (result.data.success) {
-          setMsg("You have added product to your wishlist");
+          toast.success(<WishlistMsg />, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true,
+          });
         }
       })
       .catch((e) => {
@@ -159,18 +175,43 @@ const SingleProductInfo = () => {
                 style={{ height: "500px", minWidth: "100%" }}
                 src={"http://localhost:5000/" + singleproductdata.pic}
                 alt=""
-                className="img-fluid"
+                className="img-fluid rounded-4"
               />
             </div>
           </div>
           <div className="col-md-4">
             <div className="card my-4 shadow-lg">
-              <span onClick={addToWishlist} className="ms-auto mx-3 mt-3">
-                <i className="fas fa-heart"></i>
-              </span>
-              <h4 className="text-center my-3">
-                Details of <span>{singleproductdata.pname}</span>
-              </h4>
+              <div
+                className="pname-favourite-icon"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
+                <h4 className="my-3" style={{ textAlign: "start" }}>
+                  Details of <span>{singleproductdata.pname}</span>
+                </h4>
+                {isMark ? (
+                  <span
+                    onClick={addToWishlist}
+                    className="mx-3 mt-3"
+                    style={{ cursor: "pointer" }}
+                    id="wishlistIcon"
+                  >
+                    <i className="fas fa-heart fs-2 text-danger"></i>
+                  </span>
+                ) : (
+                  <span
+                    className="mx-3 mt-3"
+                    style={{ cursor: "pointer" }}
+                    id="wishlistIcon"
+                  >
+                    <i className="fas fa-heart fs-2"></i>
+                  </span>
+                )}
+              </div>
 
               <div className="card-body">
                 <h6 style={{ fontWeight: "bold" }}>

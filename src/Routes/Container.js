@@ -163,7 +163,7 @@ export const Container = () => {
             <Route path="/all-services" element={<AllServices />}></Route>
             <Route
               path="/user-dashboard"
-              element={<UserDashboard userData={decodeUser.user} />}
+              element={<UserDashboard  userData={decodeUser.user}/>}
             ></Route>
             <Route path="/cart" element={<ProductCart />}></Route>
             <Route path="/profile-creation" element={<UserProfile />}></Route>

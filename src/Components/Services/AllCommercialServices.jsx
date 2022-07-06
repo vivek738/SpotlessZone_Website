@@ -72,39 +72,43 @@ const AllCommercialServices = () => {
           </div>
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container">
         {loading && <Spinner />}
         <div className="row">
           {!loading &&
             commercialData.map((cData) => {
               return (
-                <div className="col-md-4">
+                <div className="col-md-4 col-sm-12">
                   <div
                     className="commercial-service-card card m-3 "
                     style={{
                       cursor: "pointer",
                       boxShadow: "2px 2px 2px 2px #94FFFF",
+                      height: "50vh",
                     }}
                   >
                     <div className="card-body">
-                      <div className="service_image_part">
+                      <div className="service_image_part c-image">
                         <img
                           src={`http://localhost:5000/${cData.image}`}
                           alt=""
-                          className="img-fluid"
+                          className="img-fluid c-image"
                           // style={{ height: "100px", minWidth: "100px" }}
                         />
                       </div>
                       <div className="product_text">
                         <h3 className="py-3">{cData.serviceName}</h3>
-                        <p>{cData.serviceDesc.slice(0, 120)}...</p>
+                        
+                        <p>{cData.serviceDesc.slice(0, 60)}...</p>
+                      
                       </div>
                       <Link
                         to={`/single-service/${cData._id}`}
-                        className="btn btn-info text-center text-white text-uppercase my-3 fw-bold float-end"
+                        className="btn btn-info text-center text-white text-uppercase mb-3 fw-bold float-end w-24"
                       >
                         Read More &gt;&gt;
-                      </Link>
+                      </Link> 
+                       
                     </div>
                   </div>
                 </div>

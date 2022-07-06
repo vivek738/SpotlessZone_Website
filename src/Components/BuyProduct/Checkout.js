@@ -4,6 +4,7 @@ import First from '../../Images/first.png';
 import Header from '../Homepage/Header';
 import KhaltiCheckout from "khalti-checkout-web";
 import { useLocation } from 'react-router-dom';
+import {toast} from 'react-toastify'
 
 const Checkout = () => {
     function parseJwt(token) {
@@ -24,6 +25,8 @@ const Checkout = () => {
     const [address, setAddress] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
+    const [points, setPoints] = useState(0)
+
     // khalti payment integration
     let config = {
         publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
@@ -37,6 +40,7 @@ const Checkout = () => {
                         products: pdata,
                         total: totalprice,
                         user: user,
+                        points: points,
                         firstname,
                         phone,
                         address_detail: {
@@ -95,6 +99,17 @@ const Checkout = () => {
         
     }, [])
     console.log(city)
+
+    const discount = ()=>{
+        const wallet = token?.user.points
+        if(points> wallet){
+            toast.error("Insufficient Points!", {position: toast.POSITION.TOP_RIGHT})
+        }else{
+            var discountPrice = points/10
+            const tprice = totalprice - discountPrice
+            setTotalPrice(tprice)
+        }
+    }
 
     return (
         <>
@@ -202,8 +217,8 @@ const Checkout = () => {
                                 <p className="text text-dark fw-bold mb-0">Rs. 0</p>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-3">
-                                <input type="text" className="form-control me-2" style={{ borderRadius: '0px' }} />
-                                <button className="btn btn-primary px-3" style={{ borderRadius: '0px' }}>Apply</button>
+                                <input onChange={(e)=>setPoints(e.target.value)} type="text" className="form-control me-2" style={{ borderRadius: '0px' }} />
+                                <button onClick={discount} className="btn btn-primary px-3" style={{ borderRadius: '0px' }}>Apply</button>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <p className="text text-secondary mb-0">Total:</p>

@@ -1,37 +1,35 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link , useNavigate } from "react-router-dom";
-
-
 import { parseJwt } from "../../utils/parseJwt";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./Homepage.css";
 
 const Header = () => {
-  const navigate = useNavigate()
-  const [cart, setCart] = React.useState([]);
-  const [productQtyCart, setProductQtyCart] = React.useState([]);
-  const [query, setQuery] = useState()
-
+  const navigate = useNavigate();
+  const [cart, setCart] = useState([]);
+  const [productQtyCart, setProductQtyCart] = useState([]);
+  const [query, setQuery] = useState();
+  const [isHover, setHover] = useState(false);
+  const [isCartHover, setCartHover] = useState(false);
+  const [serviceOrder, setServiceOrders] = useState([]);
+  const [pendingOrder, setPendingOrder] = useState([]);
 
   const token_data = localStorage.getItem("token");
   const token = parseJwt(token_data);
   const user = token?.user._id;
 
-  const searching = (query)=>{
-    if(query === undefined){
+  const searching = (query) => {
+    if (query === undefined) {
       return;
-    }else{
-      navigate('/search-service/'+query)
+    } else {
+      navigate("/search-service/" + query);
     }
-  }
-  
-
-
+  };
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get-total-products-cart")
+      .get("http://localhost:5000/get-products-cart/" + user)
       .then((response) => {
         if (response) {
           setCart(response.data);
@@ -42,8 +40,33 @@ const Header = () => {
       .catch(() => {
         console.log("error occur");
       });
-  
-  }, [cart]);
+    axios
+      .get("http://localhost:5000/service/get-booked-service-details")
+      .then((response) => {
+        if (response) {
+          // console.log(`checking 2nd cond: ${l.length}`)
+          //   setNotiData(response.data);
+          if (response.data) {
+            setServiceOrders(response.data);
+            // console.log(response.data);
+          }
+        } else {
+          console.log("all true");
+        }
+      })
+      .catch(() => {
+        console.log("error occur");
+      });
+    axios
+      .get("http://localhost:5000/service/pending-service-orders")
+      .then((result) => {
+        console.log(result.data.length);
+        setPendingOrder(result.data.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [pendingOrder, serviceOrder]);
 
   useEffect(() => {
     calculation();
@@ -56,14 +79,12 @@ const Header = () => {
     );
   };
 
-// const [search, setSearch] = React.useState('')
+  // const [search, setSearch] = React.useState('')
 
-// const  searchApi = () => {
-//   navigate(`/services/${search}`)
-//   // console.log(search)
-// }
-
-
+  // const  searchApi = () => {
+  //   navigate(`/services/${search}`)
+  //   // console.log(search)
+  // }
 
   return (
     <>
@@ -82,13 +103,19 @@ const Header = () => {
             </div>
             <div>
               <button className="btn btn-link text-white">
-                <i className="fa fa-instagram fs-4"></i>
+                <a href="https://www.instagram.com">
+                  <i className="fa fa-instagram fs-4 text-white"></i>
+                </a>
               </button>
               <button className="btn btn-link text-white">
-                <i className="fa fa-facebook fs-4"></i>
+                <a href="https://www.facebook.com">
+                  <i className="fa fa-facebook fs-4 text-white"></i>
+                </a>
               </button>
               <button className="btn btn-link text-white">
-                <i className="fa fa-twitter fs-4"></i>
+                <a href="https://twitter.com">
+                  <i className="fa fa-twitter fs-4 text-white"></i>
+                </a>
               </button>
             </div>
           </div>
@@ -96,20 +123,33 @@ const Header = () => {
         <hr className="d-xl-block d-none" />
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
           <div className="container-fluid col-md-10 col-14">
-            <a className="navbar-brand text-white" href="home/">
-              <span className="fs-1" style={{ color: "#25C6AA" }}>
-                S
-              </span>
-              POTLESS{" "}
-              <span className="fs-1" style={{ color: "#25C6AA" }}>
-                Z
-              </span>
-              ONE
-            </a>
+            {user ? (
+              <a className="navbar-brand text-white" href="/user-dashboard">
+                <span className="fs-1" style={{ color: "#25C6AA" }}>
+                  S
+                </span>
+                POTLESS{" "}
+                <span className="fs-1" style={{ color: "#25C6AA" }}>
+                  Z
+                </span>
+                ONE
+              </a>
+            ) : (
+              <a className="navbar-brand text-white" href="/">
+                <span className="fs-1" style={{ color: "#25C6AA" }}>
+                  S
+                </span>
+                POTLESS{" "}
+                <span className="fs-1" style={{ color: "#25C6AA" }}>
+                  Z
+                </span>
+                ONE
+              </a>
+            )}
+
             <button
               className="navbar-toggler"
               type="button"
-              
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
@@ -240,75 +280,152 @@ const Header = () => {
                 {/* closing dropdowns  */}
               </ul>
               <form className="d-flex justify-content-start align-items-center">
-                {/* <div
-                  className="btn btn-link text-white"
-                  style={{ position: "relative" }}
-                >
-                  <i
-                    className="fa fa-search"
-                    style={{
-                      position: "absolute",
-                      top: "-20px",
-                      left: "-18px",
-                      alignItems: "center",
-                      minWidth: "40px",
-                      padding: "40px",
-                      cursor: "pointer",
-                      color: "teal",
-                      fontSize: "20px",
-                      justifyContent: "center",
-                    }}
-                  ></i>
-
-                  <div className="d-flex">
-                  <input
-                 onChange= {e=>setSearch(e.target.value)}
-                    type="text"
-                    placeholder="Search here..."
-                    style={{
-                      width: "100%",
-                      textAlign: "start",
-                      padding: "10px 10px 10px 40px",
-                      borderRadius: "10px",
-                      border: "1px solid teal",
-                      justifyContent: "center",
-                    }}
-<<<<<<< HEAD
-                    />
-                    <button className="btn btn-primary p-3" type="button" onClick={searchApi.bind(this)}>Search</button>
-                  </div>
-                   
-=======
-                  />
-                </div> */}
-
                 <div className="input-group my-3">
                   {/* <span className="input-group-text" id="basic-addon1">@</span> */}
-                  <input onChange={(e)=>setQuery(e.target.value)} type="text" className="form-control form-control-solid" placeholder="Search services here..." aria-label="search" aria-describedby="basic-addon1" />
-                  <button onClick={()=>searching(query)}   className="btn btn-secondary"><i className="fas fa-search"></i></button>
+                  <input
+                    onChange={(e) => setQuery(e.target.value)}
+                    type="text"
+                    className="form-control form-control-solid"
+                    placeholder="Search services here..."
+                    aria-label="search"
+                    aria-describedby="basic-addon1"
+                  />
+                  <button
+                    onClick={() => searching(query)}
+                    className="btn btn-secondary"
+                  >
+                    <i className="fas fa-search"></i>
+                  </button>
                 </div>
 
-                {!user && (
+                {/* {!user && (
                   <Link className="btn btn-link text-white" to={`/login`}>
                     <i className="fa fa-user fa-2x"></i>
                   </Link>
-                )}
-                {user && (
-                  <Link
-                    to={`/cart`}
-                    className="position-relative ps-2 pt-0 "
-                    style={{ backgroundColor: "transparent", border: "none" }}
-                  >
-                    <i className="fa fa-shopping-cart fa-2x text-white"></i>
-                    <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger ms-2 py-1">
-                      {productQtyCart}
-                    </span>
+                )} */}
+                {user ? (
+                  <>
+                    <div
+                      className="cart-wishlist"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "15px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Link
+                        to={`/cart`}
+                        className="position-relative ps-2 pt-0 "
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
+                        onMouseEnter={() => setCartHover(true)}
+                      >
+                        <i className="fa fa-shopping-cart fa-2x text-white"></i>
+                        <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger ms-2 py-1">
+                          {productQtyCart}
+                        </span>
+                      </Link>
+                      <Link
+                        to={`/user-dashboard`}
+                        className="position-relative ps-2 pt-0 "
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
+                        onMouseEnter={() => setHover(true)}
+                      >
+                        <i className="bi bi-chat-dots fa-2x text-white"></i>
+                        <span
+                          className="position-absolute badge rounded-pill bg-danger ms-2 py-1"
+                          style={{ left: "23px", top: "-3px" }}
+                        >
+                          {pendingOrder}
+                        </span>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <Link className="btn btn-link text-white" to={`/login`}>
+                    <i className="fa fa-user fa-2x"></i>
                   </Link>
                 )}
               </form>
             </div>
           </div>
         </nav>
+
+        {isHover ? (
+          <>
+            {" "}
+            <div className="container-fluid">
+              <div className="row justify-content-end">
+                <div
+                  className="col-md-4 text-dark p-3"
+                  onMouseLeave={() => setHover(false)}
+                  style={{
+                    borderRadius: "15px",
+                    backgroundColor: "#f8f9fa",
+                  }}
+                >
+                  {serviceOrder.map((x) => {
+                    return (
+                      <div>
+                        <h5>{x.serviceDetails[0].serviceName}</h5>
+                        {x.deliveryStatus && (
+                          <p>
+                            Your request is already{" "}
+                            <span className="fw-bold text-success">
+                              Approved
+                            </span>{" "}
+                            <br /> You will be contacted soon by our team
+                            members for providing your requested service <br />{" "}
+                            Please be at home
+                            <br />
+                            <span className="fw-bold fs-7">Thank You !</span>
+                          </p>
+                        )}
+                        {!x.deliveryStatus && (
+                          <p>
+                            Your request is still in{" "}
+                            <span className="fw-bold text-warning">
+                              Pending
+                            </span>
+                            <br />
+                            <span className="fw-bold fs-7">
+                              {" "}
+                              Please be patience !
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+        {isCartHover ? (
+          <div
+            className="container text-end"
+            onMouseLeave={() => setCartHover(false)}
+          >
+            <h6>
+              You Have Added{" "}
+              <span className="text-danger fs-2 align-items-center">
+                {productQtyCart}
+              </span>{" "}
+              Items In Your Cart !
+            </h6>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

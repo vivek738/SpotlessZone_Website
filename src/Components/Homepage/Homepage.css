@@ -67,21 +67,38 @@
 * ! styles for appointment btn
 **/
 
-.appointmentForm{
+.appointmentForm {
   position: absolute;
   top: 150px;
   right: 30px;
 }
 
-.appointmentBtn:hover{
-  background-color: #25C6AA !important;
+.appointmentBtn:hover {
+  background-color: #25c6aa !important;
   color: #fff;
 }
-.appointmentCard{
+.appointmentCard {
   background-color: transparent;
   border: 1px solid grey;
   border-radius: 10px;
 }
 
-
+/**
+* !styles for footer social media icons
+**/
+.f-facebook:hover {
+  color: blue;
+}
+.f-twitter:hover {
+  color: #00b4d8;
+}
+.f-google:hover {
+  color: red;
+}
+.f-instagram:hover {
+  color: #ff006e;
+}
+.f-linkedin:hover {
+  color: #0077b6;
+}
 

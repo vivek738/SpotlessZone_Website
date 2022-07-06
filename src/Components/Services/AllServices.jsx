@@ -35,7 +35,7 @@ const AllServices = () => {
           {/* for residential use */}
           <div className="col-md-2 col-12 me-4 ">
             <div
-              className="card shadow-lg "
+              className="card shadow-lg mb-2 "
               style={{
                 boxSizing: "border-box",
                 backgroundColor: "#00008B",
@@ -65,7 +65,7 @@ const AllServices = () => {
             // ?.filter((commSData, idx) => idx < 3)
             .map((commSData) => {
               return (
-                <div className="col-md-3 me-4">
+                <div className="col-md-3 me-4 col-12 ">
                   <CommercialServiceItem cData={commSData} />
                 </div>
               );
@@ -79,7 +79,7 @@ const AllServices = () => {
           {/* for residential use */}
           <div className="col-md-2 col-12 me-4 ">
             <div
-              className="card shadow-lg "
+              className="card shadow-lg mb-2"
               style={{
                 boxSizing: "border-box",
                 backgroundColor: "#00008B",

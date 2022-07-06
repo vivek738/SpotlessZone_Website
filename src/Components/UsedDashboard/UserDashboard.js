@@ -1,44 +1,46 @@
-
 import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 const UserDashboard = ({ userData }) => {
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+  // get user form the token
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  // const userId = token?.user._id
+  const user = token?.user._id;
+
+  const [data, setData] = useState([]);
+  const [pdata, setProductData] = useState([]);
+  const [points, setPoints] = useState(userData.points);
+  const [rewarded, setRewarded] = useState({ rewarded: false, reward: 0 });
+
+  // get user form the token
+
   const handleLogout = () => {
     localStorage.clear();
     window.location = "/";
   };
-  function parseJwt(token) {
-    if (!token) { return; }
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-  }
-  // get user form the token
-  const token_data = localStorage.getItem("token")
-  const token = parseJwt(token_data)
-  const userId = token?.user._id
-  const [data, setData] = useState([]);
-  const [pdata, setProductData] = useState([]);
-  const [points, setPoints] = useState(userData.points)
-  const [rewarded, setRewarded] = useState({ rewarded: false, reward: 0 })
-
-  // get user form the token
-
-  const user = token?.user._id
-
 
   // Find rewards
   useEffect(() => {
-    axios.put(`http://localhost:5000/reward-user/${userId}`).then(function (res) {
+
+    axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
       console.log(res.data.rewarded)
       setPoints(res.data.points)
-      setRewarded({ rewarded: true, reward: res.data.reward })
+      setRewarded({rewarded: res.data.rewarded, reward: res.data.reward})
     })
   }, [])
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/show-own-order/${userId}`).then(res => {
+    axios.get(`http://localhost:5000/show-own-order/${user}`).then(res => {
       setData(res.data)
       // console.log(res)
     }).catch(e => [
@@ -47,31 +49,42 @@ const UserDashboard = ({ userData }) => {
   }, [])
 
   useEffect(() => {
+
+    axios.put(`http://localhost:5000/reward-user/${user}`).then(function (res) {
+      console.log(res.data.rewarded);
+      setPoints(res.data.points);
+      setRewarded({ rewarded: true, reward: res.data.reward });
+    });
+    axios
+      .get(`http://localhost:5000/show-own-order/${user}`)
+      .then((res) => {
+        setData(res.data);
+        // console.log(res)
+      })
+      .catch((e) => [console.log(e)]);
+
     axios
       .get("http://localhost:5000/get-wishlists/" + user)
       .then((result) => {
-        console.log(result.data);
         setProductData(result.data);
       })
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
 
-  // 
   const addCart = (e, pid) => {
     e.preventDefault();
     axios
       .post("http://localhost:5000/add-to-cart", {
         pid: pid,
         userId: user,
-        productQuantity: pdata.product.pqty
+        productQuantity: pdata.product.pqty,
       })
       .then((result) => {
         console.log(result.data);
         if (result.data.success) {
-          window.location = '/cart'
+          window.location = "/cart";
           // setMsg("You have added product to cart");
         }
       })
@@ -80,16 +93,17 @@ const UserDashboard = ({ userData }) => {
       });
   };
 
-
   const deleteWisilist = (id) => {
     // delete-wishlists
-    axios.delete('http://localhost:5000/delete-wishlists/' + id).then(res => {
-      window.location = '/user-dashboard'
-    })
-  }
+    axios.delete("http://localhost:5000/delete-wishlists/" + id).then((res) => {
+      console.log(res.data);
+      window.location = "/user-dashboard";
+    });
+  };
 
   return (
     <>
+      <div className="container" id="message"></div>
       <div
         className="container-fluid homeImg py-3"
         style={{
@@ -104,15 +118,6 @@ const UserDashboard = ({ userData }) => {
         }}
       >
         <Header />
-
-        {/* <div className="bread-crumb-section">
-          <h1 className="text-center text-white my-4 fw-bold">Cart</h1>
-          <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
-              Home &gt;&gt; <span className="text-white">Cart</span>
-            </Link>
-          </div>
-        </div> */}
       </div>
       <div className="bg-light container-fluid p-0">
         <div className="container col-md-8 py-4 mb-4">
@@ -120,61 +125,101 @@ const UserDashboard = ({ userData }) => {
             Customer Dashboard
           </p>
 
-          {
-            rewarded.rewarded ?
-              <>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  <strong>Congratulations!</strong> You have earned <span className="fw-bold fs-5 text-secondary mt-1">{rewarded.reward}</span> points.
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              </> :
-              <></>
-          }
+          {rewarded.rewarded ? (
+            <>
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>Congratulations!</strong> You have earned{" "}
+                <span className="fw-bold fs-5 text-secondary mt-1">
+                  {rewarded.reward}
+                </span>{" "}
+                points.
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
           <div className="d-flex justify-content-between align-items-center border p-3 rounded bg-white mb-3">
             <div className="desc">
               <p className="text text-primary fs-5">{userData.name}</p>
               <small className="d-block text-secondary mb-3">
-                Enjoy yur free membership for lifetime access in our website.
+                Enjoy your free membership for lifetime access in our website.
               </small>
+              {/* <div className="d-flex justify-content-start align-items-center">
+                <i
+                  className="fa fa-check-circle me-2"
+                  style={{ cursor: "pointer" }}
+                ></i>
+                <p className="text text-secondary mb-0">Earn Points</p>
+              </div> */}
               <div className="d-flex justify-content-start align-items-center">
-                <i className="fa fa-check-circle me-2 text-success"></i>
+                <i
+                  className="fa fa-check-circle me-2 text-success"
+                  style={{ cursor: "pointer" }}
+                ></i>
                 <p className="text text-secondary mb-0">Earn Points</p>
               </div>
               <div className="d-flex justify-content-start align-items-center">
-                <i className="fa fa-check-circle me-2 text-success"></i>
+                <i
+                  className="fa fa-check-circle me-2 text-success"
+                  style={{ cursor: "pointer" }}
+                ></i>
                 <p className="text text-secondary mb-0">
                   Reedem points to get discount
                 </p>
               </div>
               <div>
-                <p className="text-secondary">Your have earned <span className="fw-bold fs-5 text-warning mt-1">{points}</span> points so far. <span className="fw-bold text-primary">Keep Earning!</span></p>
+                <p className="text-secondary">
+                  Your have earned{" "}
+                  <span className="fw-bold fs-5 text-warning mt-1">
+                    {points}
+                  </span>{" "}
+                  points so far.{" "}
+                  <span className="fw-bold text-primary">Keep Earning!</span>
+                </p>
               </div>
             </div>
             <div className="">
               <div>
-                <img
-                  src="https://cdn.pixabay.com/photo/2018/01/29/17/01/woman-3116587__340.jpg"
-                  alt=""
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                    backgroundSize: "cover",
-                  }}
-                />
+                {userData && userData?.pic ? (
+                  <img
+                    src={`http://localhost:5000/${userData?.pic}`}
+                    className="img-fluid"
+                    alt=""
+                    width={`100`}
+                    height={`100`}
+                    style={{ borderRadius: "100%" }}
+                  />
+                ) : (
+                  <img
+                    src="https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-20.jpg"
+                    alt=""
+                    width={`100`}
+                    height={`100`}
+                    style={{ borderRadius: "100%" }}
+                  />
+                )}
               </div>
               <div>
                 <a href="/profile-creation" className="text-decoration-none">
                   View Profile
                 </a>
                 /
-                <a
+                <p
                   className="text-decoration-none text-danger fw-bold text-uppercase "
                   style={{ cursor: "pointer" }}
                   onClick={handleLogout}
                 >
                   Logout
-                </a>
+                </p>
               </div>
             </div>
           </div>
@@ -256,31 +301,29 @@ const UserDashboard = ({ userData }) => {
           </div>
         </div>
         {/* checkout section */}
-        <div className="container col-md-8 mb-4">
-
-        </div>
+        <div className="container col-md-8 mb-4"></div>
         {/* checkout section */}
-        <div className="container col-md-8 py-4 ">
-          <div className="bg-white p-2">
-            <div className="mx-3">
-              <p className="text text-bold fs-5 p-2">
-                Address Book
-              </p>
-              <div className="card my-5">
-                <div className="card-body table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr className="bg-light">
-                        <th>Full Name</th>
-                        <th>Address</th>
-                        <th>State</th>
-                        <th>Phone Number</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody style={{ justifyContent: "center" }}>
-                      {
-                        data?.map(val => {
+        {data.length === 0 && ""}
+
+        {data.length > 0 && (
+          <div className="container col-md-8 py-4 bg-danger">
+            <div className="bg-white p-2">
+              <div className="mx-3">
+                <p className="text text-bold fs-5 p-2">Address Book</p>
+                <div className="card my-5">
+                  <div className="card-body table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr className="bg-light">
+                          <th>Full Name</th>
+                          <th>Address</th>
+                          <th>State</th>
+                          <th>Phone Number</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody style={{ justifyContent: "center" }}>
+                        {data?.map((val) => {
                           return (
                             <tr>
                               <td>{val?.firstname}</td>
@@ -293,165 +336,183 @@ const UserDashboard = ({ userData }) => {
                                   type="button"
                                   data-bs-toggle="modal"
                                   data-bs-target="#exampleModal"
-                                >EDIT</button>
+                                >
+                                  EDIT
+                                </button>
                               </td>
                             </tr>
-                          )
-                        })
-                      }
-                    </tbody>
-                  </table>
-                </div>
-                {/*  */}
-                {/* Button trigger modal */}
-                {/* Modal */}
-                <div
-                  className="modal fade"
-                  id="exampleModal"
-                  tabIndex={-1}
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog modal-xl">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">
-                          Update Address Book
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        />
-                      </div>
-                      <div className="modal-body">
-                        <div className="px-4 bg-white py-3">
-                          <form>
-                            <div className='bg-white'>
-                              <div className="row mb-3">
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>First Name</label>
-                                    <input type="text" className="form-control" style={{ borderRadius: '0px' }} />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>State</label>
-                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                      <option selected="">Please select your state</option>
-                                      <option value='Bagmati'>Bagmati</option>
-                                      <option value='Lumbini'>Lumbini</option>
-                                      <option value='Karnali'>Karnali</option>
-                                    </select>
-
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="row mb-3">
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>Phone no</label>
-                                    <input type="text" className="form-control" style={{ borderRadius: '0px' }} />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>City</label>
-                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                      <option selected="">Please select your City</option>
-                                      <option value='Kathmandu'>Kathmandu</option>
-                                      <option value='Lalitpur'>Lalitpur</option>
-                                      <option value='Bhaktapur'>Bhaktapur</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="row mb-3">
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>Area</label>
-                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                      <option selected="">Area</option>
-                                      <option value={1}>One</option>
-                                      <option value={2}>Two</option>
-                                      <option value={3}>Three</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <div className="p-1">
-                                    <label htmlFor="" className='mb-2'>Address</label>
-                                    <select className="form-select" aria-label="Default select example" style={{ borderRadius: '0px' }}>
-                                      <option selected="">Address</option>
-                                      <option value={1}>One</option>
-                                      <option value={2}>Two</option>
-                                      <option value={3}>Three</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    className="modal fade"
+                    id="exampleModal"
+                    tabIndex={-1}
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-xl">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Update Address Book
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          />
                         </div>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                          Update Address
-                        </button>
+                        <div className="modal-body">
+                          <div className="px-4 bg-white py-3">
+                            <form>
+                              <div className="bg-white">
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        First Name
+                                      </label>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        style={{ borderRadius: "0px" }}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        State
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">
+                                          Please select your state
+                                        </option>
+                                        <option value="Bagmati">Bagmati</option>
+                                        <option value="Lumbini">Lumbini</option>
+                                        <option value="Karnali">Karnali</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Phone no
+                                      </label>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        style={{ borderRadius: "0px" }}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        City
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">
+                                          Please select your City
+                                        </option>
+                                        <option value="Kathmandu">
+                                          Kathmandu
+                                        </option>
+                                        <option value="Lalitpur">
+                                          Lalitpur
+                                        </option>
+                                        <option value="Bhaktapur">
+                                          Bhaktapur
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row mb-3">
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Area
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">Area</option>
+                                        <option value={1}>One</option>
+                                        <option value={2}>Two</option>
+                                        <option value={3}>Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className="p-1">
+                                      <label htmlFor="" className="mb-2">
+                                        Address
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        style={{ borderRadius: "0px" }}
+                                      >
+                                        <option selected="">Address</option>
+                                        <option value={1}>One</option>
+                                        <option value={2}>Two</option>
+                                        <option value={3}>Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="button" className="btn btn-primary">
+                            Update Address
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* <div className="flex-btns" style={{ textAlign: "end" }}>
-                          <button onClick={() => checkout.show({ amount: 1000, mobile: 9861905670 })} className="btn btn-warning">
-                            Checkout
-                          </button>
-                          <Link
-                            to="/display-all-products"
-                            className="btn btn-info m-3"
-                          >
-                            Continue Shopping
-                          </Link>
-                        </div> */}
               </div>
-              {/* <div className="table-responsive">
-                <table className="table table-bordered" border="2">
-                  <tr>
-                    <th>Full Name</th>
-                    <th>Address</th>
-                    <th>State</th>
-                    <th>Phone Number</th>
-                    <th>Action</th>
-                  </tr>
-                  <tr>
-                    <td>Vivek Sah</td>
-                    <td>Santinagar</td>
-                    <td>Bagmati</td>
-                    <td>980834001</td>
-                    <td><button className="btn btn-link fs-5 text-decoration-none">EDIT</button></td>
-                  </tr>
-                </table>
-              </div> */}
-
             </div>
           </div>
-        </div>
-        <div className="container col-md-8 py-4 " style={{ background: "#ffffff" }}>
-          <p className="text text-bold fs-5 p-2">
-            Wishlist
-          </p>
-          <table class="table table-responsive">
-            {/* <thead>
+        )}
+
+        {pdata === 0 && ""}
+        {pdata.length > 0 && (
+          <>
+            <div
+              className="container col-md-8 py-4 my-3 bg-info"
+              style={{ background: "#ffffff" }}
+            >
+              <p className="text text-bold fs-5 p-2">Wishlist</p>
+              <table class="table table-responsive">
+                {/* <thead>
               <tr>
                 <th>Image</th>
                 <th>Title</th>
@@ -460,55 +521,61 @@ const UserDashboard = ({ userData }) => {
                 <th>Price</th>
               </tr>
             </thead> */}
-            <tbody style={{ justifyContent: "center" }}>
-              {/* for produdct added data  data : use loop*/}
-              {pdata && pdata.length > 0
-                ? pdata.map((items) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={
-                            "http://localhost:5000/" +
-                            items.product.pic
-                          }
-                          alt=""
-                          className="img-fluid"
-                          style={{
-                            maxWidth: "100px",
-                            maxHeight: "100px",
-                            borderRadius: "5px",
-                          }}
-                        />
-                      </td>
-                      <td>{items.product.pname}</td>
+                <tbody style={{ justifyContent: "center" }}>
+                  {/* for produdct added data  data : use loop*/}
+                  {pdata
+                    ? pdata.map((items) => {
+                        return (
+                          <tr>
+                            <td>
+                              <img
+                                src={
+                                  "http://localhost:5000/" + items.product.pic
+                                }
+                                alt=""
+                                className="img-fluid"
+                                style={{
+                                  maxWidth: "100px",
+                                  maxHeight: "100px",
+                                  borderRadius: "5px",
+                                }}
+                              />
+                            </td>
+                            <td>{items.product.pname}</td>
 
-                      <td>
-                        <span
-                          style={{
-                            fontWeight: "600",
-                            marginLeft: "50px",
-                          }}
-                        >
-                          {items.product.pprice}
-                        </span>
-                      </td>
-
-                      <td>
-                        <i onClick={e => addCart(e, items.product._id)}
-                          className="bi bi-cart text-success" style={{ cursor: "pointer" }}
-                        ></i>
-                      </td>
-                      <td>
-                        <i onClick={deleteWisilist.bind(this, items._id)} className="bi bi-trash text-danger" style={{ cursor: "pointer" }}></i>
-                      </td>
-                    </tr>
-                  );
-                })
-                : "Loading..."}
-            </tbody>
-          </table>
-        </div>
+                            <td>
+                              <span
+                                style={{
+                                  fontWeight: "600",
+                                  marginLeft: "50px",
+                                }}
+                              >
+                                {items.product.pprice}
+                              </span>
+                            </td>
+                            <td>
+                              <i
+                                onClick={(e) => addCart(e, items.product._id)}
+                                className="bi bi-cart text-success"
+                                style={{ cursor: "pointer" }}
+                              ></i>
+                            </td>
+                            <td>
+                              <i
+                                onClick={deleteWisilist.bind(this, items._id)}
+                                className="bi bi-trash text-danger"
+                                style={{ cursor: "pointer" }}
+                              ></i>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : ""}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
