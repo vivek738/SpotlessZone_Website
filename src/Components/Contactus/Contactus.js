@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import "./Contactus.css";
 import pic from "../../Images/faq.jpg";
@@ -7,6 +8,9 @@ import First from "../../Images/first.png";
 import { MDBContainer } from "mdb-react-ui-kit";
 import Header from "../Homepage/Header";
 import { toast } from "react-toastify";
+import { parseJwt } from "../../utils/parseJwt";
+import UserHeader from "../UserDashboard/UserHeader";
+
 const Contactus = () => {
   const [sdata, setData] = useState([]);
   const [fullName, setFname] = useState("");
@@ -14,6 +18,10 @@ const Contactus = () => {
   const [phone, setPhone] = useState("");
   const [serviceName, setSName] = useState("");
   const [description, setDesc] = useState("");
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
   useEffect(() => {
     axios
       .get("http://localhost:5000/service/get")
@@ -66,23 +74,28 @@ const Contactus = () => {
           position: "relative",
         }}
       >
-        <Header></Header>
-        <div className="bread-crumb-section d-flex justify-content-center align-items-center">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Home
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
+        {user ? <UserHeader /> : <Header />}
+
+        <div className="bread-crumb-section ">
+          <h1 className="text-center text-white my-4 fw-bold">Contact Us</h1>
+          <div className="row text-center">
+            {user ? (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/user-dashboard"
               >
-                Contact Us
-              </li>
-            </ol>
-          </nav>
+                Dashboard &gt;&gt;{" "}
+                <span className="text-white">Contact Us</span>
+              </Link>
+            ) : (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/"
+              >
+                Home &gt;&gt; <span className="text-white">Contact Us</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <MDBContainer className="main my-5 px-4">

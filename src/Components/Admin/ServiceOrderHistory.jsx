@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import "./ServiceOrderHistory.css";
-import img from "../../Images/first.png";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
@@ -30,7 +28,6 @@ const ServiceOrderHistory = ({ adminData }) => {
       .catch((err) => {
         console.log(err);
       });
-  
 
     // for all order services data
     axios
@@ -92,44 +89,41 @@ const ServiceOrderHistory = ({ adminData }) => {
         console.log("error occur");
       });
 
-          // for total number of registered users
+    // for total number of registered users
     axios
-    .get("http://localhost:5000/get-total-products-cart")
-    .then((response) => {
-      if (response) {
-        console.log(response.data[0].productQuantity);
-        setCart(response.data);
-      } else {
-        console.log("Something went wrong");
-      }
-    })
+      .get("http://localhost:5000/get-total-products-cart")
+      .then((response) => {
+        if (response) {
+          console.log(response.data[0].productQuantity);
+          setCart(response.data);
+        } else {
+          console.log("Something went wrong");
+        }
+      })
 
-    .catch(() => {
-      console.log("error occur");
-    });
+      .catch(() => {
+        console.log("error occur");
+      });
     axios
-    .get("http://localhost:5000/service/all-noti-unseen")
-    .then((response) => {
-      setUnseenNoti(response.data);
-    })
+      .get("http://localhost:5000/service/all-noti-unseen")
+      .then((response) => {
+        setUnseenNoti(response.data);
+      })
 
-    .catch(() => {
-      console.log("error occur");
-    });
+      .catch(() => {
+        console.log("error occur");
+      });
   }, [serviceOrder, pendingOrder, deliveredOrder, unSeenNoti]);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     calculation();
-  })
-   // calculating total products number in cart
-   const calculation = () => {
+  });
+  // calculating total products number in cart
+  const calculation = () => {
     setProductQtyCart(
       cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-
-
 
   const handleApprove = (e, soid) => {
     e.preventDefault();
@@ -161,20 +155,15 @@ const ServiceOrderHistory = ({ adminData }) => {
       .catch((err) => console.log(err));
   };
 
-
-  
-  
- 
-
   return (
     <>
       {/* top wala */}
 
       <div className="container-fluid ps-0 py-3">
-        <AdminHeader noti={unSeenNoti} productQtyCart={productQtyCart}/>
+        <AdminHeader noti={unSeenNoti} productQtyCart={productQtyCart} />
 
         <div className="row py-4 me-4">
-         <AdminSidebar adminData={adminData}/>
+          <AdminSidebar adminData={adminData} />
 
           <div className="col-md-9">
             {/* implementing conditions for products in cart */}

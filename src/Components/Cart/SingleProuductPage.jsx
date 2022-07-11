@@ -6,6 +6,7 @@
   import bgImg from "../../Images/first.png";
   import Header from "../Homepage/Header";
   import ReactStars from "react-rating-stars-component";
+import UserHeader from "../UserDashboard/UserHeader";
 
   export const SuccessMsg = () => {
     return (
@@ -153,17 +154,26 @@
             position: "relative",
           }}
         >
-          <Header />
+        {user ? <UserHeader /> : <Header />}
 
           <div className="bread-crumb-section">
             <h1 className="text-center text-white my-4 fw-bold">
               {singleproductdata.pname}
             </h1>
             <div className="row text-center">
-              <Link className="text-success fw-bold text-decoration-none" to="/">
+              {
+                user ? (
+                  <Link className="text-success fw-bold text-decoration-none" to="/user-dashboard">
+                Dashboard &gt;&gt;{" "}
+                <span className="text-white">All Products</span> &gt;&gt; <span className="text-white">{singleproductdata.pname}</span>
+              </Link>
+                ): (
+                  <Link className="text-success fw-bold text-decoration-none" to="/">
                 Home &gt;&gt;{" "}
                 <span className="text-white">{singleproductdata.pname}</span>
               </Link>
+                )
+              }
             </div>
           </div>
         </div>

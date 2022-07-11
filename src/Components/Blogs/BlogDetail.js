@@ -5,19 +5,27 @@ import "./style.css";
 import Header from "../Homepage/Header";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { parseJwt } from "../../utils/parseJwt";
+import UserHeader from "../UserDashboard/UserHeader";
+
 const BlogDetail = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const [singleBlog, setSingleBlog] = React.useState([]);
   const [blog, setBlog] = React.useState([]);
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
+
   React.useEffect(() => {
     axios.get(`http://localhost:5000/single/blog/${id}`).then((res) => {
       setSingleBlog(res.data);
-      console.log(res);
+      // console.log(res.data);
     });
     axios.get("http://localhost:5000/all-blog").then((res) => {
       setBlog(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       //   console.log(res.data[0].blog_desc.slice(0, 60));
     });
   }, []);
@@ -25,14 +33,14 @@ const BlogDetail = () => {
   React.useEffect(() => {
     // latestDate();
   }, []);
-  const sendComment = ()=>{
-    let message = document.getElementById("send-comment")
-    message.style.color = "blue"
-  }
-  const leaveComment = () =>{
-    let message = document.getElementById("send-comment")
-    message.style.color = "grey"
-  }
+  const sendComment = () => {
+    let message = document.getElementById("send-comment");
+    message.style.color = "blue";
+  };
+  const leaveComment = () => {
+    let message = document.getElementById("send-comment");
+    message.style.color = "grey";
+  };
   return (
     <>
       <div
@@ -48,43 +56,32 @@ const BlogDetail = () => {
           position: "relative",
         }}
       >
-        <Header></Header>
+        {user ? <UserHeader /> : <Header />}
 
         <p className="text text-white fs-1 fw-bold text-center">
-          {blog.blog_title}
+          {singleBlog.blog_title}
         </p>
-        <div className="bread-crumb-section d-flex justify-content-center align-items-center">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Home
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
+        <div className="bread-crumb-section">
+          <div className="row text-center">
+            {user ? (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/user-dashboard"
               >
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Blogs
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
+                Dashboard &gt;&gt; <span className="text-white">Blogs</span>{" "}
+                &gt;&gt;{" "}
+                <span className="text-white">{singleBlog.blog_title}</span>
+              </Link>
+            ) : (
+              <Link
+                className="text-success fw-bold text-decoration-none"
+                to="/"
               >
-                <a href="/" className="text-decoration-none fs-5 text-success">
-                  Blogs Details
-                </a>
-              </li>
-              <li
-                className="breadcrumb-item active fs-5 text-white"
-                aria-current="page"
-              >
-                {blog.blog_title}
-              </li>
-            </ol>
-          </nav>
+                Home &gt;&gt; <span className="text-white">Blogs</span> &gt;&gt;{" "}
+                <span className="text-white">{singleBlog.blog_title}</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <div className="container my-5">
