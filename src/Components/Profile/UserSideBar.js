@@ -50,6 +50,7 @@
                 Manage My Account
               </Link>
 
+
               <Link
                 to="/view-profile"
                 className="text-decoration-none text-secondary ms-5"
@@ -60,19 +61,35 @@
                 <span className="text addressBook">Address Book</span>
               </a>
             </div>
+=======
+            <Link
+              to="/view-profile"
+              className="text-decoration-none text-secondary ms-5"
+            >
+              <span className="text profileAccount active">My Profile</span>
+            </Link>
+            <Link to="/address-book" className="text-decoration-none text-secondary ms-5">
+              <span className="text addressBook">Address Book</span>
+            </Link>
+          </div>
+
 
             <div className="w-100" style={{ cursor: "pointer" }}>
               <Link to={`/product-order-history`} className="text-decoration-none text-dark">
               <h5 className="mt-2 ">Manage Orders</h5>
 
-              </Link>
-            </div>
-            <div className="w-100 " style={{ cursor: "pointer" }}>
-              <h5 className="mt-2">My Reviews</h5>
-            </div>
-            <div className="w-100 " style={{ cursor: "pointer" }}>
-              <h5 className="mt-2">My Wishlist</h5>
-            </div>
+
+            </Link>
+          </div>
+          <div className="w-100 " style={{ cursor: "pointer" }}>
+            <h5 className="mt-2">My Reviews</h5>
+          </div>
+          <div className="w-100 " style={{ cursor: "pointer" }}>
+            <Link to={`/product-wishlist`} className="text-decoration-none text-dark">
+
+            <h5 className="mt-2">My Wishlist</h5>
+            </Link>
+
           </div>
         </div>
       </>

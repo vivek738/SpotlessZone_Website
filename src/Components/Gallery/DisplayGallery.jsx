@@ -4,9 +4,18 @@ import { Link } from "react-router-dom";
 import bgImg from "../../Images/first.png";
 import Header from "../Homepage/Header";
 import Spinner from "../Spinner/Spinner";
+import UserHeader from "../UserDashboard/UserHeader";
+import { parseJwt } from "../../utils/parseJwt";
+
 const DisplayGallery = () => {
   const [galleryData, setGalleryData] = useState([]);
   const [isloading, setLoading] = useState(true);
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
+
+
   const myTimeOut = () => {
     setTimeout(() => {
       setLoading(false);
@@ -40,13 +49,22 @@ const DisplayGallery = () => {
           position: "relative",
         }}
       >
-        <Header />
+        {user ? <UserHeader /> : <Header />}
+
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">Gallery</h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
+            {
+              user ? (
+                <Link className="text-success fw-bold text-decoration-none" to="/user-dashboard">
+              Dashboard &gt;&gt; <span className="text-white">Gallery</span>
+            </Link>
+              ): (
+                <Link className="text-success fw-bold text-decoration-none" to="/">
               Home &gt;&gt; <span className="text-white">Gallery</span>
             </Link>
+              )
+            }
           </div>
         </div>
       </div>

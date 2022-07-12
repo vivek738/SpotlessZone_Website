@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
-import Header from "../Homepage/Header";
 import UserSideBar from "./UserSideBar";
 import { toast } from "react-toastify";
 import bgImg from "../../Images/first.png";
+import UserHeader from "../UserDashboard/UserHeader";
 
 export const UpdateProfileToast = () => {
   return (
@@ -109,7 +109,7 @@ const EditProfile = () => {
           position: "relative",
         }}
       >
-        <Header />
+        <UserHeader />
       </div>
 
       <div

@@ -1,12 +1,26 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { parseJwt } from "../../utils/parseJwt";
 import { Link, useNavigate } from "react-router-dom";
 
-import "./Homepage.css";
+import "../Homepage/Homepage.css";
 
-const Header = () => {
+const UserHeader = () => {
+  
   const navigate = useNavigate();
+  const [cart, setCart] = useState([]);
+  const [productQtyCart, setProductQtyCart] = useState([]);
   const [query, setQuery] = useState();
+  const [isHover, setHover] = useState(false);
+  const [serviceOrder, setServiceOrders] = useState([]);
+  const [pendingOrder, setPendingOrder] = useState([]);
 
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
+
+
+  // console.log(user);
 
   const searching = (query) => {
     if (query === undefined) {
@@ -16,7 +30,63 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/service/get-booked-service-details")
+      .then((response) => {
+        if (response) {
+          // console.log(`checking 2nd cond: ${l.length}`)
+          //   setNotiData(response.data);
+          if (response.data) {
+            setServiceOrders(response.data);
+            // console.log(response.data);
+          }
+        } else {
+          console.log("all true");
+        }
+      })
+      .catch(() => {
+        console.log("error occur");
+      });
+    axios
+      .get("http://localhost:5000/service/pending-service-orders")
+      .then((result) => {
+        // console.log(result.data.length);
+        setPendingOrder(result.data.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .get("http://localhost:5000/get-products-cart/" + user)
+      .then((response) => {
+        // console.log(response.data)
+        setCart(response.data);
+      })
+      .catch(() => {
+        console.log("error occur");
+      });
+   
+      
+  }, [pendingOrder, serviceOrder]);
 
+  useEffect(() => {
+    calculation();
+  });
+
+  // calculating total products number in cart
+  const calculation = () => {
+    setProductQtyCart(
+      cart.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
+    );
+  };
+
+  // const [search, setSearch] = React.useState('')
+
+  // const  searchApi = () => {
+  //   navigate(`/services/${search}`)
+  //   // console.log(search)
+  // }
 
   return (
     <>
@@ -55,9 +125,7 @@ const Header = () => {
         <hr className="d-xl-block d-none" />
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
           <div className="container-fluid col-md-10 col-14">
-           
-              
-              <Link className="navbar-brand text-white" to="/">
+            <Link className="navbar-brand text-white" to="/user-dashboard">
               <span className="fs-1" style={{ color: "#25C6AA" }}>
                 S
               </span>
@@ -67,8 +135,6 @@ const Header = () => {
               </span>
               ONE
             </Link>
-              
-          
 
             <button
               className="navbar-toggler"
@@ -86,13 +152,14 @@ const Header = () => {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
-               
-                  <li className="nav-item mx-3">
-                    <Link className="nav-link text-white header-link" to="/">
-                      Home
-                    </Link>
-                  </li>
-              
+                <li className="nav-item mx-3">
+                  <Link
+                    className="nav-link text-white header-link"
+                    to="/user-dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
 
                 <li className="nav-item mx-3">
                   <Link
@@ -217,19 +284,116 @@ const Header = () => {
                     <i className="fa fa-user fa-2x"></i>
                   </Link>
                 )} */}
+                {user ? (
+                  <>
+                    <div
+                      className="cart-wishlist"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "15px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Link
+                        to={`/cart`}
+                        className="position-relative ps-2 pt-0 "
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
+                        // onMouseEnter={() => setCartHover(true)}
+                      >
+                        <i className="fa fa-shopping-cart fa-2x text-white"></i>
+                        <span className="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger ms-2 py-1">
+                          {productQtyCart}
+                        </span>
+                      </Link>
+                      <Link
+                        to={`/user-dashboard`}
+                        className="position-relative ps-2 pt-0 "
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
+                        onMouseEnter={() => setHover(true)}
+                      >
+                        <i className="bi bi-chat-dots fa-2x text-white"></i>
+                        <span
+                          className="position-absolute badge rounded-pill bg-danger ms-2 py-1"
+                          style={{ left: "23px", top: "-3px" }}
+                        >
+                          {pendingOrder}
+                        </span>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
                   <Link className="btn btn-link text-white" to={`/login`}>
                     <i className="fa fa-user fa-2x"></i>
                   </Link>
-                
+                )}
               </form>
             </div>
           </div>
         </nav>
 
-        
+        {isHover ? (
+          <>
+            {" "}
+            <div className="container-fluid">
+              <div className="row justify-content-end">
+                <div
+                  className="col-md-4 text-dark p-3"
+                  onMouseLeave={() => setHover(false)}
+                  style={{
+                    borderRadius: "15px",
+                    backgroundColor: "#f8f9fa",
+                  }}
+                >
+                  {serviceOrder.map((x) => {
+                    return (
+                      <div>
+                        <h5>{x.serviceDetails[0].serviceName}</h5>
+                        {x.deliveryStatus && (
+                          <p>
+                            Your request is already{" "}
+                            <span className="fw-bold text-success">
+                              Approved
+                            </span>{" "}
+                            <br /> You will be contacted soon by our team
+                            members for providing your requested service <br />{" "}
+                            Please be at home
+                            <br />
+                            <span className="fw-bold fs-7">Thank You !</span>
+                          </p>
+                        )}
+                        {!x.deliveryStatus && (
+                          <p>
+                            Your request is still in{" "}
+                            <span className="fw-bold text-warning">
+                              Pending
+                            </span>
+                            <br />
+                            <span className="fw-bold fs-7">
+                              {" "}
+                              Please be patience !
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
 };
 
-export default Header;
+export default UserHeader;
