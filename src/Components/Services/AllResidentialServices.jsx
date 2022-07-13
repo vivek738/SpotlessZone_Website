@@ -5,11 +5,18 @@ import Header from "../Homepage/Header";
 import bgImg from "../../Images/first.png";
 import "./services.css";
 import Spinner from "../Spinner/Spinner";
+import { parseJwt } from "../../utils/parseJwt";
+import UserHeader from "../UserDashboard/UserHeader";
+
 
 const AllResidentialServices = () => {
   const [residentialData, setResidentialData] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
   const [isloading, setLoading] = useState(true);
+
+  const token_data = localStorage.getItem("token");
+  const token = parseJwt(token_data);
+  const user = token?.user?._id;
 
   const myTimeOut = () => {
     setTimeout(() => {
@@ -56,19 +63,35 @@ const AllResidentialServices = () => {
           position: "relative",
         }}
       >
+        {
+          user ? (<UserHeader />) : (
         <Header />
+
+          )
+        }
 
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">
             {categoryName.serviceCategoryName}
           </h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
+            {
+              user ? (
+                <Link className="text-success fw-bold text-decoration-none" to="/user-dashboard">
+              Dashboard &gt;&gt;{" "}
+              <span className="text-white">
+                {categoryName.serviceCategoryName}
+              </span>
+            </Link>
+              ): (
+                <Link className="text-success fw-bold text-decoration-none" to="/">
               Home &gt;&gt;{" "}
               <span className="text-white">
                 {categoryName.serviceCategoryName}
               </span>
             </Link>
+              )
+            }
           </div>
         </div>
       </div>

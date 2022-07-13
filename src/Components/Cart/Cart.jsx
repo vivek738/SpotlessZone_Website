@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import KhaltiCheckout from "khalti-checkout-web";
+// import KhaltiCheckout from "khalti-checkout-web";
 import bgImg from "../../Images/first.png";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../Homepage/Header";
 import Items from "./Items";
+import UserHeader from "../UserDashboard/UserHeader";
 
 // use reducer
 const ProductCart = () => {
   const [pdata, setProductData] = useState([]);
   const [totalprice, setTotalPrice] = useState("");
-  const [productQtyCart, setProductQtyCart] = React.useState([]);
-
+  const [productQtyCart, setProductQtyCart] = useState([]);
 
   function parseJwt(token) {
     if (!token) {
@@ -49,7 +48,6 @@ const ProductCart = () => {
     );
   }, [pdata, totalprice]);
 
-
   useEffect(() => {
     calculation();
   });
@@ -59,47 +57,47 @@ const ProductCart = () => {
       pdata.map((x) => x.productQuantity).reduce((x, y) => x + y, 0)
     );
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const proceed = ()=>{
-    navigate('/checkout', {state: pdata})
-  }
+  const proceed = () => {
+    navigate("/checkout", { state: pdata });
+  };
 
   // khalti payment integration
-  let config = {
-    publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
-    productIdentity: "12345",
-    productName: "foods",
-    productUrl: "http://localhost:3000",
-    eventHandler: {
-      onSuccess(payload) {
-        axios
-          .post("http://localhost:5000/order", {
-            products: pdata,
-            total: totalprice,
-            user: user,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-        console.log(payload);
-      },
-      onError(error) {
-        console.log(error);
-      },
-      onClose() {
-        console.log("widget is closing");
-      },
-    },
-    paymentPreference: [
-      "KHALTI",
-      "EBANKING",
-      "MOBILE_BANKING",
-      "CONNECT_IPS",
-      "SCT",
-    ],
-  };
-  let checkout = new KhaltiCheckout(config);
+  // let config = {
+  //   publicKey: "test_public_key_881f535efbb040ee885f85e52aff77aa",
+  //  stt productIdentity: "12345",
+  //   productName: "foods",
+  //   productUrl: "http://localhost:3000",
+  //   eventHandler: {
+  //     onSuccess(payload) {
+  //       axios
+  //         .post("http://localhost:5000/order", {
+  //           products: pdata,
+  //           total: totalprice,
+  //           user: user,
+  //         })
+  //         .then((res) => {
+  //           console.log(res.data);
+  //         });
+  //       console.log(payload);
+  //     },
+  //     onError(error) {
+  //       console.log(error);
+  //     },
+  //     onClose() {
+  //       console.log("widget is closing");
+  //     },
+  //   },
+  //   paymentPreference: [
+  //     "KHALTI",
+  //     "EBANKING",
+  //     "MOBILE_BANKING",
+  //     "CONNECT_IPS",
+  //     "SCT",
+  //   ],
+  // };
+  // let checkout = new KhaltiCheckout(config);
 
   const headers = [
     { key: "pic", label: "Product Image" },
@@ -125,13 +123,16 @@ const ProductCart = () => {
           position: "relative",
         }}
       >
-        <Header />
+        <UserHeader />
 
         <div className="bread-crumb-section">
           <h1 className="text-center text-white my-4 fw-bold">Cart</h1>
           <div className="row text-center">
-            <Link className="text-success fw-bold text-decoration-none" to="/">
-              Home &gt;&gt; <span className="text-white">Cart</span>
+            <Link
+              className="text-success fw-bold text-decoration-none"
+              to="/user-dashboard"
+            >
+              Dashboard &gt;&gt; <span className="text-white">Cart</span>
             </Link>
           </div>
         </div>
@@ -226,10 +227,7 @@ const ProductCart = () => {
                       </div>
                     </div>
                     <div className="flex-btns" style={{ textAlign: "end" }}>
-                      
-                      <button onClick={proceed}
-                        className="btn btn-warning "
-                      >
+                      <button onClick={proceed} className="btn btn-warning ">
                         Proceed to checkout
                       </button>
                       <Link
