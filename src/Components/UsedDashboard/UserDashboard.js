@@ -55,7 +55,7 @@ const UserDashboard = ({ userData }) => {
       setPoints(res.data.points);
       setRewarded({ rewarded: true, reward: res.data.reward });
     });
-    axios
+    axios 
       .get(`http://localhost:5000/show-own-order/${user}`)
       .then((res) => {
         setData(res.data);
